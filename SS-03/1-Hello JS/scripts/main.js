@@ -1,6 +1,6 @@
 window.onload = function() {
     var h1 = document.querySelector('h1');
-    h1.textContent = 'HELLO JSSSSSSSSSS!';
+    h1.textContent = 'HELLO JSSSSSSSSSSSS!';
     h1.style.color='red';
 
     var hno1 = document.getElementById('hno1');

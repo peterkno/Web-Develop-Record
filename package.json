@@ -1,0 +1,22 @@
+{
+  "name": "web-develop-record",
+  "version": "1.0.0",
+  "description": "Web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterkno/Web-Develop-Record.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterkno/Web-Develop-Record/issues"
+  },
+  "homepage": "https://github.com/peterkno/Web-Develop-Record#readme",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}

@@ -4,7 +4,7 @@ window.onload = function() {
     for(var i = 0; i < trs.length; i++) {
         var tr = trs[i];
         var data = parseInt(trs[i].textContent, 10);
-        console.log(i.toString(10) + " : " + data.toString(10));
+        console.log(i.toString(10) + " :   " + data.toString(10));
         tr.addEventListener('click', (function(d) {
             return function() {
                 d = d + 1000;

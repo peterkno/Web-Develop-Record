@@ -11,5 +11,24 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          filename: 'vendors.bundle.js'
+        }
+      }
+    }
   }
 }

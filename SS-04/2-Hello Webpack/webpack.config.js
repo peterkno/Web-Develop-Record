@@ -5,8 +5,8 @@ module.exports = {
   mode: "production",
   context: path.resolve(__dirname, './src'),
   entry: {
-    main: './main.js',
-    module: './module-1.js'
+    main: ['babel-polyfill', './main.js'],
+    // module: './module-1.js'
   },  
   output: {
     path: path.join(__dirname, 'dist'),
@@ -15,6 +15,24 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        exclude: [/node_modules/],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  'es2015', {
+                    modules: false
+                  }
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       }
@@ -22,11 +40,10 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       cacheGroups: {
         vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          filename: 'vendors.bundle.js'
+          test: /[\\/]node_modules[\\/]/
         }
       }
     }

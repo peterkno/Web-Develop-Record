@@ -1,16 +1,16 @@
 // webpack.config.js
-var path = require('path')
+let path = require('path');
 
 module.exports = {
-  mode: "production",
+  mode: 'production',
   context: path.resolve(__dirname, './src'),
   entry: {
     main: ['babel-polyfill', './main.js'],
     // module: './module-1.js'
-  },  
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
   },
   module: {
     rules: [
@@ -24,28 +24,32 @@ module.exports = {
               presets: [
                 [
                   'es2015', {
-                    modules: false
-                  }
-                ]
-              ]
-            }
-          }
-        ]
+                    modules: false,
+                  },
+                ],
+              ],
+              // ,
+              // plugins: [
+              //   'proposal-class-properties'
+              // ]
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   optimization: {
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
         vendors: {
-          test: /[\\/]node_modules[\\/]/
-        }
-      }
-    }
-  }
-}
+          test: /[\\/]node_modules[\\/]/,
+        },
+      },
+    },
+  },
+};

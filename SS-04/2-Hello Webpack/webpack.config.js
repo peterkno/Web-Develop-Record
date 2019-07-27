@@ -2,9 +2,11 @@
 var path = require('path')
 
 module.exports = {
-  entry: ['./src/main'], // .js after index is optional
+  mode: "production",
+  context: path.resolve(__dirname, './src'),
+  entry: ['./main.js'], // .js after index is optional
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'main.bundle.js'
+    filename: '[name].bundle.js'
   }
 }

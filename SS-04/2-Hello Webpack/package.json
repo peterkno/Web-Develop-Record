@@ -1,0 +1,19 @@
+{
+  "name": "2-hello-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "loadsh": "0.0.4",
+    "lodash": "^4.17.15",
+    "webpack": "^4.38.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.6"
+  }
+}

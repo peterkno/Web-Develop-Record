@@ -8,9 +8,9 @@ export default class Main extends React.Component {
     
     constructor(props) {
         super(props);
-
+        // console.log("initCount : " + initCount);
         this.state = {
-            count: 5
+            count: Main.initCount
         };
         this.countdownId = null;
 
@@ -22,44 +22,56 @@ export default class Main extends React.Component {
         return (
           <div className='main'>
               <h1>Hello React</h1>
-              <Component count={this.state.count}
-              onRest={this.handleReset}/>
+              <Component count={this.state.count} onReset={this.handleReset}/>
           </div>  
         );
     }
 
     tick() {
-        console.log('tick');
+        // console.log('tick');
         if(this.state.count > 0) {
-            /*
-             * State updates
-             */
-            this.setState((prevState, props) => ({
-                count: prevState.count - 1
-            }))
+            // this.setState((prevState, props) => ({
+            //     count: prevState.count - 1
+            // }))
+            this.setState({
+                count: this.state.count - 1
+            });
         } else {
             clearInterval(this.countdownId);
+
+            this.setState({
+                count: Main.initCount
+            }, () => { // called back after the state has been set
+                this.countdownId = setInterval(() => this.tick(), 1000)
+            });
+    
         }
     }
 
-    componentWillMount() {
-        console.log('will');
+    // componentWillMount() {
+    //     console.log('will');
         
-    }
+    // }
 
     // lifecycle Method
     componentDidMount() {
-        console.log('did');
+        // console.log('did');
         
         this.countdownId = setInterval(() => this.tick(), 1000);
     }
 
-    handleReset() {
+    componentWillUnmount() {
         clearInterval(this.countdownId);
+    }
+
+    handleReset() {
+        console.log('reset');
+        clearInterval(this.countdownId);
+
         this.setState({
-            count: 5
+            count: Main.initCount
         }, () => { // called back after the state has been set
-            this.countdownId = setInterval(() => this.tick(), 1000);
+            this.countdownId = setInterval(() => this.tick(), 1000)
         });
     }
 

@@ -33,15 +33,14 @@ module.exports = {
             options: {
               presets: [
                 [
-                  'es2015', {
+                  'env', {
                     modules: false,
                   },
                 ],
                 'react',
               ],
               plugins: [
-                "syntax-class-properties",
-                "transform-class-properties"
+                'babel-plugin-transform-class-properties',
               ]
             },
           },

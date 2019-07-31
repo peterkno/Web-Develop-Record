@@ -1,4 +1,5 @@
 import Component from 'components/Component.jsx';
+import Setting from 'components/Setting.jsx';
 import React from 'react';
 
 import './Main.css';
@@ -23,19 +24,20 @@ export default class Main extends React.Component {
           <div className='main'>
               <h1>Hello React</h1>
               <Component count={this.state.count} onReset={this.handleReset}/>
-          </div>  
+              <Setting />
+          </div> 
         );
     }
 
     tick() {
         // console.log('tick');
         if(this.state.count > 0) {
-            // this.setState((prevState, props) => ({
-            //     count: prevState.count - 1
-            // }))
-            this.setState({
-                count: this.state.count - 1
-            });
+            this.setState((prevState, props) => ({
+                count: prevState.count - 1
+            }));
+            // this.setState({ // triggrt re-rendering
+            //     count: this.state.count - 1
+            // }); // obj merged to this.state
         } else {
             clearInterval(this.countdownId);
 

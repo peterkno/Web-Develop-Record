@@ -49,7 +49,7 @@ export default class PostForm extends React.Component {
                         <ButtonDropdown type='buttom' isOpen={moodToggle} toggle={this.handleMoodToggle}>
                             <DropdownToggle className='mood-toggle' type='button' caret color="secondary">
                                 <i className={getMoodIcon(mood)}></i>&nbsp;{
-                                    mood === 'na' ? 'Mood' : mood
+                                    (mood === 'na') ? 'Mood' : mood
                                 }
                             </DropdownToggle>
                             <DropdownMenu>
@@ -63,7 +63,7 @@ export default class PostForm extends React.Component {
                             </DropdownMenu>
                         </ButtonDropdown>
                     </div>
-                    <Input className='input' type='textarea' innerRef={el => {this.inputEl = el}} value={this.state.inputValue} onChange={this.handleInputChange} placeholder="What's on your mind?"></Input>
+                    <Input className='input' type='textarea' innerRef={el => {this.inputEl = el}} value={inputValue} onChange={this.handleInputChange} placeholder="What's on your mind?"></Input>
                     <Button className='btn-post align-self-end' color="info" onClick={this.handlePost}>Post</Button>
                 </Alert>
             </div>
@@ -76,6 +76,7 @@ export default class PostForm extends React.Component {
 
     handleInputChange(e) {
         const text = e.target.value
+        
         this.setState({inputValue: text});
         if (text) {
             this.setState({inputDanger: false});

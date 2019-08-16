@@ -20,6 +20,7 @@ import {
 // import loggerMiddleware from 'redux-logger';
 import {Provider} from 'react-redux';
 import SecondPage from 'components/SecondPage.jsx';
+import FirstPage from 'components/FirstPage.jsx';
 import SecondPageV2 from 'components/SecondPageV2.jsx';
 import ThirdPage from 'components/ThirdPage.jsx';
 import FourthPage from 'components/FourthPage.jsx';
@@ -66,18 +67,21 @@ export default class Main extends React.Component {
                                 <NavLink tag={Link} to='/second-page' onClick={this.handlePageClick}> 計算正負資產</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} to='/third-page'>特留分顯示</NavLink>
+                                <NavLink tag={Link} to='/third-page'  onClick={this.handlePageClick}>特留分顯示</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} to='/fourth-page'>特留分顯示</NavLink>
+                                <NavLink tag={Link} to='/fourth-page' onClick={this.handlePageClick}>寄出遺囑</NavLink>
                             </NavItem>
                             </Nav>
                         </Collapse>
                         </Navbar>
                     </div>
 
+                    <Route exact path="/" render={() => (
+                        <SecondPage/>
+                    )}/>
                     <Route exact path="/second-page" render={() => (
-                        <SecondPageV2/>
+                        <SecondPage/>
                     )}/>
                     <Route exact path="/third-page" render={() => (
                         <ThirdPage />

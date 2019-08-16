@@ -201,8 +201,8 @@ export default class SecondPageV2 extends React.Component {
                 <br />
                 <div>
                     <Button tag={Link} to='/' >首頁</Button>
-                    <Button tag={Link} to='/second-page' >上傳遺囑</Button>
-                    <Button tag={Link} to='/second-page' >寄出遺囑</Button>
+                    <Button tag={Link} to='/third-page' >上傳遺囑</Button>
+                    <Button tag={Link} to='/fourth-page' >寄出遺囑</Button>
                 </div>
             </div>
         );

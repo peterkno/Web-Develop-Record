@@ -18,9 +18,9 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 
-import './FourthPage.css';
+import './FirstPage.css';
 
-export default class FourthPage extends React.Component {
+export default class FirstPage extends React.Component {
     static propTypes = {
         // city: PropTypes.string,
         // code: PropTypes.number,
@@ -66,32 +66,30 @@ export default class FourthPage extends React.Component {
 
         return (
             <div>
-                <div classname='fourth-page'>
-                <h1>寄出遺囑</h1>
-                <form>
-                    <input type="password" name="身分證號" />
-                </form>
-                <p>請輸入死者的身分證號碼</p>
-                <button type="button">寄出遺囑</button>
-                </div>
-                
-                <br />
-                <div>
-                    <Link to="/">
-                        <button type="button">
-                            首頁
-                        </button>
-                    </Link>
+                <div className='first-page'>
+                    <h1>遺產管家</h1>
+
                     <Link to="/second-page">
                         <button type="button">
-                            填寫資料
+                            1
                         </button>
                     </Link>
+                    <h2>填寫資料</h2>
+                    <p>填寫基本資料、資產表格和家庭規模讓我們幫您算出遺產如何分配</p>
                     <Link to="/third-page">
                         <button type="button">
-                            上傳遺囑
+                            2
                         </button>
                     </Link>
+                    <h2>上傳遺囑</h2>
+                    <p>參考我們的遺產計算結果、示範格式與特留分提醒，手寫遺囑後上傳</p>
+                    <Link to="/fourth-page">
+                        <button type="button">
+                            3
+                        </button>
+                    </Link>
+                    <h2>寄出遺囑</h2>
+                    <p>經過身分驗證和死亡證明審查，系統將自動寄出遺囑至指定信箱</p>
                 </div>
             </div>
         );

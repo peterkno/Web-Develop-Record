@@ -1,4 +1,27 @@
-.second-page .input {
-    width: 50px;
-    margin: 0 0 0.5rem 0;
+.second-page .member .name {
+    /* width: 100%; */
+    max-width: 180px;
+    max-height: 30px;
+}
+.second-page .member .birth {
+    max-width: 5rem;
+    max-height: 30px;
+}
+.second-page .member .personalID {
+    max-width: 10rem;
+    max-height: 30px;
+}
+
+.second-page .member .address {
+    max-width: 20rem;
+    max-height: 30px;
+}
+.second-page .member .phone {
+    max-width: 10rem;
+    max-height: 30px;
+}
+
+.second-page .famliy .name {
+    max-width: 10rem;
+    max-height: 30px;
 }

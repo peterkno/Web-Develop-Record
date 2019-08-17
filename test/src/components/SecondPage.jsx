@@ -37,11 +37,24 @@ export default class SecondPage extends React.Component {
         super(props);
 
         this.state = {
-            mateChecked: false
+            mateChecked: false,
+            childChecked: false,
+            fatherChecked: false,
+            motherChecked: false,
+            siblingChecked: false,
+            ancestorChecked: false
         };
+
+        this.carNum = null;
+
         this.handleMateCheckChange = this.handleMateCheckChange.bind(this);
-        // this.handleCreatePost = this.handleCreatePost.bind(this);
-        // this.handleCreateVote = this.handleCreateVote.bind(this);
+        this.handleChildCheckChange = this.handleChildCheckChange.bind(this);
+        this.handleFatherCheckChange = this.handleFatherCheckChange.bind(this);
+        this.handleMotherCheckChange = this.handleMotherCheckChange.bind(this);
+        this.handleSiblingCheckChange = this.handleSiblingCheckChange.bind(this);
+        this.handleAncestorCheckChange = this.handleAncestorCheckChange.bind(this);
+
+        this.handleCarNumChange = this.handleCarNumChange.bind(this);
     }
 
     componentDidMount() {
@@ -101,37 +114,59 @@ export default class SecondPage extends React.Component {
                 
                 <div className='famliy'>
                     <p>家族規模</p>
-                    {/* <!--配偶checkbox點開才出現姓名；直系血親checkbox才有a. b.；父母直接兩個checkbox就夠；兄弟姊妹同配偶；祖父母同直系血親--> */}
+                    {/* <!--配偶checkbox點開才出現姓名；
+                            直系血親checkbox才有a. b.；
+                            父母直接兩個checkbox就夠；
+                            兄弟姊妹同配偶；
+                            祖父母同直系血親--> */}
                     *註：只需填寫還在世的家族成員
                     <br  />
-                    <FormGroup check>
-                        <Input type="checkbox" checked={ this.state.mateChecked } onChange={ this.handleMateCheckChange } />(一) 配偶
+                    <FormGroup check inline>
+                        <Input type="checkbox" checked={this.state.mateChecked} onChange={this.handleMateCheckChange} />(一)配偶
                         {this.state.mateChecked && 
                             <div>
-                                <Input className='name' type="text" />
+                                <Form inline>姓名: <Input className='name' type="text" /></Form>
                             </div> }
                     </FormGroup>
+                    <FormGroup check>
+                        <Input type="checkbox" checked={this.state.childChecked} onChange={this.handleChildCheckChange} />(二)直系血親卑親屬
+                        {this.state.childChecked && 
+                            <div>
+                                <Form inline>a.子女 : 共<Input className='number' type="text" />位</Form>
+                                <Form inline>b.孫子女 : 共<Input className='number' type="text" />位</Form>
+                            </div> }
+                    </FormGroup>
+                    <FormGroup check inline>
+                        (三)父母 : 
+                        父<Input className = 'ml-sm-1 mt-sm-1 ' type="checkbox" checked={this.state.fatherChecked} onChange={this.handleFatherCheckChange} />
+                        母<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.motherChecked} onChange={this.handleMotherCheckChange} />                        
+                    </FormGroup>
+                    <br />
+                    <FormGroup check inline>
+                        (四)兄弟姊妹<Input type="checkbox" checked={this.state.siblingChecked} onChange={this.handleSiblingCheckChange} />
+                        {this.state.siblingChecked && 
+                            <div>
+                                <Form inline>共: <Input className='number' type="text" />位</Form>
+                            </div> }
+                    </FormGroup>
+                    <FormGroup check>
+                        <Input type="checkbox" checked={this.state.ancestorChecked} onChange={this.handleAncestorCheckChange} /> (五)祖父母
+                        {this.state.ancestorChecked && 
+                            <div>
+                                <Form inline>a.祖父 : 共<Input className='number' type="text" />位</Form>
+                                <Form inline>b.祖母 : 共<Input className='number' type="text" />位</Form>
+                            </div> }
+                    </FormGroup>
+                </div>
+
+                <div>
                     
-{/*                     
-                    (二) 直系血親卑親屬 <Input type="checkbox" name="直系血親"/>
-                    
-                    a.子女：共 <Input type="text" name="子女數量" bsSize="2px"/>位。
-                    
-                    b.孫子女：共 <Input type="text" name="孫子女數量" bsSize="2px"/>位。
-                    
-                    (三)父母 : 父<Input type="checkbox" name="父"/> 母<Input type="checkbox" name="母"/>
-                    
-                    (四)兄弟姊妹 <Input type="checkbox" name="兄弟姊妹"/> 共 <Input type="text" name="兄弟姊妹數量" bsSize="2px"/>位。
-                    
-                    (五)祖父母：<Input type="checkbox" name="祖父母"/>
-                    
-                    a.祖父：共 <Input type="text" name="祖父數量" bsSize="2px"/>位。
-                    
-                    b.祖母：共 <Input type="text" name="祖母數量" bsSize="2px"/>位。 */}
+                    <Input className='number' type='textarea' innerRef={el => {this.inputEl = el}} 
+                        value={this.state.inputValue} onChange={this.handleInputChange}></Input>
                 </div>
                 
                 
-                
+{/*                 
                 
                 <p>請以表格格式輸入您的正負資產</p>
                 <p>一、動產部分</p>
@@ -208,17 +243,46 @@ export default class SecondPage extends React.Component {
                 
                 備註：<Input type="text" name="備註" bsSize="50px"/>
                 
-                <Input type="submit" value="提交"/>
+                <Input type="submit" value="提交"/> */}
             </div>
         );
     }
 
     handleMateCheckChange() {
         this.setState((prevState, props) => ({
-            mateChecked : !prevState.mateChecked
+            mateChecked: !prevState.mateChecked
         }));
     }
-    
+    handleChildCheckChange() {
+        this.setState((prevState, props) => ({
+            childChecked: !prevState.mateChecked
+        }));
+    }
+    handleSiblingCheckChange() {
+        this.setState((prevState, props) => ({
+            siblingChecked: !prevState.siblingChecked
+        }));
+    }
+    handleAncestorCheckChange() {
+        this.setState((prevState, props) => ({
+            ancestorChecked: !prevState.ancestorChecked
+        }));
+    }
+    handleFatherCheckChange() {
+        this.setState((prevState, props) => ({
+            fatherChecked: !prevState.fatherChecked
+        }))
+    };
+    handleMotherCheckChange() {
+        this.setState((prevState, props) => ({
+            motherChecked: !prevState.motherChecked
+        }))
+    };
+
+    handleCarNumChange(e) {
+        const num = e.target.value
+        this.setState({carNum: num});
+    }
 }
 
 // export default connect((state) => {

@@ -60,8 +60,8 @@ export default class SecondPage extends React.Component {
 
         this.handleCarNumChange = this.handleCarNumChange.bind(this);
         this.CreateCarList = this.CreateCarList.bind(this);
-        // this.handleCarLicense = this.handleCarLicense.bind(this);
-        // this.handleCarValue = this.handleCarValue.bind(this);
+        this.handleCarLicense = this.handleCarLicense.bind(this);
+        this.handleCarValue = this.handleCarValue.bind(this);
     }
 
     componentDidMount() {
@@ -309,13 +309,50 @@ export default class SecondPage extends React.Component {
                 id: uuid(),
                 licensePlate: '',
                 value: 0,
-                // OnLicense: this.handleCarLicense,
-                // OnValue: this.handleCarValue
+                OnLicense: this.handleCarLicense,
+                OnValue: this.handleCarValue
             });
         }
         this.setState({
             carArray: arr
         });
+    }
+
+    handleCarLicense(targetID, newLicense){
+        function findTarget(element) {
+            // console.log('E id: '+element.id);
+            return element.id === targetID;
+        }
+        // console.log('T id: '+ targetID)
+        let arr=this.state.carArray;
+        // console.log('arr: '+arr);
+        let index = arr.findIndex(findTarget);
+        // console.log('index: '+index);
+        let updateItem = {
+            ...arr[index],
+            licensePlate: newLicense
+        }
+        // console.log('update: '+updateItem);
+        arr[index] = updateItem;
+        this.setState({
+            carArray: arr
+        })
+    }
+
+    handleCarValue(targetID, newValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr = this.state.carArray;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            value: newValue
+        }
+        arr[index] = updateItem;
+        this.setState({
+            carArray: arr
+        })
     }
 }
 

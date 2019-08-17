@@ -24,7 +24,9 @@ export default class CarInfo extends React.Component {
     static propTypes = {
         id: PropTypes.string,
         licensePlate: PropTypes.string,
-        value: PropTypes.number
+        value: PropTypes.number,
+        OnLicense: PropTypes.func,
+        OnValue: PropTypes.func
     };
 
     constructor(props) {
@@ -37,7 +39,7 @@ export default class CarInfo extends React.Component {
         this.inputValue = null;
 
         this.handleLicenseChange = this.handleLicenseChange.bind(this);
-        this.handleValueeChange = this.handleValueeChange.bind(this);
+        this.handleValueChange = this.handleValueChange.bind(this);
         
     }
 
@@ -52,7 +54,7 @@ export default class CarInfo extends React.Component {
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
                         市值:<Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
-                            value={this.state.value} onChange={this.handleValueeChange} />
+                            value={this.state.value} onChange={this.handleValueChange} />
                     </FormGroup>
                 </Form>
             </div>
@@ -62,20 +64,24 @@ export default class CarInfo extends React.Component {
     handleLicenseChange(e) {
         const license = e.target.value;
         console.log(license);
-        this.setState({
-            licensePlate: license
-        }, () => {
-            console.log('car license: '+this.state.licensePlate);
-        });
+        // this.setState({
+        //     licensePlate: license
+        // }, () => {
+        //     console.log('car license: '+this.props.licensePlate);
+        //     this.props.OnLicense(this.props.id, this.state.licensePlate);
+        // });
+        this.props.OnLicense(this.props.id, license);
     }
 
-    handleValueeChange(e) {
+    handleValueChange(e) {
         const num = e.target.value;
         // console.log(license);
-        this.setState({
-            value: num
-        }, () => {
-            console.log('car value: '+this.state.value);
-        });
+        // this.setState({
+        //     value: num
+        // }, () => {
+        //     console.log('car value: '+this.state.value);
+        //     this.props.OnValue(this.state.id, this.state.value);
+        // });
+        this.props.OnValue(this.props.id, num);
     }
 }

@@ -78,6 +78,7 @@ export default class Main extends React.Component {
                     {/* </div> */}
 
                     <Route exact path="/" render={() => (
+                        // <FirstPage/>
                         <SecondPage/>
                     )}/>
                     <Route exact path="/second-page" render={() => (

@@ -44,7 +44,7 @@ export default class PostForm extends React.Component {
 
         return (
             <div className='post-form'>
-                <Alert color='info' className={`d-flex flex-column flex-sm-row justify-content-center ${inputDanger}`}>
+                <Alert color='dark' className={`d-flex flex-column flex-sm-row justify-content-center ${inputDanger}`}>
                     <div className='mood align-self-start'>
                         <ButtonDropdown type='buttom' isOpen={moodToggle} toggle={this.handleMoodToggle}>
                             <DropdownToggle className='mood-toggle' type='button' caret color="secondary">

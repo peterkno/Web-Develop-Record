@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid/v4';
 import {
     Alert,
     Input,
@@ -16,9 +17,10 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-
+import CarInfo from 'components/CarInfo.jsx';
 
 import './SecondPage.css';
+import CarList from 'components/CarList.jsx';
 
 export default class SecondPage extends React.Component {
     static propTypes = {
@@ -42,10 +44,12 @@ export default class SecondPage extends React.Component {
             fatherChecked: false,
             motherChecked: false,
             siblingChecked: false,
-            ancestorChecked: false
+            ancestorChecked: false,
+            carNum: '',
+            carArray: []
         };
 
-        this.carNum = null;
+        this.inputCar = null;
 
         this.handleMateCheckChange = this.handleMateCheckChange.bind(this);
         this.handleChildCheckChange = this.handleChildCheckChange.bind(this);
@@ -55,6 +59,9 @@ export default class SecondPage extends React.Component {
         this.handleAncestorCheckChange = this.handleAncestorCheckChange.bind(this);
 
         this.handleCarNumChange = this.handleCarNumChange.bind(this);
+        this.CreateCarList = this.CreateCarList.bind(this);
+        // this.handleCarLicense = this.handleCarLicense.bind(this);
+        // this.handleCarValue = this.handleCarValue.bind(this);
     }
 
     componentDidMount() {
@@ -75,7 +82,7 @@ export default class SecondPage extends React.Component {
     }
 
     render() {
-
+        const {carArray} = this.state;
         return (
             <div className='second-page'>
                 <div className='member mb-sm-3'>
@@ -159,10 +166,16 @@ export default class SecondPage extends React.Component {
                     </FormGroup>
                 </div>
 
-                <div>
-                    
-                    <Input className='number' type='textarea' innerRef={el => {this.inputEl = el}} 
-                        value={this.state.inputValue} onChange={this.handleInputChange}></Input>
+                <div className='chattel'>
+                    <p>一、動產部分</p>
+                    <br />
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (一) 汽車: 共 <Input className='number' type='text' innerRef={el => {this.inputCar = el}} 
+                                value={this.state.carNum} onChange={this.handleCarNumChange}></Input>輛
+                        </FormGroup>
+                    </Form>
+                    <CarList cars={carArray} />
                 </div>
                 
                 
@@ -280,8 +293,29 @@ export default class SecondPage extends React.Component {
     };
 
     handleCarNumChange(e) {
-        const num = e.target.value
-        this.setState({carNum: num});
+        const num = e.target.value;
+        // console.log(num);
+        this.setState({
+            carNum: num
+        }, () =>{
+            this.CreateCarList();
+        });
+    }
+    CreateCarList(){
+        const num = this.state.carNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                licensePlate: '',
+                value: 0,
+                // OnLicense: this.handleCarLicense,
+                // OnValue: this.handleCarValue
+            });
+        }
+        this.setState({
+            carArray: arr
+        });
     }
 }
 

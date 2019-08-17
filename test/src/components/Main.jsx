@@ -56,26 +56,26 @@ export default class Main extends React.Component {
         return (
             // <Provider store={this.store}>
             <Router>
-                <div className={'main'}>
-                    <div className='container'>
-                        <Navbar color='faded' light>
+                <div className='main'>
+                    {/* <div className='container'> */}
+                        <Navbar  style={{backgroundColor: '#ff0000'}} light>
                         <NavbarBrand className='text-info' href="/">遺產管理</NavbarBrand>
                         <NavbarToggler onClick={this.handleNavbarToggle} className="mr-2"/>
                         <Collapse isOpen={this.state.navbarToggle} navbar>
-                            <Nav navbar>
-                            <NavItem>
-                                <NavLink tag={Link} to='/second-page' onClick={this.handlePageClick}> 計算正負資產</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} to='/third-page'  onClick={this.handlePageClick}>特留分顯示</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} to='/fourth-page' onClick={this.handlePageClick}>寄出遺囑</NavLink>
-                            </NavItem>
+                            <Nav style={{backgroundColor: '#f1f1f1'}} navbar>
+                                <NavItem>
+                                    <NavLink tag={Link} to='/second-page' onClick={this.handlePageClick}> 計算正負資產</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} to='/third-page'  onClick={this.handlePageClick}>特留分顯示</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} to='/fourth-page' onClick={this.handlePageClick}>寄出遺囑</NavLink>
+                                </NavItem>
                             </Nav>
                         </Collapse>
                         </Navbar>
-                    </div>
+                    {/* </div> */}
 
                     <Route exact path="/" render={() => (
                         <SecondPage/>

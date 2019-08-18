@@ -21,19 +21,12 @@ import CarInfo from 'components/CarInfo.jsx';
 
 import './SecondPage.css';
 import CarList from 'components/CarList.jsx';
-import MotorList from 'components/MotorList.jsx'
+import MotorList from 'components/MotorList.jsx';
+import AccountList from 'components/AccountList.jsx';
+import StockList from 'components/StockList.jsx';
 
 export default class SecondPage extends React.Component {
     static propTypes = {
-        // city: PropTypes.string,
-        // code: PropTypes.number,
-        // group: PropTypes.string,
-        // description: PropTypes.string,
-        // temp: PropTypes.number,
-        // unit: PropTypes.string,
-        // weatherLoading: PropTypes.bool,
-        // masking: PropTypes.bool,
-        // dispatch: PropTypes.func
     };
 
     constructor(props) {
@@ -59,6 +52,8 @@ export default class SecondPage extends React.Component {
             insuranceArr: [],
             chattelChecked: false
         };
+        
+        this.calculate = this.calculate.bind(this);
         // Famaliy
         this.handleMateCheckChange = this.handleMateCheckChange.bind(this);
         this.handleChildCheckChange = this.handleChildCheckChange.bind(this);
@@ -93,11 +88,11 @@ export default class SecondPage extends React.Component {
         this.handleAccountID = this.handleAccountID.bind(this);
         this.handleAccountValue = this.handleAccountValue.bind(this);
         //     // Stock
-        // this.handleStockNumChange = this.handleStockNumChange.bind(this);
-        // this.CreateStockList = this.CreateStockList.bind(this);
-        // this.handleStockType = this.handleStockType.bind(this);
-        // this.handleStockAmount = this.handleStockAmount.bind(this);
-        // this.handleStockValue = this.handleStockValue.bind(this);
+        this.handleStockNumChange = this.handleStockNumChange.bind(this);
+        this.CreateStockList = this.CreateStockList.bind(this);
+        this.handleStockType = this.handleStockType.bind(this);
+        this.handleStockAmount = this.handleStockAmount.bind(this);
+        this.handleStockValue = this.handleStockValue.bind(this);
         //     // Insurance
         // this.handleInsuranceNumChange = this.handleInsuranceNumChange.bind(this);
         // this.CreateInsuranceList = this.CreateInsuranceList.bind(this);
@@ -128,6 +123,7 @@ export default class SecondPage extends React.Component {
 
     render() {
         const {carArr, motorArr, accountArr, stockArr, insuranceArr} = this.state;
+        const heritage = this.calculate();
         return (
             <div className='second-page'>
                 <div className='member mb-sm-3'>
@@ -240,7 +236,7 @@ export default class SecondPage extends React.Component {
                                 value={this.state.accountNum} onChange={this.handleAccountNumChange}></Input>個帳戶
                         </FormGroup>
                     </Form>
-                    <MotorList motors={motorArr} />
+                    <AccountList accounts={accountArr} />
                 </div>
                 
                 
@@ -309,10 +305,26 @@ export default class SecondPage extends React.Component {
                 備註：<Input type="text" name="備註" bsSize="50px"/>
                 
                 <Input type="submit" value="提交"/> */}
+                <h1>現在遺產: {heritage} 元</h1>
             </div>
         );
     }
+    calculate() {
+        let heritage = Number(0);
+        let i = 0;
+        for(i = 0; i < this.state.carArr.length; i++) {
+            heritage += this.state.carArr[i].value;
+        }
+        for(i = 0; i < this.state.motorArr.length; i++) {
+            heritage += this.state.motorArr[i].value;
+        }
+        heritage += this.state.money;
+        for(i = 0; i < this.state.accountArr.length; i++) {
+            heritage += this.state.accountArr[i].value;
+        }
 
+        return heritage;
+    }
     handleMateCheckChange() {
         this.setState((prevState, props) => ({
             mateChecked: !prevState.mateChecked
@@ -320,7 +332,7 @@ export default class SecondPage extends React.Component {
     }
     handleChildCheckChange() {
         this.setState((prevState, props) => ({
-            childChecked: !prevState.mateChecked
+            childChecked: !prevState.childChecked
         }));
     }
     handleSiblingCheckChange() {

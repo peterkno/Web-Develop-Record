@@ -21,6 +21,7 @@ import CarInfo from 'components/CarInfo.jsx';
 
 import './SecondPage.css';
 import CarList from 'components/CarList.jsx';
+import MotorList from 'components/MotorList.jsx'
 
 export default class SecondPage extends React.Component {
     static propTypes = {
@@ -45,12 +46,20 @@ export default class SecondPage extends React.Component {
             motherChecked: false,
             siblingChecked: false,
             ancestorChecked: false,
-            carNum: '',
-            carArray: []
+            carNum: Number(0),
+            carArr: [],
+            motorNum: Number(0),
+            motorArr: [],
+            money: Number(0),
+            accountNum: Number(0),
+            accountArr: [],
+            stockNum: Number(0),
+            stockArr: [],
+            insuranceNum: Number(0),
+            insuranceArr: [],
+            chattelChecked: false
         };
-
-        this.inputCar = null;
-
+        // Famaliy
         this.handleMateCheckChange = this.handleMateCheckChange.bind(this);
         this.handleChildCheckChange = this.handleChildCheckChange.bind(this);
         this.handleFatherCheckChange = this.handleFatherCheckChange.bind(this);
@@ -58,10 +67,46 @@ export default class SecondPage extends React.Component {
         this.handleSiblingCheckChange = this.handleSiblingCheckChange.bind(this);
         this.handleAncestorCheckChange = this.handleAncestorCheckChange.bind(this);
 
+        // Chattel
+        this.inputCar = null;
+        this.inputMotor = null;
+        this.inputMoney = null;
+        this.inputAccount = null;
+        this.inputStock = null;
+        this.inputInsurance = null;
+            // Car
         this.handleCarNumChange = this.handleCarNumChange.bind(this);
         this.CreateCarList = this.CreateCarList.bind(this);
         this.handleCarLicense = this.handleCarLicense.bind(this);
         this.handleCarValue = this.handleCarValue.bind(this);
+            // Motor
+        this.handleMotorNumChange = this.handleMotorNumChange.bind(this);
+        this.CreateMotorList = this.CreateMotorList.bind(this);
+        this.handleMotorLicense = this.handleMotorLicense.bind(this);
+        this.handleMotorValue = this.handleMotorValue.bind(this);
+            // Money
+        this.handleMoneyChange = this.handleMoneyChange.bind(this);
+        //     // Account
+        this.handleAccountNumChange = this.handleAccountNumChange.bind(this);
+        this.CreateAccountList = this.CreateAccountList.bind(this);
+        this.handleAccountType = this.handleAccountType.bind(this);
+        this.handleAccountID = this.handleAccountID.bind(this);
+        this.handleAccountValue = this.handleAccountValue.bind(this);
+        //     // Stock
+        // this.handleStockNumChange = this.handleStockNumChange.bind(this);
+        // this.CreateStockList = this.CreateStockList.bind(this);
+        // this.handleStockType = this.handleStockType.bind(this);
+        // this.handleStockAmount = this.handleStockAmount.bind(this);
+        // this.handleStockValue = this.handleStockValue.bind(this);
+        //     // Insurance
+        // this.handleInsuranceNumChange = this.handleInsuranceNumChange.bind(this);
+        // this.CreateInsuranceList = this.CreateInsuranceList.bind(this);
+        // this.handleInsuranceCompany = this.handleInsuranceCompany.bind(this)
+        // this.handleInsuranceType = this.handleInsuranceType.bind(this);
+        // this.handleInsuranceAmount = this.handleInsuranceAmount.bind(this);
+        // this.handleInsuranceValue = this.handleInsuranceValue.bind(this);
+        //     // ChattelChecked
+        // this.handleChattelCheckChange = this.handleChattelCheckChange.bind(this);
     }
 
     componentDidMount() {
@@ -82,7 +127,7 @@ export default class SecondPage extends React.Component {
     }
 
     render() {
-        const {carArray} = this.state;
+        const {carArr, motorArr, accountArr, stockArr, insuranceArr} = this.state;
         return (
             <div className='second-page'>
                 <div className='member mb-sm-3'>
@@ -175,25 +220,32 @@ export default class SecondPage extends React.Component {
                                 value={this.state.carNum} onChange={this.handleCarNumChange}></Input>輛
                         </FormGroup>
                     </Form>
-                    <CarList cars={carArray} />
+                    <CarList cars={carArr} />
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (二) 機車: 共 <Input className='number' type='text' innerRef={el => {this.inputMotor = el}} 
+                                value={this.state.motorNum} onChange={this.handleMotorNumChange}></Input>輛
+                        </FormGroup>
+                    </Form>
+                    <MotorList motors={motorArr} />
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (三) 現金(新台幣) 共 :<Input className='value' type='text' innerRef={el => {this.inputMoney = el}} 
+                                value={this.state.money} onChange={this.handleMoneyChange}></Input>元
+                        </FormGroup>
+                    </Form>
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (四) 銀行存款 : 共<Input className='number' type='text' innerRef={el => {this.inputAccount = el}} 
+                                value={this.state.accountNum} onChange={this.handleAccountNumChange}></Input>個帳戶
+                        </FormGroup>
+                    </Form>
+                    <MotorList motors={motorArr} />
                 </div>
                 
                 
-{/*                 
-                
-                <p>請以表格格式輸入您的正負資產</p>
-                <p>一、動產部分</p>
-                
-                (一) 汽車: 共 <Input type="text" name="汽車數量" bsSize="2px"/>輛。
-                
-                    1.牌照號碼：<Input type="text" name="汽車牌照號碼-1" bsSize="15px"/> 市值：<Input type="text" name="汽車市值-1" bsSize="5px"/> 元。
-                
-                (二) 機車: 共 <Input type="text" name="機車數量" bsSize="2px"/>輛。
-                
-                    2.牌照號碼：<Input type="text" name="機車牌照號碼-1" bsSize="15px"/> 市值：<Input type="text" name="機車市值-1" bsSize="5px"/> 元。
-                
-                (三) 現金(新台幣) 共 : <Input type="text" name="現金" bsSize="10px"/>元。
-                
+{/*   
+               
                 (四) 銀行存款 : 共<Input type="text" name="帳戶數量" bsSize="2px"/>個帳戶。
                 
                 1.存款種類：<Input type="text" name="存款種類-1" bsSize="5px"/> 存款帳號：<Input type="text" name="存款帳號-1" bsSize="10px"/>
@@ -291,10 +343,9 @@ export default class SecondPage extends React.Component {
             motherChecked: !prevState.motherChecked
         }))
     };
-
+//***Handle Car****************************************** */
     handleCarNumChange(e) {
         const num = e.target.value;
-        // console.log(num);
         this.setState({
             carNum: num
         }, () =>{
@@ -314,46 +365,174 @@ export default class SecondPage extends React.Component {
             });
         }
         this.setState({
-            carArray: arr
+            carArr: arr
         });
     }
-
     handleCarLicense(targetID, newLicense){
         function findTarget(element) {
-            // console.log('E id: '+element.id);
             return element.id === targetID;
         }
-        // console.log('T id: '+ targetID)
-        let arr=this.state.carArray;
-        // console.log('arr: '+arr);
+        let arr=this.state.carArr;
         let index = arr.findIndex(findTarget);
-        // console.log('index: '+index);
         let updateItem = {
             ...arr[index],
             licensePlate: newLicense
         }
-        // console.log('update: '+updateItem);
         arr[index] = updateItem;
         this.setState({
-            carArray: arr
+            carArr: arr
         })
     }
-
     handleCarValue(targetID, newValue){
         function findTarget(element) {
             return element.id === targetID;
         }
-        let arr = this.state.carArray;
+        let arr = this.state.carArr;
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            value: newValue
+            value: Number(newValue)
         }
         arr[index] = updateItem;
         this.setState({
-            carArray: arr
+            carArr: arr
         })
     }
+//***Handle Motor****************************************** */
+    handleMotorNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            motorNum: num
+        }, () =>{
+            this.CreateMotorList();
+        });
+    }
+    CreateMotorList(){
+        const num = this.state.motorNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                licensePlate: '',
+                value: 0,
+                OnLicense: this.handleMotorLicense,
+                OnValue: this.handleMotorValue
+            });
+        }
+        this.setState({
+            motorArr: arr
+        });
+    }
+    handleMotorLicense(targetID, newLicense){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.motorArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            licensePlate: newLicense
+        }
+        arr[index] = updateItem;
+        this.setState({
+            motorArr: arr
+        })
+    }
+    handleMotorValue(targetID, newValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr = this.state.motorArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            value: Number(newValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            motorArr: arr
+        })
+    }
+//***Handle Money****************************************** */
+    handleMoneyChange(e){
+        const num = e.target.value;
+        this.setState({
+            money: Number(num)
+        });
+    }
+//***Handle Account****************************************** */
+    handleAccountNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            accountNum: num
+        }, () =>{
+            this.CreateAccountList();
+        });
+    }
+    CreateAccountList(){
+        const num = this.state.accountNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                type: String(''),
+                ID: String(''),
+                value: Number(0),
+                OnType: this.handleAccountType,
+                OnID: this.handleAccountID,
+                OnValue: this.handleAccountValue
+            });
+        }
+        this.setState({
+            accountArr: arr
+        });
+    }
+    handleAccountType(targetID, newType){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.accountArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            type: String(newType)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            accountArr: arr
+        })
+    }
+    handleAccountID(targetID, newID){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.accountArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            ID: String(newID)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            accountArr: arr
+        })
+    }
+    handleAccountValue(targetID, newValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr = this.state.accountArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            value: Number(newValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            accountArr: arr
+        })
+    }
+
 }
 
 // export default connect((state) => {

@@ -50,11 +50,11 @@ export default class CarInfo extends React.Component {
                 <Form inline>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
                         牌照號碼:<Input className='license ml-sm-2' type="text" innerRef={el => {this.inputLicense = el}} 
-                            value={this.state.licensePlate} onChange={this.handleLicenseChange}/>
+                            value={this.props.licensePlate} onChange={this.handleLicenseChange}/>
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
                         市值:<Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
-                            value={this.state.value} onChange={this.handleValueChange} />
+                            value={this.props.value} onChange={this.handleValueChange} />
                     </FormGroup>
                 </Form>
             </div>
@@ -63,25 +63,11 @@ export default class CarInfo extends React.Component {
 
     handleLicenseChange(e) {
         const license = e.target.value;
-        console.log(license);
-        // this.setState({
-        //     licensePlate: license
-        // }, () => {
-        //     console.log('car license: '+this.props.licensePlate);
-        //     this.props.OnLicense(this.props.id, this.state.licensePlate);
-        // });
         this.props.OnLicense(this.props.id, license);
     }
 
     handleValueChange(e) {
         const num = e.target.value;
-        // console.log(license);
-        // this.setState({
-        //     value: num
-        // }, () => {
-        //     console.log('car value: '+this.state.value);
-        //     this.props.OnValue(this.state.id, this.state.value);
-        // });
         this.props.OnValue(this.props.id, num);
     }
 }

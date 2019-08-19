@@ -24,6 +24,7 @@ import CarList from 'components/CarList.jsx';
 import MotorList from 'components/MotorList.jsx';
 import AccountList from 'components/AccountList.jsx';
 import StockList from 'components/StockList.jsx';
+import InsuranceList from 'components/InsuranceList.jsx';
 
 export default class SecondPage extends React.Component {
     static propTypes = {
@@ -53,7 +54,7 @@ export default class SecondPage extends React.Component {
             chattelChecked: false
         };
         
-        this.calculate = this.calculate.bind(this);
+        this.calculateHeritage = this.calculateHeritage.bind(this);
         // Famaliy
         this.handleMateCheckChange = this.handleMateCheckChange.bind(this);
         this.handleChildCheckChange = this.handleChildCheckChange.bind(this);
@@ -81,27 +82,27 @@ export default class SecondPage extends React.Component {
         this.handleMotorValue = this.handleMotorValue.bind(this);
             // Money
         this.handleMoneyChange = this.handleMoneyChange.bind(this);
-        //     // Account
+            // Account
         this.handleAccountNumChange = this.handleAccountNumChange.bind(this);
         this.CreateAccountList = this.CreateAccountList.bind(this);
         this.handleAccountType = this.handleAccountType.bind(this);
         this.handleAccountID = this.handleAccountID.bind(this);
         this.handleAccountValue = this.handleAccountValue.bind(this);
-        //     // Stock
+            // Stock
         this.handleStockNumChange = this.handleStockNumChange.bind(this);
         this.CreateStockList = this.CreateStockList.bind(this);
         this.handleStockType = this.handleStockType.bind(this);
         this.handleStockAmount = this.handleStockAmount.bind(this);
         this.handleStockValue = this.handleStockValue.bind(this);
-        //     // Insurance
-        // this.handleInsuranceNumChange = this.handleInsuranceNumChange.bind(this);
-        // this.CreateInsuranceList = this.CreateInsuranceList.bind(this);
-        // this.handleInsuranceCompany = this.handleInsuranceCompany.bind(this)
-        // this.handleInsuranceType = this.handleInsuranceType.bind(this);
-        // this.handleInsuranceAmount = this.handleInsuranceAmount.bind(this);
-        // this.handleInsuranceValue = this.handleInsuranceValue.bind(this);
-        //     // ChattelChecked
-        // this.handleChattelCheckChange = this.handleChattelCheckChange.bind(this);
+            // Insurance
+        this.handleInsuranceNumChange = this.handleInsuranceNumChange.bind(this);
+        this.CreateInsuranceList = this.CreateInsuranceList.bind(this);
+        this.handleInsuranceCompany = this.handleInsuranceCompany.bind(this)
+        this.handleInsuranceType = this.handleInsuranceType.bind(this);
+        this.handleInsuranceValue = this.handleInsuranceValue.bind(this);
+        this.handleInsuranceDate = this.handleInsuranceDate.bind(this);
+            // ChattelChecked
+        this.handleChattelCheckChange = this.handleChattelCheckChange.bind(this);
     }
 
     componentDidMount() {
@@ -123,7 +124,7 @@ export default class SecondPage extends React.Component {
 
     render() {
         const {carArr, motorArr, accountArr, stockArr, insuranceArr} = this.state;
-        const heritage = this.calculate();
+        const heritage = this.calculateHeritage();
         return (
             <div className='second-page'>
                 <div className='member mb-sm-3'>
@@ -207,9 +208,10 @@ export default class SecondPage extends React.Component {
                     </FormGroup>
                 </div>
 
+                <br />
+                           
                 <div className='chattel'>
                     <p>一、動產部分</p>
-                    <br />
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
                             (一) 汽車: 共 <Input className='number' type='text' innerRef={el => {this.inputCar = el}} 
@@ -237,29 +239,27 @@ export default class SecondPage extends React.Component {
                         </FormGroup>
                     </Form>
                     <AccountList accounts={accountArr} />
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (五)股票 : 共<Input className='number' type='text' innerRef={el => {this.inputStock = el}} 
+                                value={this.state.stockNum} onChange={this.handleStockNumChange}></Input>種股號
+                        </FormGroup>
+                    </Form>
+                    <StockList stocks={stockArr} />
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (六)保險 : 共<Input className='number' type='text' innerRef={el => {this.inputInsurance = el}} 
+                                value={this.state.insuranceNum} onChange={this.handleInsuranceNumChange}></Input>幾支
+                        </FormGroup>
+                    </Form>
+                    <InsuranceList insurances={insuranceArr} />
+                    <FormGroup check inline>
+                        (七)<Input type="checkbox" checked={this.state.chattelChecked} onChange={this.handleChattelCheckChange} />如國稅局歸戶財產清單所載。
+                    </FormGroup>
                 </div>
                 
                 
-{/*   
-               
-                (四) 銀行存款 : 共<Input type="text" name="帳戶數量" bsSize="2px"/>個帳戶。
-                
-                1.存款種類：<Input type="text" name="存款種類-1" bsSize="5px"/> 存款帳號：<Input type="text" name="存款帳號-1" bsSize="10px"/>
-                
-                存款金額共：<Input type="text" name="存款金額-1" bsSize="10px"/>元。
-                
-                (五)股票 : 共<Input type="text" name="股號數" bsSize="2px"/>種股號。
-                
-                1.股號/股名：<Input type="text" name="股號-1" bsSize="5px"/> 股數：<Input type="text" name="股數-1" bsSize="2px"/>
-                
-                市值：<Input type="text" name="股票市值-1" bsSize="5px"/>
-                
-                (六)保險 ： 共<Input type="text" name="保險數" bsSize="2px"/>支。
-                1.保險公司：<Input type="text" name="保險公司-1" bsSize="5px"/> 保單種類：<Input type="text" name="保單種類-1" bsSize="5px"/>
-                
-                保險金額：<Input type="text" name="保險金額-1" bsSize="5px"/> 保單生效日：<Input type="text" name="保單生效日-1" bsSize="5px"/>
-                
-                (七) <Input type="checkbox" name="動產國稅局"/> 如國稅局歸戶財產清單所載。
+{/*  
                 
                 
                 <p>二、不動產部分</p>
@@ -309,7 +309,7 @@ export default class SecondPage extends React.Component {
             </div>
         );
     }
-    calculate() {
+    calculateHeritage() {
         let heritage = Number(0);
         let i = 0;
         for(i = 0; i < this.state.carArr.length; i++) {
@@ -322,7 +322,12 @@ export default class SecondPage extends React.Component {
         for(i = 0; i < this.state.accountArr.length; i++) {
             heritage += this.state.accountArr[i].value;
         }
-
+        for(i = 0; i<this.state.stockArr.length; i++) {
+            heritage += this.state.stockArr[i].value * this.state.stockArr[i].amount;
+        }
+        for(i = 0; i<this.state.insuranceArr.length; i++) {
+            heritage += this.state.insuranceArr[i].value;
+        }
         return heritage;
     }
     handleMateCheckChange() {
@@ -370,8 +375,8 @@ export default class SecondPage extends React.Component {
         while (arr.length < num) { 
             arr.push({
                 id: uuid(),
-                licensePlate: '',
-                value: 0,
+                licensePlate: String(''),
+                value: Number(0),
                 OnLicense: this.handleCarLicense,
                 OnValue: this.handleCarValue
             });
@@ -388,7 +393,7 @@ export default class SecondPage extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            licensePlate: newLicense
+            licensePlate: String(newLicense)
         }
         arr[index] = updateItem;
         this.setState({
@@ -544,7 +549,172 @@ export default class SecondPage extends React.Component {
             accountArr: arr
         })
     }
-
+//***Handle Stock****************************************** */
+    handleStockNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            stockNum: num
+        }, () =>{
+            this.CreateStockList();
+        });
+    }
+    CreateStockList(){
+        const num = this.state.stockNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                type: String(''),
+                amount: Number(0),
+                value: Number(0),
+                OnType: this.handleStockType,
+                OnAmount: this.handleStockAmount,
+                OnValue: this.handleStockValue
+            });
+        }
+        this.setState({
+            stockArr: arr
+        });
+    }
+    handleStockType(targetID, newType){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.stockArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            type: String(newType)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            stockArr: arr
+        })
+    }
+    handleStockAmount(targetID, newAmount){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.stockArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            amount: Number(newAmount)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            stockArr: arr
+        })
+    }
+    handleStockValue(targetID, newValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr = this.state.stockArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            value: Number(newValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            stockArr: arr
+        })
+    }
+        // Insurance
+    handleInsuranceNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            insuranceNum: num
+        }, () =>{
+            this.CreateInsuranceList();
+        });
+    }
+    CreateInsuranceList(){
+        const num = this.state.insuranceNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                company: String(''),
+                type: String(''),
+                value: Number(0),
+                date: String(''),
+                OnCompany: this.handleInsuranceCompany,
+                OnType: this.handleInsuranceType,
+                OnValue: this.handleInsuranceValue,
+                OnDate: this.handleInsuranceDate
+            });
+        }
+        this.setState({
+            insuranceArr: arr
+        });
+    }
+    handleInsuranceCompany(targetID, newCompany){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.insuranceArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            company: String(newCompany)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            insuranceArr: arr
+        })
+    }
+    handleInsuranceType(targetID, newType){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.insuranceArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            type: String(newType)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            insuranceArr: arr
+        })
+    }
+    handleInsuranceValue(targetID, newValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr = this.state.insuranceArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            value: Number(newValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            insuranceArr: arr
+        })
+    }
+    handleInsuranceDate(targetID, newDate){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr = this.state.insuranceArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            date: Number(newDate)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            insuranceArr: arr
+        })
+    }
+    handleChattelCheckChange() {
+        this.setState((prevState, props) => ({
+            chattelChecked: !prevState.chattelChecked
+        }));
+    }
 }
 
 // export default connect((state) => {

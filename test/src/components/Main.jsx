@@ -21,7 +21,6 @@ import {
 import {Provider} from 'react-redux';
 import SecondPage from 'components/SecondPage.jsx';
 import FirstPage from 'components/FirstPage.jsx';
-import SecondPageV2 from 'components/SecondPageV2.jsx';
 import ThirdPage from 'components/ThirdPage.jsx';
 import FourthPage from 'components/FourthPage.jsx';
 

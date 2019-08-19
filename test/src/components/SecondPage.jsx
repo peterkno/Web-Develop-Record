@@ -25,6 +25,7 @@ import MotorList from 'components/MotorList.jsx';
 import AccountList from 'components/AccountList.jsx';
 import StockList from 'components/StockList.jsx';
 import InsuranceList from 'components/InsuranceList.jsx';
+import LandList from 'components/LandList.jsx';
 
 export default class SecondPage extends React.Component {
     static propTypes = {
@@ -51,7 +52,12 @@ export default class SecondPage extends React.Component {
             stockArr: [],
             insuranceNum: Number(0),
             insuranceArr: [],
-            chattelChecked: false
+            chattelChecked: false,
+            landNum: Number(0),
+            landArr: [],
+            buildingNum: Number(0),
+            buildingArr: [],
+            realEstateChecked: false
         };
         
         this.calculateHeritage = this.calculateHeritage.bind(this);
@@ -103,6 +109,16 @@ export default class SecondPage extends React.Component {
         this.handleInsuranceDate = this.handleInsuranceDate.bind(this);
             // ChattelChecked
         this.handleChattelCheckChange = this.handleChattelCheckChange.bind(this);
+        
+        // Real estate
+        this.inputLand = null;
+        this.inputBuilding = null;
+            // Land
+        this.handleLandNumChange = this.handleLandNumChange.bind(this);
+        this.CreateLandList = this.CreateLandList.bind(this);
+        this.handleLandNumber = this.handleLandNumber.bind(this);
+        this.handleLandNowValue = this.handleLandNowValue.bind(this);
+        this.handleLandFinalValue = this.handleLandFinalValue.bind(this);
     }
 
     componentDidMount() {
@@ -123,7 +139,7 @@ export default class SecondPage extends React.Component {
     }
 
     render() {
-        const {carArr, motorArr, accountArr, stockArr, insuranceArr} = this.state;
+        const {carArr, motorArr, accountArr, stockArr, insuranceArr, landArr, buildingArr} = this.state;
         const heritage = this.calculateHeritage();
         return (
             <div className='second-page'>
@@ -209,7 +225,7 @@ export default class SecondPage extends React.Component {
                 </div>
 
                 <br />
-                           
+
                 <div className='chattel'>
                     <p>一、動產部分</p>
                     <Form inline>
@@ -256,6 +272,20 @@ export default class SecondPage extends React.Component {
                     <FormGroup check inline>
                         (七)<Input type="checkbox" checked={this.state.chattelChecked} onChange={this.handleChattelCheckChange} />如國稅局歸戶財產清單所載。
                     </FormGroup>
+                </div>
+
+                <br />
+
+                <div>
+                    <p>二、不動產部分</p> 
+                    
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (一)土地: 共<Input className='number' type='text' innerRef={el => {this.inputLand = el}} 
+                                value={this.state.landNum} onChange={this.handleLandNumChange}></Input>筆
+                        </FormGroup>
+                    </Form>
+                    <LandList lands={landArr} />
                 </div>
                 
                 
@@ -715,6 +745,101 @@ export default class SecondPage extends React.Component {
             chattelChecked: !prevState.chattelChecked
         }));
     }
+
+    // Real estate
+        // Land
+        // this.handleLandNumChange = this.handleLandNumChange.bind(this);
+        // this.CreateLandList = this.CreateLandList.bind(this);
+        // this.handleLandNumber = this.handleLandNumber.bind(this);
+        // this.handleLandNowValue = this.handleLandNowValue.bind(this);
+        // this.handleLandFinalValue = this.handleLandFinalValue.bind(this);
+    handleLandNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            landNum: num
+        }, () =>{
+            this.CreateLandList();
+        });
+    }
+    CreateLandList(){
+        const num = this.state.landNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                number: String(''),
+                nowValue: Number(0),
+                finalValue: Number(0),
+                OnNumber: this.handleLandNumber,
+                OnNowValue: this.handleLandNowValue,
+                OnFinalValue: this.handleLandFinalValue
+            });
+        }
+        this.setState({
+            landArr: arr
+        });
+    }
+    handleLandNumber(targetID, newNumber){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.landArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            number: String(newNumber)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            landArr: arr
+        })
+    }
+    handleLandNowValue(targetID, newNowValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.landArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            nowValue: Number(newNowValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            landArr: arr
+        })
+    }
+    handleLandFinalValue(targetID, newFinalValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.landArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            finalValue: Number(newFinalValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            landArr: arr
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 // export default connect((state) => {

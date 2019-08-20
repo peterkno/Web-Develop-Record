@@ -363,8 +363,8 @@ export default class SecondPage extends React.Component {
                     <p>六、指定遺囑副本信件收件人</p>
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (一)土地: 共<Input className='number' type='text' innerRef={el => {this.inputEmail = el}} 
-                                value={this.state.emailNum} onChange={this.handleEmailNumChange}></Input>筆
+                            (一)收件人: 共<Input className='number' type='text' innerRef={el => {this.inputEmail = el}} 
+                                value={this.state.emailNum} onChange={this.handleEmailNumChange}></Input>人
                         </FormGroup>
                     </Form>
                     <EmailList emails={emailArr} />
@@ -952,7 +952,7 @@ export default class SecondPage extends React.Component {
         });
     }
     CreateEmailList(){
-        const num = this.state.buildingNum;
+        const num = this.state.emailNum;
         let arr=[];
         while (arr.length < num) { 
             arr.push({
@@ -975,7 +975,7 @@ export default class SecondPage extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            number: String(newName)
+            name: String(newName)
         }
         arr[index] = updateItem;
         this.setState({
@@ -990,7 +990,7 @@ export default class SecondPage extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            nowValue: Number(newAddr)
+            addr: String(newAddr)
         }
         arr[index] = updateItem;
         this.setState({

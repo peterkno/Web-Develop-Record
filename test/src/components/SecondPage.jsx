@@ -1,19 +1,14 @@
 import React from 'react';
 import uuid from 'uuid/v4';
 import {
-    Alert,
+    Link
+} from 'react-router-dom'
+import {
     Input,
     Form,
     FormGroup,
-    Label,
     InputGroup,
-    InputGroupAddon,
-    InputGroupAddonProps,
     Button,
-    ButtonDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -29,6 +24,7 @@ import LandList from 'components/LandList.jsx';
 
 export default class SecondPage extends React.Component {
     static propTypes = {
+        OnThirdPage: PropTypes.func,
     };
 
     constructor(props) {
@@ -61,6 +57,7 @@ export default class SecondPage extends React.Component {
         };
         
         this.calculateHeritage = this.calculateHeritage.bind(this);
+        this.handleThirdPage = this.handleThirdPage.bind(this);
         // Famaliy
         this.handleMateCheckChange = this.handleMateCheckChange.bind(this);
         this.handleChildCheckChange = this.handleChildCheckChange.bind(this);
@@ -124,6 +121,7 @@ export default class SecondPage extends React.Component {
     componentDidMount() {
         // this.props.dispatch(getWeather('Hsinchu', this.props.unit));
         // this.listPosts(this.props.searchText);
+        window.scrollTo(0, 0);
     }
 
     componentWillUnmount() {
@@ -336,6 +334,11 @@ export default class SecondPage extends React.Component {
                 
                 <Input type="submit" value="提交"/> */}
                 <h1>現在遺產: {heritage} 元</h1>
+                <div>
+                    <Button className='ml-sm-2' tag={Link} to='/' >首頁</Button>
+                    <Button className='ml-sm-2' tag={Link} to='/third-page' onClick={this.handleThirdPage}>上傳遺囑</Button>
+                    <Button className='ml-sm-2' tag={Link} to='/fourth-page' >寄出遺囑</Button>
+                </div>
             </div>
         );
     }
@@ -359,6 +362,10 @@ export default class SecondPage extends React.Component {
             heritage += this.state.insuranceArr[i].value;
         }
         return heritage;
+    }
+    handleThirdPage() {
+        const heritage = this.calculateHeritage();
+        this.props.OnThirdPage(heritage);
     }
     handleMateCheckChange() {
         this.setState((prevState, props) => ({

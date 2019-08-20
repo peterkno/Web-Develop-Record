@@ -32,15 +32,15 @@ export default class Main extends React.Component {
 
         this.state = {
             navbarToggle: false,
-            // searchText: ''
+            heritage: Number(0),
         };
-        // this.store = null;
-        // this.searchEl = null;
 
         this.handleNavbarToggle = this.handleNavbarToggle.bind(this);
         this.handlePageClick = this.handlePageClick.bind(this);
+        this.handleHeritageChange = this.handleHeritageChange.bind(this);
     }
 
+    
     // componentWillMount() {
     //     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     //     this.store = createStore(combineReducers({
@@ -52,6 +52,7 @@ export default class Main extends React.Component {
     // }
 
     render() {
+        const {heritage} = this.state;
         return (
             // <Provider store={this.store}>
             <Router>
@@ -78,13 +79,13 @@ export default class Main extends React.Component {
 
                     <Route exact path="/" render={() => (
                         // <FirstPage/>
-                        <SecondPage/>
+                        <SecondPage OnThirdPage={this.handleHeritageChange}/>
                     )}/>
                     <Route exact path="/second-page" render={() => (
-                        <SecondPage/>
+                        <SecondPage OnThirdPage={this.handleHeritageChange}/>
                     )}/>
                     <Route exact path="/third-page" render={() => (
-                        <ThirdPage />
+                        <ThirdPage heritage={heritage}/>
                     )}/>
                     <Route exact path="/fourth-page" render={() => (
                         <FourthPage />
@@ -109,4 +110,11 @@ export default class Main extends React.Component {
             navbarToggle: false
         }));
     }
+
+    handleHeritageChange(newHeritage) {
+        this.setState((prevState, props) => ({
+            heritage: Number(newHeritage)
+        }));
+    }
+
 }

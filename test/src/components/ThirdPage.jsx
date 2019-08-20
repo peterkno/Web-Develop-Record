@@ -22,15 +22,7 @@ import './ThirdPage.css';
 
 export default class ThirdPage extends React.Component {
     static propTypes = {
-        // city: PropTypes.string,
-        // code: PropTypes.number,
-        // group: PropTypes.string,
-        // description: PropTypes.string,
-        // temp: PropTypes.number,
-        // unit: PropTypes.string,
-        // weatherLoading: PropTypes.bool,
-        // masking: PropTypes.bool,
-        // dispatch: PropTypes.func
+        heritage: PropTypes.number
     };
 
     constructor(props) {
@@ -48,6 +40,7 @@ export default class ThirdPage extends React.Component {
     componentDidMount() {
         // this.props.dispatch(getWeather('Hsinchu', this.props.unit));
         // this.listPosts(this.props.searchText);
+        window.scrollTo(0, 0);
     }
 
     componentWillUnmount() {
@@ -63,12 +56,12 @@ export default class ThirdPage extends React.Component {
     }
 
     render() {
-
+        const {heritage} = this.props;
         return (
             <div>
                 <div className='third-page'>
                     <h1>計算結果</h1>
-                    <p>遺產總額：500000000</p>
+                    <p>遺產總額：{heritage}</p>
                     <p>特留分</p>
                     <p>
                         {/* <!--特留分我想說全部列出來(雖然通常只會有配偶+最先繼承順序會有特留分)一是比較簡單，二是使用者可以更一目了然--> */}
@@ -117,13 +110,12 @@ export default class ThirdPage extends React.Component {
                     <p>
                         <br />
                     </p>
-
                     <button type="button">上傳遺囑</button>
-
-
                 </div>
+
                 <br />
-                <div>
+                
+                {/* <div>
                     <Link to="/">
                         <button type="button">
                             首頁
@@ -139,7 +131,7 @@ export default class ThirdPage extends React.Component {
                             寄出遺囑
                         </button>
                     </Link>
-                </div>
+                </div> */}
             </div>
         );
     }

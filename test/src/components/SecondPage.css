@@ -38,3 +38,9 @@
     max-width: 7rem;
     max-height: 30px;
 }
+.second-page .Textarea{
+    max-width: 20rem;
+}
+.second-page .Submit{
+    max-width: 5rem;
+}

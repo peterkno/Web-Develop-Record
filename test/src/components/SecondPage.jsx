@@ -21,6 +21,8 @@ import AccountList from 'components/AccountList.jsx';
 import StockList from 'components/StockList.jsx';
 import InsuranceList from 'components/InsuranceList.jsx';
 import LandList from 'components/LandList.jsx';
+import BuildingList from 'components/BuildingList.jsx';
+import EmailList from 'components/EmailList.jsx';
 
 export default class SecondPage extends React.Component {
     static propTypes = {
@@ -53,7 +55,13 @@ export default class SecondPage extends React.Component {
             landArr: [],
             buildingNum: Number(0),
             buildingArr: [],
-            realEstateChecked: false
+            realEstateChecked: false,
+            creditorNum: Number(0),
+            creditorArr: [],
+            debtorNum: Number(0),
+            debtorArr: [],
+            emailNum: Number(0),
+            emailArr: []
         };
         
         this.calculateHeritage = this.calculateHeritage.bind(this);
@@ -116,6 +124,21 @@ export default class SecondPage extends React.Component {
         this.handleLandNumber = this.handleLandNumber.bind(this);
         this.handleLandNowValue = this.handleLandNowValue.bind(this);
         this.handleLandFinalValue = this.handleLandFinalValue.bind(this);
+            // Building
+        this.handleBuildingNumChange = this.handleBuildingNumChange.bind(this);
+        this.CreateBuildingList = this.CreateBuildingList.bind(this);
+        this.handleBuildingNumber = this.handleBuildingNumber.bind(this);
+        this.handleBuildingNowValue = this.handleBuildingNowValue.bind(this);
+        this.handleBuildingFinalValue = this.handleBuildingFinalValue.bind(this);
+            // 
+        this.handleRealEstatelCheckChange = this.handleRealEstatelCheckChange.bind(this);
+
+        // Email
+        this.inputEmail = null;
+        this.handleEmailNumChange = this.handleEmailNumChange.bind(this);
+        this.CreateEmailList = this.CreateEmailList.bind(this);
+        this.handleEmailName = this.handleEmailName.bind(this);
+        this.handleEmailAddr = this.handleEmailAddr.bind(this);
     }
 
     componentDidMount() {
@@ -137,7 +160,7 @@ export default class SecondPage extends React.Component {
     }
 
     render() {
-        const {carArr, motorArr, accountArr, stockArr, insuranceArr, landArr, buildingArr} = this.state;
+        const {carArr, motorArr, accountArr, stockArr, insuranceArr, landArr, buildingArr, emailArr} = this.state;
         const heritage = this.calculateHeritage();
         return (
             <div className='second-page'>
@@ -151,7 +174,6 @@ export default class SecondPage extends React.Component {
                             英文姓名:<Input className='name ml-sm-2' type="text" name="englishName" placeholder="請與護照名相同" />
                         </FormGroup>
                     </Form>
-                    {/* 英文姓名 : <input type="text" name="英文姓名" size="10px" /> */}
                     <Form inline>
                         出生年月日:
                         <FormGroup className='mb-2 mr-sm-0 mb-sm-1'>
@@ -177,11 +199,6 @@ export default class SecondPage extends React.Component {
                 
                 <div className='famliy'>
                     <p>家族規模</p>
-                    {/* <!--配偶checkbox點開才出現姓名；
-                            直系血親checkbox才有a. b.；
-                            父母直接兩個checkbox就夠；
-                            兄弟姊妹同配偶；
-                            祖父母同直系血親--> */}
                     *註：只需填寫還在世的家族成員
                     <br  />
                     <FormGroup check inline>
@@ -284,32 +301,37 @@ export default class SecondPage extends React.Component {
                         </FormGroup>
                     </Form>
                     <LandList lands={landArr} />
+                    ※註1：公告土地現值和市值不同。公告土地現值：係政府官方根據過去一年來，調查轄區內土地交易的價格動態，分別計算出各區段的價格，做為土地移轉買賣交易時的價格依據。市值：市場實際買賣的價格。
+                    <br />
+                    ※註2：公告土地現值可至中華民國內政部地政司網站查詢。成交價則可請土地估價師進行估價。
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (二)建物: 共<Input className='number' type='text' innerRef={el => {this.inputBuilding = el}} 
+                                value={this.state.buildingNum} onChange={this.handleBuildingNumChange}></Input>筆
+                        </FormGroup>
+                    </Form>
+                    <BuildingList buildings={buildingArr} />
+                    ※註1：評定標準價格和市值不同。評定標準價格：係政府評定的房屋價值，廣泛地用來作為各種包含房屋稅、契稅等各種與房屋有關的稅賦之課徵基準。市價：市場實際買賣的價格。
+                    <br />
+                    ※註2：所有權人攜帶身分證正本、印章到地方稅的稅務機關申請房屋稅稅籍證明，在稅籍證明上面就會有房屋評定現值的金額。房屋成交價則可詢問房屋仲介該房屋附近一坪大致的價格，再去推算成交價的估計值。
+                    <FormGroup check inline>
+                        (三)<Input type="checkbox" checked={this.state.realEstateChecked} onChange={this.handleRealEstatelCheckChange} />如國稅局歸戶財產清單所載。
+                    </FormGroup>
                 </div>
                 
-                
+                <br />
+
+                <div>
+                    <p>三、債權人(您的債主)之姓名、地址及債權數額</p>
+                </div>
+
+                <br /> 
+
+                <div>
+                    <p>四、債務人(誰欠您錢)之姓名、地址及債權數額</p>
+                </div>
 {/*  
-                
-                
-                <p>二、不動產部分</p>
-                (一)土地 ： 共<Input type="text" name="土地筆數" bsSize="3px"/>筆
-                
-                1.地號：<Input type="text" name="地號-1" bsSize="5px"/>，公告土地現值：<Input type="text" name="土地現值-1" bsSize="5px"/>元，市值(成交價)：<Input type="text" name="土地市值-1" bsSize="5px"/>元(此欄必填)。
-                
-                ※註1：公告土地現值和市值不同。公告土地現值：係政府官方根據過去一年來，調查轄區內土地交易的價格動態，分別計算出各區段的價格，做為土地移轉買賣交易時的價格依據。市值：市場實際買賣的價格。
-                
-                ※註2：公告土地現值可至中華民國內政部地政司網站查詢。成交價則可請土地估價師進行估價。
-                
-                (二)建物 ： 共<Input type="text" name="建物筆數" bsSize="3px"/>筆
-                
-                1.門牌號碼：<Input type="text" name="門牌號-1" bsSize="5px"/>，評定標準價格：<Input type="text" name="建物標值-1" bsSize="5px"/>元，市值(成交價)：<Input type="text" name="建物市值-1" bsSize="5px"/>元(此欄必填)。
-                
-                ※註1：評定標準價格和市值不同。評定標準價格：係政府評定的房屋價值，廣泛地用來作為各種包含房屋稅、契稅等各種與房屋有關的稅賦之課徵基準。市價：市場實際買賣的價格。
-                
-                ※註2：所有權人攜帶身分證正本、印章到地方稅的稅務機關申請房屋稅稅籍證明，在稅籍證明上面就會有房屋評定現值的金額。房屋成交價則可詢問房屋仲介該房屋附近一坪大致的價格，再去推算成交價的估計值。
-                
-                (三) <Input type="checkbox" name="不動產國稅局"/> 如國稅局歸戶財產清單所載。
-                
-                
+     
                 <p>三、債權人(您的債主)之姓名、地址及債權數額</p>
                 債權人共：<Input type="text" name="債權人數量" bsSize="2px"/>位。
                 
@@ -326,15 +348,31 @@ export default class SecondPage extends React.Component {
                 
                 (以上參考遺產清冊表格)
                 
+                */}
+
+                <br />
+                <div>
+                    <p>五、請輸入您的印鑑、帳本存放、遺囑正本的位置</p>
+                    位置：<Input className='Textarea' type="textarea" name="位置" />
+                    
+                    備註：<Input className='Textarea' type="textarea" name="備註" />
+                </div>
                 
-                <p>請輸入您的印鑑、帳本存放位置</p>
-                位置：<Input type="text" name="位置" bsSize="50px"/>
+                <br />
+                <div>
+                    <p>六、指定遺囑副本信件收件人</p>
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (一)土地: 共<Input className='number' type='text' innerRef={el => {this.inputEmail = el}} 
+                                value={this.state.emailNum} onChange={this.handleEmailNumChange}></Input>筆
+                        </FormGroup>
+                    </Form>
+                    <EmailList emails={emailArr} />
+                </div>
                 
-                備註：<Input type="text" name="備註" bsSize="50px"/>
-                
-                <Input type="submit" value="提交"/> */}
                 <h1>現在遺產: {heritage} 元</h1>
                 <div>
+                    <Button className='ml-sm-2' tag={Link} to='/third-page' onClick={this.handleThirdPage}>提交</Button>
                     <Button className='ml-sm-2' tag={Link} to='/' >首頁</Button>
                     <Button className='ml-sm-2' tag={Link} to='/third-page' onClick={this.handleThirdPage}>上傳遺囑</Button>
                     <Button className='ml-sm-2' tag={Link} to='/fourth-page' >寄出遺囑</Button>
@@ -755,11 +793,6 @@ export default class SecondPage extends React.Component {
 
     // Real estate
         // Land
-        // this.handleLandNumChange = this.handleLandNumChange.bind(this);
-        // this.CreateLandList = this.CreateLandList.bind(this);
-        // this.handleLandNumber = this.handleLandNumber.bind(this);
-        // this.handleLandNowValue = this.handleLandNowValue.bind(this);
-        // this.handleLandFinalValue = this.handleLandFinalValue.bind(this);
     handleLandNumChange(e) {
         const num = e.target.value;
         this.setState({
@@ -831,8 +864,140 @@ export default class SecondPage extends React.Component {
             landArr: arr
         })
     }
+        // Building
+    handleBuildingNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            buildingNum: num
+        }, () =>{
+            this.CreateBuildingList();
+        });
+    }
+    CreateBuildingList(){
+        const num = this.state.buildingNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                number: String(''),
+                nowValue: Number(0),
+                finalValue: Number(0),
+                OnNumber: this.handleBuildingNumber,
+                OnNowValue: this.handleBuildingNowValue,
+                OnFinalValue: this.handleBuildingFinalValue
+            });
+        }
+        this.setState({
+            buildingArr: arr
+        });
+    }
+    handleBuildingNumber(targetID, newNumber){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.buildingArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            number: String(newNumber)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            buildingArr: arr
+        })
+    }
+    handleBuildingNowValue(targetID, newNowValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.buildingArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            nowValue: Number(newNowValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            buildingArr: arr
+        })
+    }
+    handleBuildingFinalValue(targetID, newFinalValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.buildingArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            finalValue: Number(newFinalValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            buildingArr: arr
+        })
+    }
+    handleRealEstatelCheckChange() {
+        this.setState((prevState, props) => ({
+            realEstateChecked: !prevState.realEstateChecked
+        }));
+    }
 
-
+    // Email
+    handleEmailNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            emailNum: num
+        }, () =>{
+            this.CreateEmailList();
+        });
+    }
+    CreateEmailList(){
+        const num = this.state.buildingNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                name: String(''),
+                addr: String(''),
+                OnName: this.handleEmailName,
+                OnAddr: this.handleEmailAddr
+            });
+        }
+        this.setState({
+            emailArr: arr
+        });
+    }
+    handleEmailName(targetID, newName){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.emailArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            number: String(newName)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            emailArr: arr
+        })
+    }
+    handleEmailAddr(targetID, newAddr){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.emailArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            nowValue: Number(newAddr)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            emailArr: arr
+        })
+    }
+    
 
 
 

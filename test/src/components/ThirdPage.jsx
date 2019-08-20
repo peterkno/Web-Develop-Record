@@ -61,7 +61,7 @@ export default class ThirdPage extends React.Component {
             <div>
                 <div className='third-page'>
                     <h1>計算結果</h1>
-                    <p>遺產總額：800元</p>
+                    <p>遺產總額：{heritage}元</p>
                     <p>特留分</p>
                     <p>
                         {/* <!--特留分我想說全部列出來(雖然通常只會有配偶+最先繼承順序會有特留分)一是比較簡單，二是使用者可以更一目了然--> */}

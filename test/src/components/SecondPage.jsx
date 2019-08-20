@@ -23,6 +23,8 @@ import InsuranceList from 'components/InsuranceList.jsx';
 import LandList from 'components/LandList.jsx';
 import BuildingList from 'components/BuildingList.jsx';
 import EmailList from 'components/EmailList.jsx';
+import CreditorList from 'components/CreditorList.jsx';
+import DebtorList from 'components/DebtorList.jsx';
 
 export default class SecondPage extends React.Component {
     static propTypes = {
@@ -81,6 +83,11 @@ export default class SecondPage extends React.Component {
         this.inputAccount = null;
         this.inputStock = null;
         this.inputInsurance = null;
+        this.inputLand = null;
+        this.inputBuilding = null;
+        this.inputCreditor = null;
+        this.inputDebtor = null;
+        this.inputEmail = null;
             // Car
         this.handleCarNumChange = this.handleCarNumChange.bind(this);
         this.CreateCarList = this.CreateCarList.bind(this);
@@ -116,8 +123,7 @@ export default class SecondPage extends React.Component {
         this.handleChattelCheckChange = this.handleChattelCheckChange.bind(this);
         
         // Real estate
-        this.inputLand = null;
-        this.inputBuilding = null;
+        
             // Land
         this.handleLandNumChange = this.handleLandNumChange.bind(this);
         this.CreateLandList = this.CreateLandList.bind(this);
@@ -132,9 +138,19 @@ export default class SecondPage extends React.Component {
         this.handleBuildingFinalValue = this.handleBuildingFinalValue.bind(this);
             // 
         this.handleRealEstatelCheckChange = this.handleRealEstatelCheckChange.bind(this);
-
-        // Email
-        this.inputEmail = null;
+            // Creditor
+        this.handleCreditorNumChange = this.handleCreditorNumChange.bind(this);
+        this.CreateCreditorList = this.CreateCreditorList.bind(this);
+        this.handleCreditorName = this.handleCreditorName.bind(this);
+        this.handleCreditorValue = this.handleCreditorValue.bind(this);
+        this.handleCreditorAddr = this.handleCreditorAddr.bind(this);
+            // Debtor
+        this.handleDebtorNumChange = this.handleDebtorNumChange.bind(this);
+        this.CreateDebtorList = this.CreateDebtorList.bind(this);
+        this.handleDebtorName = this.handleDebtorName.bind(this);
+        this.handleDebtorValue = this.handleDebtorValue.bind(this);
+        this.handleDebtorAddr = this.handleDebtorAddr.bind(this);
+            // Email
         this.handleEmailNumChange = this.handleEmailNumChange.bind(this);
         this.CreateEmailList = this.CreateEmailList.bind(this);
         this.handleEmailName = this.handleEmailName.bind(this);
@@ -160,7 +176,7 @@ export default class SecondPage extends React.Component {
     }
 
     render() {
-        const {carArr, motorArr, accountArr, stockArr, insuranceArr, landArr, buildingArr, emailArr} = this.state;
+        const {carArr, motorArr, accountArr, stockArr, insuranceArr, landArr, buildingArr, creditorArr, debtorArr, emailArr} = this.state;
         const heritage = this.calculateHeritage();
         return (
             <div className='second-page'>
@@ -323,12 +339,26 @@ export default class SecondPage extends React.Component {
 
                 <div>
                     <p>三、債權人(您的債主)之姓名、地址及債權數額</p>
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (一)債權人: 共<Input className='number' type='text' innerRef={el => {this.inputCreditor = el}} 
+                                value={this.state.creditorNum} onChange={this.handleCreditorNumChange}></Input>位
+                        </FormGroup>
+                    </Form>
+                    <CreditorList creditors={creditorArr} />
                 </div>
 
                 <br /> 
 
                 <div>
                     <p>四、債務人(誰欠您錢)之姓名、地址及債權數額</p>
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (一)債務人: 共<Input className='number' type='text' innerRef={el => {this.inputDebtor = el}} 
+                                value={this.state.debtorNum} onChange={this.handleDebtorNumChange}></Input>位
+                        </FormGroup>
+                    </Form>
+                    <DebtorList debtors={debtorArr} />
                 </div>
 {/*  
      
@@ -354,7 +384,6 @@ export default class SecondPage extends React.Component {
                 <div>
                     <p>五、請輸入您的印鑑、帳本存放、遺囑正本的位置</p>
                     位置：<Input className='Textarea' type="textarea" name="位置" />
-                    
                     備註：<Input className='Textarea' type="textarea" name="備註" />
                 </div>
                 
@@ -399,6 +428,18 @@ export default class SecondPage extends React.Component {
         for(i = 0; i<this.state.insuranceArr.length; i++) {
             heritage += this.state.insuranceArr[i].value;
         }
+        for(i = 0; i<this.state.landArr.length; i++) {
+            heritage += this.state.landArr[i].nowValue;
+        }
+        for(i = 0; i<this.state.buildingArr.length; i++) {
+            heritage += this.state.buildingArr[i].nowValue;
+        }
+        for(i = 0; i<this.state.creditorArr.length; i++) {
+            heritage -= this.state.creditorArr[i].value;
+        }
+        for(i = 0; i<this.state.debtorArr.length; i++) {
+            heritage += this.state.debtorArr[i].value;
+        }
         return heritage;
     }
     handleThirdPage() {
@@ -439,7 +480,7 @@ export default class SecondPage extends React.Component {
     handleCarNumChange(e) {
         const num = e.target.value;
         this.setState({
-            carNum: num
+            carNum: Number(num)
         }, () =>{
             this.CreateCarList();
         });
@@ -494,7 +535,7 @@ export default class SecondPage extends React.Component {
     handleMotorNumChange(e) {
         const num = e.target.value;
         this.setState({
-            motorNum: num
+            motorNum: Number(num)
         }, () =>{
             this.CreateMotorList();
         });
@@ -505,8 +546,8 @@ export default class SecondPage extends React.Component {
         while (arr.length < num) { 
             arr.push({
                 id: uuid(),
-                licensePlate: '',
-                value: 0,
+                licensePlate: String(''),
+                value: Number(0),
                 OnLicense: this.handleMotorLicense,
                 OnValue: this.handleMotorValue
             });
@@ -523,7 +564,7 @@ export default class SecondPage extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            licensePlate: newLicense
+            licensePlate: String(newLicense)
         }
         arr[index] = updateItem;
         this.setState({
@@ -556,7 +597,7 @@ export default class SecondPage extends React.Component {
     handleAccountNumChange(e) {
         const num = e.target.value;
         this.setState({
-            accountNum: num
+            accountNum: Number(num)
         }, () =>{
             this.CreateAccountList();
         });
@@ -628,7 +669,7 @@ export default class SecondPage extends React.Component {
     handleStockNumChange(e) {
         const num = e.target.value;
         this.setState({
-            stockNum: num
+            stockNum: Number(num)
         }, () =>{
             this.CreateStockList();
         });
@@ -700,7 +741,7 @@ export default class SecondPage extends React.Component {
     handleInsuranceNumChange(e) {
         const num = e.target.value;
         this.setState({
-            insuranceNum: num
+            insuranceNum: Number(num)
         }, () =>{
             this.CreateInsuranceList();
         });
@@ -796,7 +837,7 @@ export default class SecondPage extends React.Component {
     handleLandNumChange(e) {
         const num = e.target.value;
         this.setState({
-            landNum: num
+            landNum: Number(num)
         }, () =>{
             this.CreateLandList();
         });
@@ -868,7 +909,7 @@ export default class SecondPage extends React.Component {
     handleBuildingNumChange(e) {
         const num = e.target.value;
         this.setState({
-            buildingNum: num
+            buildingNum: Number(num)
         }, () =>{
             this.CreateBuildingList();
         });
@@ -941,12 +982,156 @@ export default class SecondPage extends React.Component {
             realEstateChecked: !prevState.realEstateChecked
         }));
     }
-
+    
+    // Creditor
+    handleCreditorNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            creditorNum: Number(num)
+        }, () =>{
+            this.CreateCreditorList();
+        });
+    }
+    CreateCreditorList(){
+        const num = this.state.creditorNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                name: String(''),
+                value: Number(0),
+                addr: String(''),
+                OnName: this.handleCreditorName,
+                OnValue: this.handleCreditorValue,
+                OnAddr: this.handleCreditorAddr
+            });
+        }
+        this.setState({
+            creditorArr: arr
+        });
+    }
+    handleCreditorName(targetID, newName){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.creditorArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            name: String(newName)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            creditorArr: arr
+        })
+    }
+    handleCreditorValue(targetID, newValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.creditorArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            value: Number(newValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            creditorArr: arr
+        })
+    }
+    handleCreditorAddr(targetID, newAddr){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.creditorArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            addr: String(newAddr)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            creditorArr: arr
+        })
+    }
+    // Debtor
+    handleDebtorNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            debtorNum: Number(num)
+        }, () =>{
+            this.CreateDebtorList();
+        });
+    }
+    CreateDebtorList(){
+        const num = this.state.debtorNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                name: String(''),
+                value: Number(0),
+                addr: String(''),
+                OnName: this.handleDebtorName,
+                OnValue: this.handleDebtorValue,
+                OnAddr: this.handleDebtorAddr
+            });
+        }
+        this.setState({
+            debtorArr: arr
+        });
+    }
+    handleDebtorName(targetID, newName){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.debtorArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            name: String(newName)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            debtorArr: arr
+        })
+    }
+    handleDebtorValue(targetID, newValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.debtorArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            value: Number(newValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            debtorArr: arr
+        })
+    }
+    handleDebtorAddr(targetID, newAddr){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.debtorArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            addr: String(newAddr)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            debtorArr: arr
+        })
+    }
     // Email
     handleEmailNumChange(e) {
         const num = e.target.value;
         this.setState({
-            emailNum: num
+            emailNum: Number(num)
         }, () =>{
             this.CreateEmailList();
         });
@@ -998,19 +1183,6 @@ export default class SecondPage extends React.Component {
         })
     }
     
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

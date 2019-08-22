@@ -11,8 +11,6 @@ import {
     Button,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import CarInfo from 'components/CarInfo.jsx';
 
 import './SecondPage.css';
 import CarList from 'components/CarList.jsx';
@@ -28,6 +26,7 @@ import DebtorList from 'components/DebtorList.jsx';
 
 export default class SecondPage extends React.Component {
     static propTypes = {
+        OpenNavbar: PropTypes.func,
         OnThirdPage: PropTypes.func,
     };
 
@@ -158,8 +157,7 @@ export default class SecondPage extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.dispatch(getWeather('Hsinchu', this.props.unit));
-        // this.listPosts(this.props.searchText);
+        this.props.OpenNavbar();
         window.scrollTo(0, 0);
     }
 
@@ -218,41 +216,45 @@ export default class SecondPage extends React.Component {
                     *註：只需填寫還在世的家族成員
                     <br  />
                     <FormGroup check inline>
-                        <Input type="checkbox" checked={this.state.mateChecked} onChange={this.handleMateCheckChange} />(一)配偶
+                        (一)配偶<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.mateChecked} onChange={this.handleMateCheckChange} />
                         {this.state.mateChecked && 
                             <div>
                                 <Form inline>姓名: <Input className='name' type="text" /></Form>
                             </div> }
                     </FormGroup>
-                    <FormGroup check>
-                        <Input type="checkbox" checked={this.state.childChecked} onChange={this.handleChildCheckChange} />(二)直系血親卑親屬
-                        {this.state.childChecked && 
-                            <div>
-                                <Form inline>a.子女 : 共<Input className='number' type="text" />位</Form>
-                                <Form inline>b.孫子女 : 共<Input className='number' type="text" />位</Form>
-                            </div> }
+                    <br />
+                    <FormGroup check inline>
+                        (二)直系血親卑親屬<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.childChecked} onChange={this.handleChildCheckChange} />
                     </FormGroup>
+                    {this.state.childChecked && 
+                        <div>
+                            <Form inline>a.子女 : 共<Input className='number' type="text" />位</Form>
+                            <Form inline>b.孫子女 : 共<Input className='number' type="text" />位</Form>
+                        </div> }
+                   
+                    <br />
                     <FormGroup check inline>
                         (三)父母 : 
-                        父<Input className = 'ml-sm-1 mt-sm-1 ' type="checkbox" checked={this.state.fatherChecked} onChange={this.handleFatherCheckChange} />
+                        父<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.fatherChecked} onChange={this.handleFatherCheckChange} />
                         母<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.motherChecked} onChange={this.handleMotherCheckChange} />                        
                     </FormGroup>
                     <br />
                     <FormGroup check inline>
-                        (四)兄弟姊妹<Input type="checkbox" checked={this.state.siblingChecked} onChange={this.handleSiblingCheckChange} />
+                        (四)兄弟姊妹<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.siblingChecked} onChange={this.handleSiblingCheckChange} />
                         {this.state.siblingChecked && 
                             <div>
                                 <Form inline>共: <Input className='number' type="text" />位</Form>
                             </div> }
                     </FormGroup>
-                    <FormGroup check>
-                        <Input type="checkbox" checked={this.state.ancestorChecked} onChange={this.handleAncestorCheckChange} /> (五)祖父母
-                        {this.state.ancestorChecked && 
-                            <div>
-                                <Form inline>a.祖父 : 共<Input className='number' type="text" />位</Form>
-                                <Form inline>b.祖母 : 共<Input className='number' type="text" />位</Form>
-                            </div> }
-                    </FormGroup>
+                    <br />
+                    <FormGroup check inline>
+                        (五)祖父母 <Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.ancestorChecked} onChange={this.handleAncestorCheckChange} /> 
+                    </FormGroup>   
+                    {this.state.ancestorChecked && 
+                        <div>
+                            <Form inline>a.祖父 : 共<Input className='number' type="text" />位</Form>
+                            <Form inline>b.祖母 : 共<Input className='number' type="text" />位</Form>
+                        </div> }
                 </div>
 
                 <br />

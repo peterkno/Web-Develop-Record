@@ -32,10 +32,13 @@ export default class Main extends React.Component {
 
         this.state = {
             navbarToggle: false,
+            navbarUse: false,
             heritage: Number(0),
         };
 
         this.handleNavbarToggle = this.handleNavbarToggle.bind(this);
+        this.handleOpenNavbar = this.handleOpenNavbar.bind(this);
+        this.handleCloseNavbar = this.handleCloseNavbar.bind(this);
         this.handlePageClick = this.handlePageClick.bind(this);
         this.handleHeritageChange = this.handleHeritageChange.bind(this);
     }
@@ -57,42 +60,40 @@ export default class Main extends React.Component {
             // <Provider store={this.store}>
             <Router>
                 <div className='main'>
-                    {/* <div className='container'> */}
-                        <Navbar  style={{backgroundColor: '#ff0000'}} light>
-                        <NavbarBrand className='text-info' href="/">遺產管理</NavbarBrand>
-                        <NavbarToggler onClick={this.handleNavbarToggle} className="mr-2"/>
-                        <Collapse isOpen={this.state.navbarToggle} navbar>
-                            <Nav style={{backgroundColor: '#f1f1f1'}} navbar>
-                                <NavItem>
-                                    <NavLink tag={Link} to='/second-page' onClick={this.handlePageClick}> 計算正負資產</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} to='/third-page'  onClick={this.handlePageClick}>特留分顯示</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} to='/fourth-page' onClick={this.handlePageClick}>寄出遺囑</NavLink>
-                                </NavItem>
-                            </Nav>
-                        </Collapse>
-                        </Navbar>
-                    {/* </div> */}
+                    {this.state.navbarUse &&
+                        <div>
+                            <Navbar  style={{backgroundColor: '#CE8E73'}} light>
+                            <NavbarBrand style={{backgroundColor: '#C000000'}} href="/">遺產管理</NavbarBrand>
+                            <NavbarToggler onClick={this.handleNavbarToggle} className="mr-2"/>
+                            <Collapse isOpen={this.state.navbarToggle} navbar>
+                                <Nav navbar>
+                                    <NavItem>
+                                        <NavLink tag={Link} to='/second-page' onClick={this.handlePageClick}> 計算正負資產</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink tag={Link} to='/third-page'  onClick={this.handlePageClick}>特留分顯示</NavLink>
+                                    </NavItem>
+                                    <NavItem>
+                                        <NavLink tag={Link} to='/fourth-page' onClick={this.handlePageClick}>寄出遺囑</NavLink>
+                                    </NavItem>
+                                </Nav>
+                            </Collapse>
+                            </Navbar>
+                        </div>}
 
                     <Route exact path="/" render={() => (
-                        // <FirstPage/>
-                        <SecondPage OnThirdPage={this.handleHeritageChange}/>
+                        <FirstPage CloseNavbar={this.handleCloseNavbar} />
+                        // <SecondPage OpenNavbar={this.handleOpenNavbar} OnThirdPage={this.handleHeritageChange} />
                     )}/>
                     <Route exact path="/second-page" render={() => (
-                        <SecondPage OnThirdPage={this.handleHeritageChange}/>
+                        <SecondPage OpenNavbar={this.handleOpenNavbar} OnThirdPage={this.handleHeritageChange} />
                     )}/>
                     <Route exact path="/third-page" render={() => (
-                        <ThirdPage heritage={heritage}/>
+                        <ThirdPage OpenNavbar={this.handleOpenNavbar} heritage={heritage} />
                     )}/>
                     <Route exact path="/fourth-page" render={() => (
-                        <FourthPage />
+                        <FourthPage OpenNavbar={this.handleOpenNavbar} />
                     )}/>
-                    <div className='footer'>
-                        遺產管理.
-                    </div>
                 </div>
             </Router>
             // </Provider>
@@ -102,6 +103,18 @@ export default class Main extends React.Component {
     handleNavbarToggle() {
         this.setState((prevState, props) => ({
             navbarToggle: !prevState.navbarToggle
+        }));
+    }
+
+    handleCloseNavbar() {
+        this.setState((prevState, props) => ({
+            navbarUse: false
+        }));
+    }
+
+    handleOpenNavbar() {
+        this.setState((prevState, props) => ({
+            navbarUse: true
         }));
     }
 

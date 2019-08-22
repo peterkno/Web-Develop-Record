@@ -22,6 +22,7 @@ import './ThirdPage.css';
 
 export default class ThirdPage extends React.Component {
     static propTypes = {
+        OpenNavbar: PropTypes.func,
         heritage: PropTypes.number
     };
 
@@ -38,8 +39,7 @@ export default class ThirdPage extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.dispatch(getWeather('Hsinchu', this.props.unit));
-        // this.listPosts(this.props.searchText);
+        this.props.OpenNavbar();
         window.scrollTo(0, 0);
     }
 

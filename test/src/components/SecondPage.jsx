@@ -23,23 +23,34 @@ import BuildingList from 'components/BuildingList.jsx';
 import EmailList from 'components/EmailList.jsx';
 import CreditorList from 'components/CreditorList.jsx';
 import DebtorList from 'components/DebtorList.jsx';
+import { stringify } from 'querystring';
 
 export default class SecondPage extends React.Component {
     static propTypes = {
         OpenNavbar: PropTypes.func,
-        OnThirdPage: PropTypes.func,
+        OnHeritage: PropTypes.func,
+
+        OnPersonalID: PropTypes.func,
+
+        OnMateCheck: PropTypes.func,
+        OnChildCheck: PropTypes.func,
+        OnSiblingCheck: PropTypes.func,
+        OnAncestorCheck: PropTypes.func,
+        OnFatherCheck: PropTypes.func,
+        OnMotherCheck: PropTypes.func,
+
+        OnChildNum: PropTypes.func,
+        OnGrandChildNum: PropTypes.func,
+        OnSiblingNum: PropTypes.func,
+        OnGrandFatherNum: PropTypes.func,
+        OnGrandMotherNum: PropTypes.func,
+        // OnHeir: PropTypes.func,
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            mateChecked: false,
-            childChecked: false,
-            fatherChecked: false,
-            motherChecked: false,
-            siblingChecked: false,
-            ancestorChecked: false,
             carNum: Number(0),
             carArr: [],
             motorNum: Number(0),
@@ -66,16 +77,16 @@ export default class SecondPage extends React.Component {
         };
         
         this.calculateHeritage = this.calculateHeritage.bind(this);
-        this.handleThirdPage = this.handleThirdPage.bind(this);
+        this.handleHeritage = this.handleHeritage.bind(this);
+        // this.verifyHeir = this.verifyHeir.bind(this);
         // Famaliy
-        this.handleMateCheckChange = this.handleMateCheckChange.bind(this);
-        this.handleChildCheckChange = this.handleChildCheckChange.bind(this);
-        this.handleFatherCheckChange = this.handleFatherCheckChange.bind(this);
-        this.handleMotherCheckChange = this.handleMotherCheckChange.bind(this);
-        this.handleSiblingCheckChange = this.handleSiblingCheckChange.bind(this);
-        this.handleAncestorCheckChange = this.handleAncestorCheckChange.bind(this);
-
-        // Chattel
+        // this.handleMateCheck = this.handleMateCheck.bind(this);
+        
+        this.inputChildNum = null;
+        this.inputGrandChildNum = null;
+        this.inputSiblingNum = null;
+        this.inputGrandFatherNum = null;
+        this.inputGrandMotherNum = null;
         this.inputCar = null;
         this.inputMotor = null;
         this.inputMoney = null;
@@ -87,6 +98,14 @@ export default class SecondPage extends React.Component {
         this.inputCreditor = null;
         this.inputDebtor = null;
         this.inputEmail = null;
+        this.inputPersonalID = null;
+
+        // this.handleChildNum = this.handleChildNum.bind(this);
+        // this.handleGrandChildNum = this.handleGrandChildNum.bind(this);
+        // this.handleSiblingNum = this.handleSiblingNum.bind(this);
+        // this.handleGrandFatherNum = this.handleGrandFatherNum.bind(this);
+        // this.handleGrandMotherNum = this.handleGrandMotherNum.bind(this);
+        // Chattel
             // Car
         this.handleCarNumChange = this.handleCarNumChange.bind(this);
         this.CreateCarList = this.CreateCarList.bind(this);
@@ -175,7 +194,13 @@ export default class SecondPage extends React.Component {
 
     render() {
         const {carArr, motorArr, accountArr, stockArr, insuranceArr, landArr, buildingArr, creditorArr, debtorArr, emailArr} = this.state;
+        const {mateChecked, childChecked, fatherChecked, motherChecked, siblingChecked, ancestorChecked,
+                OnMateCheck, OnChildCheck, OnSiblingCheck, OnAncestorCheck, OnFatherCheck, OnMotherCheck, 
+                childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum,
+                OnChildNum, OnGrandChildNum, OnSiblingNum, OnGrandFatherNum, OnGrandMotherNum,
+                personalID, OnPersonalID} = this.props;
         const heritage = this.calculateHeritage();
+        
         return (
             <div className='second-page'>
                 <div className='member mb-sm-3'>
@@ -200,7 +225,8 @@ export default class SecondPage extends React.Component {
                             <Input className='birth ml-sm-1' type="text" name="day" />日
                         </FormGroup>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            身分證號<Input className='personalID ml-sm-2' type="text" name="personalID" />
+                            身分證號<Input className='personalID ml-sm-2' type="text" name="personalID" 
+                                    innerRef={el => {this.inputPersonalID = el}} value={personalID} onChange={OnPersonalID}/>
                         </FormGroup>
                     </Form>
                     <InputGroup>
@@ -216,49 +242,53 @@ export default class SecondPage extends React.Component {
                     *註：只需填寫還在世的家族成員
                     <br  />
                     <FormGroup check inline>
-                        (一)配偶<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.mateChecked} onChange={this.handleMateCheckChange} />
-                        {this.state.mateChecked && 
+                        (一)配偶<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={mateChecked} onChange={OnMateCheck} />
+                        {mateChecked && 
                             <div>
                                 <Form inline>姓名: <Input className='name' type="text" /></Form>
                             </div> }
                     </FormGroup>
                     <br />
                     <FormGroup check inline>
-                        (二)直系血親卑親屬<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.childChecked} onChange={this.handleChildCheckChange} />
+                        (二)直系血親卑親屬<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={childChecked} onChange={OnChildCheck} />
                     </FormGroup>
-                    {this.state.childChecked && 
+                    {childChecked && 
                         <div>
-                            <Form inline>a.子女 : 共<Input className='number' type="text" />位</Form>
-                            <Form inline>b.孫子女 : 共<Input className='number' type="text" />位</Form>
+                            <Form inline>a.子女 : 共<Input className='number' type="text" 
+                            innerRef={el => {this.inputChildNum = el}} value={childNum} onChange={OnChildNum}/>位</Form>
+                            <Form inline>b.孫子女 : 共<Input className='number' type="text" 
+                            innerRef={el => {this.inputGrandChildNum = el}} value={grandChildNum} onChange={OnGrandChildNum}/>位</Form>
                         </div> }
                    
                     <br />
                     <FormGroup check inline>
                         (三)父母 : 
-                        父<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.fatherChecked} onChange={this.handleFatherCheckChange} />
-                        母<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.motherChecked} onChange={this.handleMotherCheckChange} />                        
+                        父<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={fatherChecked} onChange={OnFatherCheck} />
+                        母<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={motherChecked} onChange={OnMotherCheck} />                        
                     </FormGroup>
                     <br />
                     <FormGroup check inline>
-                        (四)兄弟姊妹<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.siblingChecked} onChange={this.handleSiblingCheckChange} />
-                        {this.state.siblingChecked && 
+                        (四)兄弟姊妹<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={siblingChecked} onChange={OnSiblingCheck} />
+                        {siblingChecked && 
                             <div>
-                                <Form inline>共: <Input className='number' type="text" />位</Form>
+                                <Form inline>共: <Input className='number' type="text" 
+                                innerRef={el => {this.inputSiblingNum = el}} value={siblingNum} onChange={OnSiblingNum}/>位</Form>
                             </div> }
                     </FormGroup>
                     <br />
                     <FormGroup check inline>
-                        (五)祖父母 <Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={this.state.ancestorChecked} onChange={this.handleAncestorCheckChange} /> 
+                        (五)祖父母 <Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={ancestorChecked} onChange={OnAncestorCheck} /> 
                     </FormGroup>   
-                    {this.state.ancestorChecked && 
+                    {ancestorChecked && 
                         <div>
-                            <Form inline>a.祖父 : 共<Input className='number' type="text" />位</Form>
-                            <Form inline>b.祖母 : 共<Input className='number' type="text" />位</Form>
+                            <Form inline>a.祖父 : 共<Input className='number' type="text" 
+                            innerRef={el => {this.inputGrandFatherNum = el}} value={grandFatherNum} onChange={OnGrandFatherNum}/>位</Form>
+                            <Form inline>b.祖母 : 共<Input className='number' type="text" 
+                            innerRef={el => {this.inputGrandMotherNum = el}} value={grandMotherNum} onChange={OnGrandMotherNum}/>位</Form>
                         </div> }
                 </div>
 
                 <br />
-
                 <div className='chattel'>
                     <p>一、動產部分</p>
                     <Form inline>
@@ -308,7 +338,6 @@ export default class SecondPage extends React.Component {
                 </div>
 
                 <br />
-
                 <div>
                     <p>二、不動產部分</p> 
                     
@@ -338,7 +367,6 @@ export default class SecondPage extends React.Component {
                 </div>
                 
                 <br />
-
                 <div>
                     <p>三、債權人(您的債主)之姓名、地址及債權數額</p>
                     <Form inline>
@@ -351,7 +379,6 @@ export default class SecondPage extends React.Component {
                 </div>
 
                 <br /> 
-
                 <div>
                     <p>四、債務人(誰欠您錢)之姓名、地址及債權數額</p>
                     <Form inline>
@@ -362,25 +389,6 @@ export default class SecondPage extends React.Component {
                     </Form>
                     <DebtorList debtors={debtorArr} />
                 </div>
-{/*  
-     
-                <p>三、債權人(您的債主)之姓名、地址及債權數額</p>
-                債權人共：<Input type="text" name="債權人數量" bsSize="2px"/>位。
-                
-                (一)姓名：<Input type="text" name="債權人-1" bsSize="10px"/> 債權數額：<Input type="text" name="債權數額-1" bsSize="10px"/>
-                
-                地址：<Input type="text" name="債權人地址-1" bsSize="20px"/>
-                
-                <p>四、債務人(誰欠您錢)之姓名、地址及債權數額</p>
-                債務人共：<Input type="text" name="債務人數量" bsSize="2px"/>位。
-                
-                (一)姓名：<Input type="text" name="債務人-1" bsSize="10px"/> 債務數額：<Input type="text" name="債務數額-1" bsSize="10px"/>
-                
-                地址：<Input type="text" name="債務人地址-1" bsSize="20px"/>
-                
-                (以上參考遺產清冊表格)
-                
-                */}
 
                 <br />
                 <div>
@@ -403,81 +411,71 @@ export default class SecondPage extends React.Component {
                 
                 <h1>現在遺產: {heritage} 元</h1>
                 <div>
-                    <Button className='ml-sm-2' tag={Link} to='/third-page' onClick={this.handleThirdPage}>提交</Button>
-                    <Button className='ml-sm-2' tag={Link} to='/' >首頁</Button>
-                    <Button className='ml-sm-2' tag={Link} to='/third-page' onClick={this.handleThirdPage}>上傳遺囑</Button>
-                    <Button className='ml-sm-2' tag={Link} to='/fourth-page' >寄出遺囑</Button>
+                    <Button className='ml-sm-2' tag={Link} to='/third-page' onClick={this.handleHeritage}>提交</Button>
                 </div>
             </div>
         );
     }
     calculateHeritage() {
         let heritage = Number(0);
-        let i = 0;
-        for(i = 0; i < this.state.carArr.length; i++) {
-            heritage += this.state.carArr[i].value;
+        const {carArr, motorArr, money, accountArr, stockArr, insuranceArr, landArr, buildingArr, creditorArr, debtorArr} = this.state;
+        // let i = 0;
+        function sum (arr) {
+            let tmp = 0;
+            let i = 0;
+            for(i = 0; i < arr.length; i++) {
+                tmp += arr[i].value;
+                console.log(tmp);
+            }
+            return tmp;
         }
-        for(i = 0; i < this.state.motorArr.length; i++) {
-            heritage += this.state.motorArr[i].value;
+        function sumForStock (arr) {
+            let tmp = 0;
+            let i = 0;
+            for(i = 0; i < arr.length; i++) {
+                tmp += arr[i].value * arr[i].amount;
+            }
+            return tmp;
         }
-        heritage += this.state.money;
-        for(i = 0; i < this.state.accountArr.length; i++) {
-            heritage += this.state.accountArr[i].value;
+        function sumForNowValue (arr) {
+            let tmp = 0;
+            let i = 0;
+            for(i = 0; i < arr.length; i++) {
+                tmp += arr[i].nowValue;
+            }
+            return tmp;
         }
-        for(i = 0; i<this.state.stockArr.length; i++) {
-            heritage += this.state.stockArr[i].value * this.state.stockArr[i].amount;
-        }
-        for(i = 0; i<this.state.insuranceArr.length; i++) {
-            heritage += this.state.insuranceArr[i].value;
-        }
-        for(i = 0; i<this.state.landArr.length; i++) {
-            heritage += this.state.landArr[i].nowValue;
-        }
-        for(i = 0; i<this.state.buildingArr.length; i++) {
-            heritage += this.state.buildingArr[i].nowValue;
-        }
-        for(i = 0; i<this.state.creditorArr.length; i++) {
-            heritage -= this.state.creditorArr[i].value;
-        }
-        for(i = 0; i<this.state.debtorArr.length; i++) {
-            heritage += this.state.debtorArr[i].value;
-        }
+        heritage = Number(sum(carArr) + sum(motorArr) + money + sum(accountArr) + sumForStock(stockArr) + sum(insuranceArr) + sumForNowValue(landArr)
+            + sumForNowValue(buildingArr) - sum(creditorArr) + sum(debtorArr));
         return heritage;
     }
-    handleThirdPage() {
+    handleHeritage() {
         const heritage = this.calculateHeritage();
-        this.props.OnThirdPage(heritage);
+        this.props.OnHeritage(heritage);
     }
-    handleMateCheckChange() {
-        this.setState((prevState, props) => ({
-            mateChecked: !prevState.mateChecked
-        }));
-    }
-    handleChildCheckChange() {
-        this.setState((prevState, props) => ({
-            childChecked: !prevState.childChecked
-        }));
-    }
-    handleSiblingCheckChange() {
-        this.setState((prevState, props) => ({
-            siblingChecked: !prevState.siblingChecked
-        }));
-    }
-    handleAncestorCheckChange() {
-        this.setState((prevState, props) => ({
-            ancestorChecked: !prevState.ancestorChecked
-        }));
-    }
-    handleFatherCheckChange() {
-        this.setState((prevState, props) => ({
-            fatherChecked: !prevState.fatherChecked
-        }))
-    };
-    handleMotherCheckChange() {
-        this.setState((prevState, props) => ({
-            motherChecked: !prevState.motherChecked
-        }))
-    };
+
+
+//***Handle Family Num****************************************** */
+    // handleChildNum(e) {
+    //     const childNum = e.target.value;
+    //     this.props.OnChildNum(childNum);
+    // }
+    // handleGrandChildNum(e) {
+    //     const grandchildNum = e.target.value;
+    //     this.props.OnGrandChildNum(grandchildNum);
+    // }
+    // handleSiblingNum(e) {
+    //     const siblingNum = e.target.value;
+    //     this.props.OnSiblingNum(siblingNum);
+    // }
+    // handleGrandFatherNum(e) {
+    //     const grandFatherNum = e.target.value;
+    //     this.props.OnGrandFatherNum(grandFatherNum);
+    // }
+    // handleGrandMotherNum(e) {
+    //     const grandMotherNum = e.target.value;
+    //     this.props.OnGrandMotherNum(grandMotherNum);
+    // }
 //***Handle Car****************************************** */
     handleCarNumChange(e) {
         const num = e.target.value;

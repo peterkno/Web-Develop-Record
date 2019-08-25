@@ -254,33 +254,33 @@ export default class Main extends React.Component {
         let newHeir = [];
 
         if(mateChecked) {
-            let mate = {relatives: String("Mate"), num: Number(1)};
+            let mate = {relatives: String("配偶"), num: Number(1)};
             newHeir.push(mate);
         }
 
         if(childChecked) {
             if(childNum !== 0) {
-                let child = {relatives: String("Child"), num: Number(childNum)};
+                let child = {relatives: String("兒女"), num: Number(childNum)};
                 newHeir.push(child);
             }
             if(grandChildNum !== 0) {
-                let grandChild = {relatives: String("GrandChild"), num: Number(grandChildNum)};
+                let grandChild = {relatives: String("孫兒女"), num: Number(grandChildNum)};
                 newHeir.push(grandChild);
             }
         } else if(fatherChecked || motherChecked) {
             let parentNum = (fatherChecked && motherChecked) ? Number(2) : Number(1);
-            let parent = {relatives: String("Parent"), num: Number(parentNum)};
+            let parent = {relatives: String("父母"), num: Number(parentNum)};
             newHeir.push(parent);
         } else if(siblingChecked) {
-            let sibling = {relatives: String("Sibling"), num: Number(siblingNum)};
+            let sibling = {relatives: String("兄弟姊妹"), num: Number(siblingNum)};
             newHeir.push(sibling);
         } else if(ancestorChecked) {
             if(grandFatherNum !== 0) {
-                let grandFather = {relatives: String("GrandFather"), num: Number(grandFatherNum)};
+                let grandFather = {relatives: String("祖父"), num: Number(grandFatherNum)};
                 newHeir.push(grandFather);
             }
             if(grandMotherNum !== 0) {
-                let grandMother = {relatives: String("GrandMother"), num: Number(grandMotherNum)};
+                let grandMother = {relatives: String("祖母"), num: Number(grandMotherNum)};
                 newHeir.push(grandMother);
             }
         }

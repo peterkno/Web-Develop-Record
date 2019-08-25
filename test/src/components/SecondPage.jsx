@@ -184,6 +184,7 @@ export default class SecondPage extends React.Component {
         // if (this.state.weatherLoading) {
         //     cancelWeather();
         // }
+        debugger;
     }
 
     componentWillReceiveProps(nextProps) {
@@ -198,9 +199,16 @@ export default class SecondPage extends React.Component {
                 OnMateCheck, OnChildCheck, OnSiblingCheck, OnAncestorCheck, OnFatherCheck, OnMotherCheck, 
                 childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum,
                 OnChildNum, OnGrandChildNum, OnSiblingNum, OnGrandFatherNum, OnGrandMotherNum,
-                personalID, OnPersonalID} = this.props;
+                personalID, OnPersonalID,
+                heir} = this.props;
         const heritage = this.calculateHeritage();
         
+        let divHeir = "";
+        for(let i = 0; i < heir.length; i++) {
+            divHeir += String(heir[i].relatives) + String(heir[i].num) + '位, ';
+        }
+        console.log(divHeir);
+
         return (
             <div className='second-page'>
                 <div className='member mb-sm-3'>
@@ -410,6 +418,7 @@ export default class SecondPage extends React.Component {
                 </div>
                 
                 <h1>現在遺產: {heritage} 元</h1>
+                <h3>法定繼承人: {divHeir}</h3>
                 <div>
                     <Button className='ml-sm-2' tag={Link} to='/third-page' onClick={this.handleHeritage}>提交</Button>
                 </div>

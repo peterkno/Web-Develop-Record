@@ -10,6 +10,7 @@ router.use(bodyParser.json());
 // List 
 router.get('/heritages', function(req, res, next) {
     heritageModel.list(req.query.searchText).then(heritages => {
+        console.log("Router: " + heritages);
         res.json(heritages);
     }).catch(next);
 });

@@ -17,6 +17,7 @@ function list(searchText = '') {
                     return h.personalID.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
                 });
             }
+            console.log("Model: " + heritages);
             resolve(heritages);
         })
     })

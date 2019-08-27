@@ -16,7 +16,10 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-
+import {
+    listHeritage as llistHeritageFromApi,
+    createHeritage as createHeritageFromApi,
+} from 'api/heritages.js';
 
 import './FirstPage.css';
 
@@ -30,9 +33,11 @@ export default class FirstPageV2 extends React.Component {
         super(props);
 
         this.state = {
+            test: []
         };
 
-        // this.handlePageClick = this.handlePageClick.bind(this);
+        this.handleList = this.handleList.bind(this);
+        this.handleCreate = this.handleCreate.bind(this);
 
     }
 
@@ -92,15 +97,41 @@ export default class FirstPageV2 extends React.Component {
                             <p>經過身分驗證和死亡證明審查，系統將自動寄出遺囑至指定信箱</p>
                         </div>
                     </div>
+
+                    <div className="third">
+                        <Button type="button" className="button" id="third" onClick={this.handleList}>list</Button>
+                    </div>
+
+                    <div className="third">
+                        <Button type="button" className="button" id="third" onClick={this.handleCreate}>Create</Button>
+                    </div>
                     
                 </div>
             </div>
         );
     }
     
-    // handlePageClick() {
-    //     // this.props.OpenNavbar();
-    // }
+    handleList() {
+        let searchText='';
+        llistHeritageFromApi(searchText).then(heritages => {
+            console.warn("heritages", heritages);
+            this.setState(() => {
+                test: heritages
+            });
+        }).catch(err => {
+            console.error('Error listing posts', err);
+        });   
+    }
+
+    handleCreate() {
+        let personID = String("ABCD");
+        let heritage = Number(500);
+        createHeritageFromApi(personID, heritage).then(heritages =>{
+            this.handleList();
+        }).catch(err => {
+            console.error('Error creating posts', err);
+        });   
+    }
 }
 
 // export default connect((state) => {

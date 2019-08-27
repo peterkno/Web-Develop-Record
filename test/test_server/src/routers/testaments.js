@@ -17,17 +17,20 @@ const testamentStorage = multer.diskStorage({
         }
     },
     filename: function (req, file, cb) {
+        // console.log(req);
+        console.log(Object.values(req.body)[0]);
         console.log(file);
-        cb(null, file.originalname);
+        const filename = Object.values(req.body)[0] + String(".pdf")
+        cb(null, filename);
     }
 });
 
 const testamentUpload = multer({ storage: testamentStorage });
-const field = [{name: 'img', maxCont: 1}, {name: 'pdf', maxCont: 1}]
+const field = [{name: 'img', maxCont: 1}, {name: 'pdf', maxCont: 1}, {name: 'id', maxCont: 1}]
 
 router.post('/TestamentUpload', testamentUpload.fields(field), function(req, res, next) {
     // console.log('req.files', req.files);
-    console.log("TestamentUpload: "+Object.values(req.files)[0][0].filename);
+    console.log("TestamentUpload: "+Object.values(req.files));
     // res.end();
     res.end(Object.values(req.files)[0][0].filename);
 });

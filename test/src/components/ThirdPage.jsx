@@ -206,6 +206,7 @@ export default class ThirdPage extends React.Component {
     handleTestamentFile(e) {
         let data = new FormData();
         console.warn("files", e.target.files[0]);
+        data.append('id', 'N123');
         data.append('pdf', e.target.files[0]);
         console.warn("data", data);
         this.setState((prevState, props) => ({

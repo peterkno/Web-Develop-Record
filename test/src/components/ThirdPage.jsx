@@ -14,9 +14,12 @@ import {
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import axios, {post} from 'axios';
+import request from 'superagent';
 
 
 import './ThirdPage.css';
+
+const testamentBaseUrl = 'http://localhost:9487/api';
 
 export default class ThirdPage extends React.Component {
     static propTypes = {
@@ -201,26 +204,30 @@ export default class ThirdPage extends React.Component {
     }
 
     handleTestamentFile(e) {
-        let files = e.target.files;
-        console.warn("data files", files);
+        let data = new FormData();
+        console.warn("files", e.target.files[0]);
+        data.append('pdf', e.target.files[0]);
+        console.warn("data", data);
         this.setState((prevState, props) => ({
-            testament: files[0]
+            testament: data
         }));
-        // let reader = new FileReader();
-        // reader.readAsDataURL(files[0]);
-        
-        // reader.onload = (e) => {
-        //     const url = "C:/Users/user/Desktop"
-        //     console.warn("pdf data", e.target.result);
-        //     const formDate = {
-        //         file: e.target.result
-        //     };
-        //     return post(url, formDate)
-        //         .then(response => console.warn("result", response))
-        // }
+        setTimeout(() => {}, 1000);
     }
-    handleTestamentFileUpload() {
+    handleTestamentFileUpload(e) {
+        e.preventDefault();
+        const {testament} = this.state;
+        var name1 = '', name2 = '';
+        request.post(`${testamentBaseUrl}/TestamentUpload`).send(testament)
+        .end((err, res) => {
+            if(err) {
+                console.error(err);
+            }
+            name1 = res.text;
+            
+            return res;
+        })
 
+        setTimeout(() => {}, 1000);
     }
 }
 

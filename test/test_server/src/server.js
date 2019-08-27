@@ -2,8 +2,9 @@
 const express = require('express');
 const cors = require('cors');
 
-// const testamentRouter = require('./routers/testaments.js');
-const heritageRouter = require('./routers/heritages.js')
+
+const heritageRouter = require('./routers/heritages.js');
+const testamentRouter = require('./routers/testaments.js');
 const requestLogger = require('./middleware/request-logger.js');
 const errorHandler = require('./middleware/error-handler.js');
 
@@ -17,6 +18,7 @@ app.use(express.static('dist', {
     }
 }));
 app.use('/api', heritageRouter);
+app.use('/api', testamentRouter);
 app.get('/*', (req, res) => res.redirect('/'));
 app.use(errorHandler);
 

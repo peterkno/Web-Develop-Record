@@ -17,7 +17,7 @@ import {
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {
-    listHeritage as llistHeritageFromApi,
+    listHeritage as listHeritageFromApi,
     createHeritage as createHeritageFromApi,
 } from 'api/heritages.js';
 
@@ -113,7 +113,7 @@ export default class FirstPageV2 extends React.Component {
     
     handleList() {
         let searchText='';
-        llistHeritageFromApi(searchText).then(heritages => {
+        listHeritageFromApi(searchText).then(heritages => {
             console.warn("heritages", heritages);
             this.setState(() => {
                 test: heritages

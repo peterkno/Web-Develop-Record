@@ -5,21 +5,22 @@ const cors = require('cors');
 
 const heritageRouter = require('./routers/heritages.js');
 const testamentRouter = require('./routers/testaments.js');
+const mailRouter = require('./routers/mails.js');
 const requestLogger = require('./middleware/request-logger.js');
 const errorHandler = require('./middleware/error-handler.js');
+
+
 
 const app = express();
 
 app.use(cors());
 app.use(requestLogger);
-app.use(express.static('dist', {
-    setHeaders: (res, path, stat) => {
-        res.set('Cache-Control', 'public, s-maxage=86400');
-    }
-}));
+app.use(express.static('dist'));
 app.use('/api', heritageRouter);
 app.use('/api', testamentRouter);
+app.use('/api', mailRouter);
 app.get('/*', (req, res) => res.redirect('/'));
+
 app.use(errorHandler);
 
 const port = 9487;

@@ -16,6 +16,10 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {
+    findHeritage as findHeritageFromApi,
+    sendMail as sendMailFromApi,
+} from 'api/mails.js';
 
 
 import './FourthPage.css';
@@ -33,7 +37,7 @@ export default class FourthPage extends React.Component {
             // posts: []
         };
 
-        // this.handleCreatePost = this.handleCreatePost.bind(this);
+        this.handleSendMail = this.handleSendMail.bind(this);
         // this.handleCreateVote = this.handleCreateVote.bind(this);
     }
 
@@ -69,11 +73,25 @@ export default class FourthPage extends React.Component {
                         <p id="reminder">請輸入死者的身分證號碼</p>
                     </div>
                     <div>
-                        <button type="button" id="send">寄出<br/>遺囑</button>
+                        <button type="button" id="send" onClick={this.handleSendMail}>寄出<br/>遺囑</button>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    handleSendMail() {
+        const searchText = "ABCD"
+        findHeritageFromApi(searchText).then(heritages => {
+            console.warn("heritages", heritages);
+            sendMailFromApi(searchText).then(data => {
+                console.warn("mail info", data);
+            }).catch(err => {
+                console.error('Error send mail', err);
+            })
+        }).catch(err => {
+            console.error('Error listing posts', err);
+        }); 
     }
     
 }

@@ -208,7 +208,7 @@ export default class ThirdPage extends React.Component {
         }));
         // let reader = new FileReader();
         // reader.readAsDataURL(files[0]);
-
+        
         // reader.onload = (e) => {
         //     const url = "C:/Users/user/Desktop"
         //     console.warn("pdf data", e.target.result);

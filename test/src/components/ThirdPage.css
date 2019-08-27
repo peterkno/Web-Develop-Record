@@ -1,6 +1,6 @@
 .third-page .testament-form-collapse{
     max-width: 50rem;
-    overflow-y: scroll !important;
-    max-height: 100px !important;
+    /* overflow-y: scroll !important;
+    max-height: 100px !important; */
     /* max-height: 30px; */
 }

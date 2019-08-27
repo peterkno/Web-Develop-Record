@@ -1,0 +1,12 @@
+html, body {
+    height: 100%;
+    font-size: 20px;
+    /* font-family: 'Lato', sans-serif; */
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+#root {
+    background-color: rgb(240, 240, 240);
+    /* background-color: rgb(0, 0, 0); */
+    min-height: 850px;
+}

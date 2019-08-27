@@ -295,6 +295,7 @@ export default class SecondPage extends React.Component {
                             innerRef={el => {this.inputGrandMotherNum = el}} value={grandMotherNum} onChange={OnGrandMotherNum}/>位</Form>
                         </div> }
                 </div>
+                <h3>法定繼承人: {divHeir}</h3>
 
                 <br />
                 <div className='chattel'>
@@ -418,7 +419,7 @@ export default class SecondPage extends React.Component {
                 </div>
                 
                 <h1>現在遺產: {heritage} 元</h1>
-                <h3>法定繼承人: {divHeir}</h3>
+                
                 <div>
                     <Button className='ml-sm-2' tag={Link} to='/third-page' onClick={this.handleHeritage}>提交</Button>
                 </div>

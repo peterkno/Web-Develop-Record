@@ -1,0 +1,72 @@
+1566876694 ERROR  SyntaxError: Unexpected token p in JSON at position 3
+    at JSON.parse (<anonymous>)
+    at parse (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\types\json.js:89:19)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\read.js:121:18
+    at invokeCallback (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:224:16)
+    at done (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:213:7)
+    at IncomingMessage.onEnd (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:273:7)
+    at IncomingMessage.emit (events.js:203:15)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+1566876722 ERROR  SyntaxError: Unexpected token p in JSON at position 3
+    at JSON.parse (<anonymous>)
+    at parse (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\types\json.js:89:19)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\read.js:121:18
+    at invokeCallback (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:224:16)
+    at done (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:213:7)
+    at IncomingMessage.onEnd (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:273:7)
+    at IncomingMessage.emit (events.js:203:15)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+1566876737 ERROR  SyntaxError: Unexpected token p in JSON at position 3
+    at JSON.parse (<anonymous>)
+    at parse (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\types\json.js:89:19)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\read.js:121:18
+    at invokeCallback (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:224:16)
+    at done (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:213:7)
+    at IncomingMessage.onEnd (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:273:7)
+    at IncomingMessage.emit (events.js:203:15)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+1566876738 ERROR  SyntaxError: Unexpected token p in JSON at position 3
+    at JSON.parse (<anonymous>)
+    at parse (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\types\json.js:89:19)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\read.js:121:18
+    at invokeCallback (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:224:16)
+    at done (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:213:7)
+    at IncomingMessage.onEnd (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:273:7)
+    at IncomingMessage.emit (events.js:203:15)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+1566876749 ERROR  SyntaxError: Unexpected token p in JSON at position 3
+    at JSON.parse (<anonymous>)
+    at parse (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\types\json.js:89:19)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\read.js:121:18
+    at invokeCallback (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:224:16)
+    at done (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:213:7)
+    at IncomingMessage.onEnd (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:273:7)
+    at IncomingMessage.emit (events.js:203:15)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+1566876833 ERROR  ReferenceError: next is not defined
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\routers\heritages.js:25:14
+    at Layer.handle [as handle_request] (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\index.js:275:10)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\read.js:130:5
+    at invokeCallback (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:224:16)
+1566876858 ERROR  ReferenceError: next is not defined
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\routers\heritages.js:25:14
+    at Layer.handle [as handle_request] (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\index.js:281:22
+    at Function.process_params (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\index.js:335:12)
+    at next (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\index.js:275:10)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\read.js:130:5
+    at invokeCallback (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:224:16)

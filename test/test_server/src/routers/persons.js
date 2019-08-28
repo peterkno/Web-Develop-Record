@@ -1,25 +1,25 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const heritageModel = require('../model/heritages.js');
+const personModel = require('../model/persons.js');
 
 const router = express.Router();
 
 router.use(bodyParser.json());
 
 // List 
-router.get('/heritages', function(req, res, next) {
-    heritageModel.list(req.query.searchText).then(heritages => {
-        console.log("Router: " + heritages);
-        res.json(heritages);
+router.get('/persons', function(req, res, next) {
+    personModel.list(req.query.searchText).then(persons => {
+        console.log("Person Router: " + persons);
+        res.json(persons);
     }).catch(next);
 });
 
 // Create
-router.post('/heritages', function(req, res, next) {
+router.post('/persons', function(req, res, next) {
     const {personalID, heritage} = req.body;
-    console.log("ID: " + personalID);
-    console.log("Heritage: " + heritage);
+    // console.log("ID: " + personalID);
+    // console.log("Heritage: " + heritage);
     if (!heritage ) {
         const err = new Error('heritage is required');
         throw err;
@@ -27,8 +27,8 @@ router.post('/heritages', function(req, res, next) {
         const err = new Error('personalID is required');
         throw err;
     }
-    heritageModel.create(personalID, heritage).then(heritage => {
-        res.json(heritage);
+    personModel.create(personalID, heritage).then(persons => {
+        res.json(persons);
     }).catch(next);
 });
 

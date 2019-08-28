@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const heritageBaseUrl = 'http://localhost:9487/api';
+const apiBaseUrl = 'http://localhost:9487/api';
 
-export function listHeritage(searchText = '') {
-    let url = `${heritageBaseUrl}/heritages`;
+export function listPerson(searchText = '') {
+    let url = `${apiBaseUrl}/persons`;
     if (searchText) {
         url += `?searchText=${searchText}`;
     }
@@ -18,8 +18,8 @@ export function listHeritage(searchText = '') {
     });
 }
 
-export function createHeritage(personalID, heritage) {
-    let url = `${heritageBaseUrl}/heritages`;
+export function createPerson(personalID, heritage) {
+    let url = `${apiBaseUrl}/persons`;
 
     console.log(`Making POST request to: ${url}`);
 

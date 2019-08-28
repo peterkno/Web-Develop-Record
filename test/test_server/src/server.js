@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 
 
-const heritageRouter = require('./routers/heritages.js');
+const personRouter = require('./routers/persons.js');
 const testamentRouter = require('./routers/testaments.js');
 const mailRouter = require('./routers/mails.js');
 const requestLogger = require('./middleware/request-logger.js');
@@ -16,7 +16,7 @@ const app = express();
 app.use(cors());
 app.use(requestLogger);
 app.use(express.static('dist'));
-app.use('/api', heritageRouter);
+app.use('/api', personRouter);
 app.use('/api', testamentRouter);
 app.use('/api', mailRouter);
 app.get('/*', (req, res) => res.redirect('/'));

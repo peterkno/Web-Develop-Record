@@ -17,9 +17,9 @@ import {
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {
-    listHeritage as listHeritageFromApi,
-    createHeritage as createHeritageFromApi,
-} from 'api/heritages.js';
+    listPerson as listPersonFromApi,
+    createPerson as createPersonFromApi,
+} from 'api/persons.js';
 
 import './FirstPage.css';
 
@@ -33,7 +33,7 @@ export default class FirstPageV2 extends React.Component {
         super(props);
 
         this.state = {
-            test: []
+            persons: []
         };
 
         this.handleList = this.handleList.bind(this);
@@ -113,10 +113,10 @@ export default class FirstPageV2 extends React.Component {
     
     handleList() {
         let searchText='';
-        listHeritageFromApi(searchText).then(heritages => {
-            console.warn("heritages", heritages);
+        listPersonFromApi(searchText).then(persons => {
+            console.warn("persons", persons);
             this.setState(() => {
-                test: heritages
+                persons: persons
             });
         }).catch(err => {
             console.error('Error listing posts', err);
@@ -126,7 +126,7 @@ export default class FirstPageV2 extends React.Component {
     handleCreate() {
         let personID = String("ABCD");
         let heritage = Number(500);
-        createHeritageFromApi(personID, heritage).then(heritages =>{
+        createPersonFromApi(personID, heritage).then(persons =>{
             this.handleList();
         }).catch(err => {
             console.error('Error creating posts', err);

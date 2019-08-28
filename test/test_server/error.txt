@@ -114,3 +114,15 @@
     at runCallback (timers.js:706:11)
     at tryOnImmediate (timers.js:676:5)
     at processImmediate (timers.js:658:5)
+1566978967 ERROR  ReferenceError: heritages is not defined
+    at personModel.list.then.persons (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\routers\persons.js:14:18)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+1566978977 ERROR  ReferenceError: heritages is not defined
+    at personModel.list.then.persons (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\routers\persons.js:14:18)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+1566978979 ERROR  ReferenceError: heritages is not defined
+    at personModel.list.then.persons (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\routers\persons.js:14:18)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+1566978979 ERROR  ReferenceError: heritages is not defined
+    at personModel.list.then.persons (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\routers\persons.js:14:18)
+    at process._tickCallback (internal/process/next_tick.js:68:7)

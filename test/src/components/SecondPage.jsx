@@ -72,6 +72,12 @@ export default class SecondPage extends React.Component {
         // this.handleMateCheck = this.handleMateCheck.bind(this);
         this.inputChineseName = null;
         this.inputEnglishName = null;
+        this.inputBirthYear = null;
+        this.inputBirthMonth = null;
+        this.inputBirthDay = null;
+        this.inputPersonalID = null;
+        this.inputAddress = null;
+        this.inputPhone = null;
         this.inputChildNum = null;
         this.inputGrandChildNum = null;
         this.inputSiblingNum = null;
@@ -87,8 +93,10 @@ export default class SecondPage extends React.Component {
         this.inputBuilding = null;
         this.inputCreditor = null;
         this.inputDebtor = null;
+        this.inputPosition = null;
+        this.inputRemark = null;
         this.inputEmail = null;
-        this.inputPersonalID = null;
+        
 
         // this.handleChildNum = this.handleChildNum.bind(this);
         // this.handleGrandChildNum = this.handleGrandChildNum.bind(this);
@@ -184,18 +192,20 @@ export default class SecondPage extends React.Component {
 
     render() {
         // const {} = this.state;
-        const {chineseName, OnChineseName, englishName, OnEnglishName,
+        const {chineseName, OnChineseName, englishName, OnEnglishName, personalID, OnPersonalID,
+                birthYear, OnBirthYear, birthMonth, OnBirthMonth, birthDay, OnBirthDay,
+                address, OnAddress, phone, OnPhone,
                 mateChecked, childChecked, fatherChecked, motherChecked, siblingChecked, ancestorChecked,
                 OnMateCheck, OnChildCheck, OnSiblingCheck, OnAncestorCheck, OnFatherCheck, OnMotherCheck, 
                 childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum,
                 OnChildNum, OnGrandChildNum, OnSiblingNum, OnGrandFatherNum, OnGrandMotherNum,
-                personalID, OnPersonalID,
                 heir,
                 carNum, carArr, OnCarNum, motorNum, motorArr, OnMotorNum, money, OnMoney,
                 accountNum, accountArr, OnAccountNum, stockNum, stockArr, OnStockNum,
                 insuranceNum, insuranceArr, OnInsuranceNum,
                 landNum, landArr, OnLandNum, buildingNum, buildingArr, OnBuildingNum,
                 creditorNum, creditorArr, OnCreditorNum, debtorNum, debtorArr, OnDebtorNum, 
+                position, OnPosition, remark, OnRemark,
                 emailNum, emailArr, OnEmailNum} = this.props;
         const heritage = this.calculateHeritage();
         
@@ -222,13 +232,16 @@ export default class SecondPage extends React.Component {
                     <Form inline>
                         出生年月日:
                         <FormGroup className='mb-2 mr-sm-0 mb-sm-1'>
-                            <Input  className='birth ml-sm-2' type="text" name="year" />年
+                            <Input  className='birth ml-sm-2' type="text" name="year" 
+                            innerRef={el => {this.inputBirthYear = el}} value={birthYear} onChange={OnBirthYear}/>年
                         </FormGroup>
                         <FormGroup className='mb-2 mr-sm-0 mb-sm-1'>
-                            <Input className='birth ml-sm-1' type="text" name="month" />月
+                            <Input className='birth ml-sm-1' type="text" name="month" 
+                            innerRef={el => {this.inputBirthMonth = el}} value={birthMonth} onChange={OnBirthMonth}/>月
                         </FormGroup>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            <Input className='birth ml-sm-1' type="text" name="day" />日
+                            <Input className='birth ml-sm-1' type="text" name="day" 
+                            innerRef={el => {this.inputBirthDay = el}} value={birthDay} onChange={OnBirthDay}/>日
                         </FormGroup>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
                             身分證號<Input className='personalID ml-sm-2' type="text" name="personalID" 
@@ -236,10 +249,12 @@ export default class SecondPage extends React.Component {
                         </FormGroup>
                     </Form>
                     <InputGroup>
-                        通訊地址 : <Input className='address ml-sm-2' type="text" name="address" />
+                        通訊地址 : <Input className='address ml-sm-2' type="text" name="address" 
+                                    innerRef={el => {this.inputAddress = el}} value={address} onChange={OnAddress}/>
                     </InputGroup>
                     <InputGroup>
-                        連絡電話 : <Input className='phone ml-sm-2' type="text" name="phoneNumber" />
+                        連絡電話 : <Input className='phone ml-sm-2' type="text" name="phoneNumber" 
+                                    innerRef={el => {this.inputPhone = el}} value={phone} onChange={OnPhone}/>
                     </InputGroup>
                 </div>
                 
@@ -249,10 +264,10 @@ export default class SecondPage extends React.Component {
                     <br  />
                     <FormGroup check inline>
                         (一)配偶<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={mateChecked} onChange={OnMateCheck} />
-                        {mateChecked && 
+                        {/* {mateChecked && 
                             <div>
                                 <Form inline>姓名: <Input className='name' type="text" /></Form>
-                            </div> }
+                            </div> } */}
                     </FormGroup>
                     <br />
                     <FormGroup check inline>
@@ -400,8 +415,10 @@ export default class SecondPage extends React.Component {
                 <br />
                 <div>
                     <p>五、請輸入您的印鑑、帳本存放、遺囑正本的位置</p>
-                    位置：<Input className='Textarea' type="textarea" name="位置" />
-                    備註：<Input className='Textarea' type="textarea" name="備註" />
+                    位置：<Input className='Textarea' type="textarea" name="位置" 
+                            innerRef={el => {this.inputPosition = el}} value={position} onChange={OnPosition}/>
+                    備註：<Input className='Textarea' type="textarea" name="備註" 
+                            innerRef={el => {this.inputRemark = el}} value={remark} onChange={OnRemark}/>
                 </div>
                 
                 <br />

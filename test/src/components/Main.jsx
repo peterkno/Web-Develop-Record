@@ -31,6 +31,13 @@ export default class Main extends React.Component {
         this.state = {
             navbarToggle: false,
             navbarUse: false,
+            chineseName: String(""),
+            englishName: String(""),
+            birthYear: Number(0),
+            birthMonth: Number(0),
+            birthDay: Number(0),
+            address: String(""),
+            phone: String(""),
             mateChecked: false,
             childChecked: false,
             childNum: Number(0),
@@ -64,6 +71,8 @@ export default class Main extends React.Component {
             creditorArr: [],
             debtorNum: Number(0),
             debtorArr: [],
+            position: String(""),
+            remark: String(""),
             emailNum: Number(0),
             emailArr: []
         };
@@ -74,7 +83,15 @@ export default class Main extends React.Component {
         this.handlePageClick = this.handlePageClick.bind(this);
         this.handleHeritageChange = this.handleHeritageChange.bind(this);
 
+
+        this.handleChineseNameChange = this.handleChineseNameChange.bind(this);
+        this.handleEnglishNameChange = this.handleEnglishNameChange.bind(this);
         this.handlePersonalIDChange = this.handlePersonalIDChange.bind(this);
+        this.handleBirthYearChange = this.handleBirthYearChange.bind(this);
+        this.handleBirthMonthChange = this.handleBirthMonthChange.bind(this);
+        this.handleBirthDayChange = this.handleBirthDayChange.bind(this);
+        this.handleAddressChange = this.handleAddressChange.bind(this);
+        this.handlePhoneChange = this.handlePhoneChange.bind(this);
 
         this.handleMateCheckChange = this.handleMateCheckChange.bind(this);
         this.handleChildCheckChange = this.handleChildCheckChange.bind(this);
@@ -147,6 +164,9 @@ export default class Main extends React.Component {
         this.handleDebtorValue = this.handleDebtorValue.bind(this);
         this.handleDebtorAddr = this.handleDebtorAddr.bind(this);
 
+        this.handlePositionChange = this.handlePositionChange.bind(this);
+        this.handleRemarkChange = this.handleRemarkChange.bind(this);
+
         this.handleEmailNumChange = this.handleEmailNumChange.bind(this);
         this.CreateEmailList = this.CreateEmailList.bind(this);
         this.handleEmailName = this.handleEmailName.bind(this);
@@ -197,7 +217,9 @@ export default class Main extends React.Component {
                     )}/>
                     <Route exact path="/second-page" render={() => (
                         <SecondPage {...this.state} OpenNavbar={this.handleOpenNavbar} OnHeritage={this.handleHeritageChange} 
-                            OnPersonalID = {this.handlePersonalIDChange}
+                            OnChineseName={this.handleChineseNameChange} OnEnglishName={this.handleEnglishNameChange} OnPersonalID = {this.handlePersonalIDChange}
+                            OnBirthYear={this.handleBirthYearChange} OnBirthMonth={this.handleBirthMonthChange} OnBirthDay={this.handleBirthDayChange}
+                            OnAddress={this.handleAddressChange} OnPhone={this.handlePhoneChange}
                             OnMateCheck={this.handleMateCheckChange} OnChildCheck={this.handleChildCheckChange} OnSiblingCheck={this.handleSiblingCheckChange}
                             OnAncestorCheck={this.handleAncestorCheckChange} OnFatherCheck={this.handleFatherCheckChange} OnMotherCheck={this.handleMotherCheckChange}
                             OnChildNum={this.handleChildNumChange} OnGrandChildNum={this.handleGrandChildNumChange} OnSiblingNum={this.handleSiblingNumChange}
@@ -206,6 +228,7 @@ export default class Main extends React.Component {
                             OnAccountNum={this.handleAccountNumChange} OnStockNum={this.handleStockNumChange} OnInsuranceNum={this.handleInsuranceNumChange}
                             OnLandNum={this.handleLandNumChange} OnBuildingNum={this.handleBuildingNumChange}
                             OnCreditorNum={this.handleCreditorNumChange} OnDebtorNum={this.handleDebtorNumChange}
+                            OnPosition={this.handlePositionChange} OnRemark={this.handleRemarkChange}
                             OnEmailNum={this.handleEmailNumChange}
                             // OnHeir={this.handleHeir} 
                             />
@@ -246,10 +269,53 @@ export default class Main extends React.Component {
         }));
     }
 
+
+    handleChineseNameChange(e) {
+        const newChineseName = e.target.value;
+        this.setState((prevState, props) => ({
+            chineseName: String(newChineseName)
+        }));
+    }
+    handleEnglishNameChange(e) {
+        const newEnglishName = e.target.value;
+        this.setState((prevState, props) => ({
+            englishName: String(newEnglishName)
+        }));
+    }
+    handleBirthYearChange(e) {
+        const newBirthYear = e.target.value;
+        this.setState((prevState, props) => ({
+            birthYear: Number(newBirthYear)
+        }));
+    }
+    handleBirthMonthChange(e) {
+        const newBirthMonth = e.target.value;
+        this.setState((prevState, props) => ({
+            birthMonth: Number(newBirthMonth)
+        }));
+    }
+    handleBirthDayChange(e) {
+        const newBirthDay = e.target.value;
+        this.setState((prevState, props) => ({
+            birthDay: Number(newBirthDay)
+        }));
+    }
     handlePersonalIDChange(e) {
         const newPersonlID = e.target.value;
         this.setState((prevState, props) => ({
             personalID: String(newPersonlID)
+        }));
+    }
+    handleAddressChange(e) {
+        const newAddress = e.target.value;
+        this.setState((prevState, props) => ({
+            address: String(newAddress)
+        }));
+    }
+    handlePhoneChange(e) {
+        const newPhone = e.target.value;
+        this.setState((prevState, props) => ({
+            phone: String(newPhone)
         }));
     }
 
@@ -1031,8 +1097,18 @@ export default class Main extends React.Component {
         })
     }
 
-
-
+    handlePositionChange(e) {
+        const newPosition = e.target.value;
+        this.setState((prevState, props) => ({
+            position: String(newPosition)
+        }));
+    }
+    handleRemarkChange(e) {
+        const newRemark = e.target.value;
+        this.setState((prevState, props) => ({
+            remark: String(newRemark)
+        }));
+    }
 
 
     handleEmailNumChange(e) {

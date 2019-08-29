@@ -30,7 +30,7 @@ router.get('/mails', function(req, res, next) {
 });
 
 router.post('/mails', function(req, res, next) {
-    const {personalID} = req.body;
+    const {searchID} = req.body;
     // const {personalID} = "ABCD";
 
     fs.readFile('data-persons.json', 'utf8', (err,data) => {
@@ -39,16 +39,16 @@ router.post('/mails', function(req, res, next) {
         let persons = data ? JSON.parse(data) : [];
 
         persons = persons.filter(p => {
-            return p && p.personalID === personalID;
+            return p && p.personalID === searchID;
         });
         console.log("Mail Post Person: " + persons[0].personalID);
-        const reciver = String("peter55180831");
+        // const reciver = String("peter55180831");
         const options = {
             //寄件者
             from: 'rocketpenteam@gmail.com',
             // from: 'rocketpenteam@nicenter.org.tw',
             //收件者
-            to: `${reciver}@gmail.com`, 
+            to: `${persons[0].emailArr[0].addr}`, 
             //副本
             cc: '',
             //密件副本
@@ -60,9 +60,12 @@ router.post('/mails', function(req, res, next) {
             //嵌入 html 的內文
             html: '' ,
             //附件檔案
-            attachments: [ {
-                filename: 'test.pdf',
-                path: './dist/testament/N123.pdf'
+            attachments: [{
+                filename: `person_${persons[0].personalID}.pdf`,
+                path: `./dist/persons/${persons[0].personalID}.pdf`
+            }, {
+                filename: `testament_${persons[0].personalID}.pdf`,
+                path: `./dist/testaments/${persons[0].personalID}.pdf`
             }]
         }
         

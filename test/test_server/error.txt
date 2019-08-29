@@ -160,3 +160,14 @@
     at Route.dispatch (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\route.js:112:3)
     at Layer.handle [as handle_request] (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\layer.js:95:5)
     at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\index.js:281:22
+1567093941 ERROR  ReferenceError: carArr is not defined
+    at _listMotorArr (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\model\persons.js:184:67)
+    at _listChattel (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\model\persons.js:113:16)
+    at Promise (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\model\persons.js:70:54)
+    at new Promise (<anonymous>)
+    at Object.create (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\model\persons.js:50:12)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\routers\persons.js:30:17
+    at Layer.handle [as handle_request] (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\layer.js:95:5)

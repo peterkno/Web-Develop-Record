@@ -33,10 +33,11 @@ export default class FourthPage extends React.Component {
         super(props);
 
         this.state = {
-            // postLoading: false,
-            // posts: []
+            searchID: String("")
         };
-
+        
+        this.inputSearchID = null;
+        this.handleSearchIDChange = this.handleSearchIDChange.bind(this);
         this.handleSendMail = this.handleSendMail.bind(this);
         // this.handleCreateVote = this.handleCreateVote.bind(this);
     }
@@ -59,16 +60,17 @@ export default class FourthPage extends React.Component {
     }
 
     render() {
-
+        const {searchID} = this.state;
         return (
             <div>
-                 <div id="banner-fg" class="d-flex flex-column justify-content-between">
+                 <div id="banner-fg" className="d-flex flex-column justify-content-between">
                     <div className='mb-2 mt-sm-3'>
                         <h1><b>寄出遺囑</b></h1>
                     </div>
-                    <div class="ID">
+                    <div className="ID">
                         <form >
-                            <Input id="password" type="password" name="身分證號" />
+                            <Input id="password" type="password" name="身分證號" 
+                            innerRef={el => {this.inputSearchID = el}} value={searchID} onChange={this.handleSearchIDChange}/>
                         </form>
                         <p id="reminder">請輸入死者的身分證號碼</p>
                     </div>
@@ -80,11 +82,18 @@ export default class FourthPage extends React.Component {
         );
     }
 
+    handleSearchIDChange(e) {
+        let newSearchID = e.target.value;
+        this.setState((prevState, props) => ({
+            searchID: String(newSearchID)
+        }));
+    }
+
     handleSendMail() {
-        const searchText = "ABCD"
-        findHeritageFromApi(searchText).then(heritages => {
+        const {searchID} = this.state;
+        findHeritageFromApi(searchID).then(heritages => {
             console.warn("heritages", heritages);
-            sendMailFromApi(searchText).then(data => {
+            sendMailFromApi(searchID).then(data => {
                 console.warn("mail info", data);
             }).catch(err => {
                 console.error('Error send mail', err);

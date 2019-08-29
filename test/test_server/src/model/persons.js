@@ -181,13 +181,13 @@ function _listMotorArr(motorArr) {
     let arrStr = '';
     arrStr += `<h5>機車:共${motorArr.length}輛</h5>`;
     for(i = 0; i < motorArr.length; i++) {
-        arrStr += `<p>${i+1}.牌照號碼:${motorArr[i].licensePlate}市值:${carArr[i].value}元</p>`;
+        arrStr += `<p>${i+1}.牌照號碼:${motorArr[i].licensePlate}市值:${motorArr[i].value}元</p>`;
     }
     return arrStr;
 }
 function _listMoney(money) {
     let arrStr = '';
-    arrStr += `<h5>現金:共${money}輛</h5>`;
+    arrStr += `<h5>現金:共${money}元</h5>`;
     return arrStr;
 }
 function _listAcount(accountArr) {

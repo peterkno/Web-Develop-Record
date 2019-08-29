@@ -148,3 +148,15 @@
     at next (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\index.js:275:10)
     at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\body-parser\lib\read.js:130:5
     at invokeCallback (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\raw-body\index.js:224:16)
+1567068324 ERROR  Error: EBUSY: resource busy or locked, open 'C:\Users\user\Desktop\Web-Develop-Record\test\test_server\dist\testaments\B123216884.pdf'
+1567068326 ERROR  TypeError: Cannot read property 'chineseName' of undefined
+    at _listPersonalInfo (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\model\persons.js:105:37)
+    at Promise (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\model\persons.js:79:23)
+    at new Promise (<anonymous>)
+    at Object.create (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\model\persons.js:58:12)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\src\routers\persons.js:30:17
+    at Layer.handle [as handle_request] (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\route.js:137:13)
+    at Route.dispatch (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\route.js:112:3)
+    at Layer.handle [as handle_request] (C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\user\Desktop\Web-Develop-Record\test\test_server\node_modules\express\lib\router\index.js:281:22

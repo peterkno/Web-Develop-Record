@@ -18,14 +18,13 @@ export function listPerson(searchText = '') {
     });
 }
 
-export function createPerson(personalID, heritage) {
+export function createPerson(newPerson) {
     let url = `${apiBaseUrl}/persons`;
 
     console.log(`Making POST request to: ${url}`);
 
     return axios.post(url, {
-        personalID,
-        heritage
+        newPerson
     }).then(function(res) {
         if(res.status !== 200) {
             throw new Error(`Unexpected response code: ${res.status}`);

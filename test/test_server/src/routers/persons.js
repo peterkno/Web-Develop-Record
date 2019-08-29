@@ -17,17 +17,17 @@ router.get('/persons', function(req, res, next) {
 
 // Create
 router.post('/persons', function(req, res, next) {
-    const {personalID, heritage} = req.body;
+    const {newPerson} = req.body;
     // console.log("ID: " + personalID);
     // console.log("Heritage: " + heritage);
-    if (!heritage ) {
-        const err = new Error('heritage is required');
-        throw err;
-    } else if (!personalID) {
-        const err = new Error('personalID is required');
-        throw err;
-    }
-    personModel.create(personalID, heritage).then(persons => {
+    // if (!heritage ) {
+    //     const err = new Error('heritage is required');
+    //     throw err;
+    // } else if (!personalID) {
+    //     const err = new Error('personalID is required');
+    //     throw err;
+    // }
+    personModel.create(newPerson).then(persons => {
         res.json(persons);
     }).catch(next);
 });

@@ -16,10 +16,10 @@ import {
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {
-    listPerson as listPersonFromApi,
-    createPerson as createPersonFromApi,
-} from 'api/persons.js';
+// import {
+//     listPerson as listPersonFromApi,
+//     createPerson as createPersonFromApi,
+// } from 'api/persons.js';
 
 import './FirstPage.css';
 
@@ -36,8 +36,8 @@ export default class FirstPageV2 extends React.Component {
             persons: []
         };
 
-        this.handleList = this.handleList.bind(this);
-        this.handleCreate = this.handleCreate.bind(this);
+        // this.handleList = this.handleList.bind(this);
+        // this.handleCreate = this.handleCreate.bind(this);
 
     }
 
@@ -111,27 +111,27 @@ export default class FirstPageV2 extends React.Component {
         );
     }
     
-    handleList() {
-        let searchText='';
-        listPersonFromApi(searchText).then(persons => {
-            console.warn("persons", persons);
-            this.setState(() => {
-                persons: persons
-            });
-        }).catch(err => {
-            console.error('Error listing posts', err);
-        });   
-    }
+    // handleList() {
+    //     let searchText='';
+    //     listPersonFromApi(searchText).then(persons => {
+    //         console.warn("persons", persons);
+    //         this.setState(() => {
+    //             persons: persons
+    //         });
+    //     }).catch(err => {
+    //         console.error('Error listing posts', err);
+    //     });   
+    // }
 
-    handleCreate() {
-        let personID = String("ABCD");
-        let heritage = Number(500);
-        createPersonFromApi(personID, heritage).then(persons =>{
-            this.handleList();
-        }).catch(err => {
-            console.error('Error creating posts', err);
-        });   
-    }
+    // handleCreate() {
+    //     let personID = String("ABCD");
+    //     let heritage = Number(500);
+    //     createPersonFromApi(personID, heritage).then(persons =>{
+    //         this.handleList();
+    //     }).catch(err => {
+    //         console.error('Error creating posts', err);
+    //     });   
+    // }
 }
 
 // export default connect((state) => {

@@ -54,13 +54,13 @@ function list(searchText = '') {
     })
 }
 
-function create(personalID, heritage) {
+function create(newPerson) {
     return new Promise((resolve, reject) => {
         console.log("Perpare Create Peronal Info");
-        const newPerson = {
-            personalID : String(personalID),
-            heritage : Number(heritage)
-        };
+        // const newPerson = {
+        //     personalID : String(personalID),
+        //     heritage : Number(heritage)
+        // };
 
         list().then(persons => {
             persons = [
@@ -98,7 +98,7 @@ function create(personalID, heritage) {
         var now = new Date();
 
         var pdf = pdfmake.createPdf(docDefinition);
-        pdf.write('data/pdfs/test.pdf');
+        pdf.write(`dist/persons/${newPerson.personalID}.pdf`);
         console.log("Finish Create Peronal Info(PDF)");
         console.log(new Date() - now);
 

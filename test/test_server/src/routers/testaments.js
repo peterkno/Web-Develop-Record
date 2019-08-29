@@ -13,7 +13,7 @@ const testamentStorage = multer.diskStorage({
             cb(null, './dist/picture')
         }
         else if (file.fieldname == 'pdf') {
-            cb(null, './dist/testament')
+            cb(null, './dist/testaments')
         }
     },
     filename: function (req, file, cb) {

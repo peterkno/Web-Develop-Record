@@ -15,6 +15,10 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import axios, {post} from 'axios';
 import request from 'superagent';
+import {
+    listPerson as listPersonFromApi,
+    createPerson as createPersonFromApi,
+} from 'api/persons.js';
 
 
 import './ThirdPage.css';
@@ -51,7 +55,9 @@ export default class ThirdPage extends React.Component {
         this.handleRemindCollapse = this.handleRemindCollapse.bind(this);
         this.handleRemindCheck = this.handleRemindCheck.bind(this);
         this.handleTestamentFile = this.handleTestamentFile.bind(this);
-        this.handleTestamentFileUpload = this.handleTestamentFileUpload.bind(this)
+        this.handleTestamentFileUpload = this.handleTestamentFileUpload.bind(this);
+        // this.handleList = this.handleList.bind(this);
+        this.handleCreate = this.handleCreate.bind(this);
         // this.handleCreatePost = this.handleCreatePost.bind(this);
         // this.handleCreateVote = this.handleCreateVote.bind(this);
     }
@@ -154,26 +160,6 @@ export default class ThirdPage extends React.Component {
                     <Input type="file" name="file" onChange={this.handleTestamentFile} ></Input>
                     <Button onClick={this.handleTestamentFileUpload}>上傳遺囑</Button>
                 </div>
-
-                <br />
-                
-                {/* <div>
-                    <Link to="/">
-                        <button type="button">
-                            首頁
-                        </button>
-                    </Link>
-                    <Link to="/second-page">
-                        <button type="button">
-                            填寫資料
-                        </button>
-                    </Link>
-                    <Link to="/fourth-page">
-                        <button type="button">
-                            寄出遺囑
-                        </button>
-                    </Link>
-                </div> */}
             </div>
         );
     }
@@ -206,13 +192,22 @@ export default class ThirdPage extends React.Component {
     handleTestamentFile(e) {
         let data = new FormData();
         console.warn("files", e.target.files[0]);
-        data.append('id', 'N123');
+        data.append('filename', this.props.personalID);
         data.append('pdf', e.target.files[0]);
         console.warn("data", data);
         this.setState((prevState, props) => ({
             testament: data
-        }));
-        setTimeout(() => {}, 1000);
+        }), () => {
+            request.post(`${testamentBaseUrl}/TestamentUpload`).send(this.state.testament)
+            .end((err, res) => {
+                if(err) {
+                    console.error(err);
+                }
+                // name1 = res.text;
+                return res;
+            })
+        });
+        setTimeout(() => {this.handleCreate(this.props)}, 2000);
     }
     handleTestamentFileUpload(e) {
         e.preventDefault();
@@ -223,12 +218,33 @@ export default class ThirdPage extends React.Component {
             if(err) {
                 console.error(err);
             }
-            name1 = res.text;
-            
+            // name1 = res.text;
             return res;
         })
 
         setTimeout(() => {}, 1000);
+    }
+
+    handleList() {
+        let searchText='';
+        listPersonFromApi(searchText).then(persons => {
+            console.warn("persons", persons);
+            this.setState(() => {
+                persons: persons
+            });
+        }).catch(err => {
+            console.error('Error listing posts', err);
+        });   
+    }
+
+    handleCreate() {
+        // let personID = String("ABCD");
+        // let heritage = Number(500);
+        createPersonFromApi(this.props).then(persons =>{
+            this.handleList();
+        }).catch(err => {
+            console.error('Error creating posts', err);
+        });   
     }
 }
 

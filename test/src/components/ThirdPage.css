@@ -81,7 +81,9 @@
     display:block;
     clear:both;
 }
-
+input[type="file"] {
+    display: none;
+}
 #send {
     position: absolute;
     left: 46%;
@@ -108,5 +110,9 @@
     /* overflow-y: scroll !important;
     max-height: 100px !important; */
     /* max-height: 30px; */
+}
+
+.third-page .Center-Text {
+    text-align: center;
 }
 

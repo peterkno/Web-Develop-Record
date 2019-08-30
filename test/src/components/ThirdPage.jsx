@@ -7,6 +7,8 @@ import {
 import {
     Input,
     Button,
+    ListGroupItem,
+    ListGroup,
     Collapse,
     Card,
     FormGroup,
@@ -44,6 +46,7 @@ export default class ThirdPage extends React.Component {
             grandMotherLegitime: Number(0),
             testamentFormCollapse: false,
             testamentFormChecked: false,
+
             remindCollapse: false,
             remindChecked: false,
             remindOneCollapse: false,
@@ -56,6 +59,10 @@ export default class ThirdPage extends React.Component {
             remindFourChecked: false,
             remindFiveCollapse: false,
             remindFiveChecked: false,
+
+            mistakeCollapse: false,
+            mistakeOneCollapse: false,
+            mistakeOneChecked: false,
             testament: new FormData()
         };
         
@@ -69,9 +76,9 @@ export default class ThirdPage extends React.Component {
 
         this.handleTestamentFormCollapse = this.handleTestamentFormCollapse.bind(this);
         this.handleTestamentFormCheck = this.handleTestamentFormCheck.bind(this);
+        
         this.handleRemindCollapse = this.handleRemindCollapse.bind(this);
-        this.handleRemindCheck = this.handleRemindCheck.bind(this);
-
+        // this.handleRemindCheck = this.handleRemindCheck.bind(this);
         this.handleRemindOneCollapse = this.handleRemindOneCollapse.bind(this);
         this.handleRemindOneChecek = this.handleRemindOneChecek.bind(this);
         this.handleRemindTwoCollapse = this.handleRemindTwoCollapse.bind(this);
@@ -82,6 +89,10 @@ export default class ThirdPage extends React.Component {
         this.handleRemindFourChecek = this.handleRemindFourChecek.bind(this);
         this.handleRemindFiveCollapse = this.handleRemindFiveCollapse.bind(this);
         this.handleRemindFiveChecek = this.handleRemindFiveChecek.bind(this);
+
+        this.handleMistakeCollapse = this.handleMistakeCollapse.bind(this);
+        this.handleMistakeOneCollapse = this.handleMistakeOneCollapse.bind(this);
+        this.handleMistakeOneChecek = this.handleMistakeOneChecek.bind(this);
 
         this.handleTestamentFile = this.handleTestamentFile.bind(this);
         this.handleTestamentFileUpload = this.handleTestamentFileUpload.bind(this);
@@ -117,9 +128,11 @@ export default class ThirdPage extends React.Component {
     render() {
         const {heritage} = this.props;
         const {mateLegitime, childLegitime, grandChildLegitime, parentLegitime, siblingLegitime, grandFatherLegitime, grandMotherLegitime, 
-                testamentFormCollapse, testamentFormChecked, remindCollapse, 
+                testamentFormCollapse, testamentFormChecked, remindCollapse, mistakeCollapse ,
                 remindOneCollapse, remindTwoCollapse, remindThreeCollapse, remindFourCollapse, remindFiveCollapse,
-                remindOneChecked,  remindTwoChecked,  remindThreeChecked,  remindFourChecked,  remindFiveChecked} = this.state;
+                remindOneChecked,  remindTwoChecked,  remindThreeChecked,  remindFourChecked,  remindFiveChecked,
+                mistakeOneCollapse, 
+                mistakeOneChecked,} = this.state;
         return (
             // <div>
                 <div className='third-page'>
@@ -501,18 +514,60 @@ export default class ThirdPage extends React.Component {
                         </Collapse>
                     </div>
                     
-                    <div> 
+                    <div className="Div"> 
+                        <h2 className="H2" id="title-4">常見錯誤
+                        {   mistakeCollapse == true 
+                            ?  <IoIosArrowUp onClick={this.handleMistakeCollapse} className="arrowDown"></IoIosArrowUp>
+                            :  <IoIosArrowDown onClick={this.handleMistakeCollapse} className="arrowDown"></IoIosArrowDown>
+                        }
+                        </h2>
+                        <Collapse className="" isOpen={mistakeCollapse}>
 
+                            <h3 className="H3">一、金額未滿足特留分
+                            {   mistakeOneCollapse == true 
+                                ?  <IoIosArrowUp onClick={this.handleMistakeOneCollapse} className="arrowDown"></IoIosArrowUp>
+                                :  <IoIosArrowDown onClick={this.handleMistakeOneCollapse} className="arrowDown"></IoIosArrowDown>
+                            }</h3>
+                            <Collapse className="Center-collapse" isOpen={mistakeOneCollapse}>
+                                <Card>
+                                <CardBody>
+                                    {/* <p>
+                                    一、<a href="https://www.youtube.com/watch?v=8tMB2y3XGtI">案件字號</a>
+                                    </p>
+                                    <FormGroup className = 'MarginLeft' inline> */}
+                                    <ListGroup>
+                                        <FormGroup >
+                                        <ListGroupItem tag="a" href="https://www.youtube.com/watch?v=8tMB2y3XGtI" action>
+                                        案件字號
+                                        <Input type="checkbox" checked={mistakeOneChecked} onChange={this.handleMistakeOneChecek} />
+                                        </ListGroupItem> 
+                                        </FormGroup>
+                                    </ListGroup>
+                                </CardBody>
+                                </Card>
+                            </Collapse>
+
+                        </Collapse>
+                        
                     </div>
                     
-                    <Input type="file" name="file" onChange={this.handleTestamentFile}></Input>
                     
-                    {/* <ListGroup>
-                        <ListGroupItem tag="a" href="https://reactstrap.github.io/components/form/" action>
-                            Reactstrap: Forms
-                        </ListGroupItem>
-                    </ListGroup> */}
-                    {/* <Button onClick={this.handleTestamentFileUpload}>上傳遺囑</Button> */}
+                    
+                    <label id="send" >
+                        <input type="file" onChange={this.handleTestamentFile}/>
+                            <p className="Center-Text mt-sm-2">上傳<br />遺囑</p>
+                    </label>
+                    {/* <label for="file-upload" id="send" >
+                        上傳<br />遺囑
+                    </label>
+                    <input id="file-upload" type="file" onChange={this.handleTestamentFile}/> */}
+                    {/* <input id="file-upload" type="file" onChange={this.handleTestamentFile}/> */}
+
+                    {/* <label id="send">
+                        <Input type="file" name="file" onChange={this.handleTestamentFile}></Input>
+                    </label> */}
+
+                    {/* <Input type="file" name="file" onChange={this.handleTestamentFile}></Input> */}
                 </div>
             // </div>
         );
@@ -704,14 +759,11 @@ export default class ThirdPage extends React.Component {
             testamentFormChecked: !prevState.testamentFormChecked
         }));
     }
+
+
     handleRemindCollapse() {
         this.setState((prevState, props) => ({
             remindCollapse: !prevState.remindCollapse
-        }));
-    }
-    handleRemindCheck() {
-        this.setState((prevState, props) => ({
-            remindChecked: !prevState.remindChecked
         }));
     }
 
@@ -767,6 +819,23 @@ export default class ThirdPage extends React.Component {
     handleRemindFiveChecek() {
         this.setState((prevState, props) => ({
             remindFiveChecked: !prevState.remindFiveChecked
+        }));
+    }
+
+    handleMistakeCollapse() {
+        this.setState((prevState, props) => ({
+            mistakeCollapse: !prevState.mistakeCollapse
+        }));
+    }
+
+    handleMistakeOneCollapse() {
+        this.setState((prevState, props) => ({
+            mistakeOneCollapse: !prevState.mistakeOneCollapse
+        }));
+    }
+    handleMistakeOneChecek() {
+        this.setState((prevState, props) => ({
+            mistakeOneChecked: !prevState.mistakeOneChecked
         }));
     }
 

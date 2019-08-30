@@ -53,15 +53,15 @@ export default class LandInfo extends React.Component {
             <div>
                 <Form inline>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        地號: <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputNumber = el}} 
+                        地號 : <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputNumber = el}} 
                             value={this.props.number} onChange={this.handleNumberChange}/>
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        公告土地現值: <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputNowValue = el}} 
+                        公告土地現值 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputNowValue = el}} 
                             value={this.props.nowValue} onChange={this.handleNowValueChange} />
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        市值(成交價): <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputFinalValue = el}} 
+                        市值(成交價) : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputFinalValue = el}} 
                             value={this.props.finalValue} onChange={this.handleFinalValueChange} />元(此欄必填)
                     </FormGroup>
                 </Form>

@@ -216,21 +216,22 @@ export default class SecondPage extends React.Component {
         console.log(divHeir);
 
         return (
-            <div className='second-page'>
-                <div className='member mb-sm-3'>
-                    <p>建立會員帳號</p>
+            <div className='second-page margin-30px'>
+                <h1 className='H1'>填寫資料</h1>
+                <div className='member'>
+                    <h2 className='H2' id="title-1">建立帳號</h2>
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            中文姓名:<Input  className='name ml-sm-2' type="text" name="chineseName" 
+                            中文姓名 : <Input  className='name ml-sm-2' type="text" name="chineseName" 
                                     innerRef={el => {this.inputChineseName = el}} value={chineseName} onChange={OnChineseName}/>
                         </FormGroup>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            英文姓名:<Input className='name ml-sm-2' type="text" name="englishName" placeholder="請與護照名相同" 
+                            英文姓名 : <Input className='name ml-sm-2' type="text" name="englishName" placeholder="請與護照名相同" 
                                     innerRef={el => {this.inputEnglishName = el}} value={englishName} onChange={OnEnglishName}/>
                         </FormGroup>
                     </Form>
                     <Form inline>
-                        出生年月日:
+                        出生年月日 : 
                         <FormGroup className='mb-2 mr-sm-0 mb-sm-1'>
                             <Input  className='birth ml-sm-2' type="text" name="year" 
                             innerRef={el => {this.inputBirthYear = el}} value={birthYear} onChange={OnBirthYear}/>年
@@ -259,7 +260,7 @@ export default class SecondPage extends React.Component {
                 </div>
                 
                 <div className='famliy'>
-                    <p>家族規模</p>
+                    <h2 className='H2' id="title-2">家族規模</h2>
                     *註：只需填寫還在世的家族成員
                     <br  />
                     <FormGroup check inline>
@@ -280,7 +281,6 @@ export default class SecondPage extends React.Component {
                             <Form inline>b.孫子女 : 共<Input className='number' type="text" 
                             innerRef={el => {this.inputGrandChildNum = el}} value={grandChildNum} onChange={OnGrandChildNum}/>位</Form>
                         </div> }
-                   
                     <br />
                     <FormGroup check inline>
                         (三)父母 : 
@@ -292,7 +292,7 @@ export default class SecondPage extends React.Component {
                         (四)兄弟姊妹<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={siblingChecked} onChange={OnSiblingCheck} />
                         {siblingChecked && 
                             <div>
-                                <Form inline>共: <Input className='number' type="text" 
+                                <Form inline>共 : <Input className='number' type="text" 
                                 innerRef={el => {this.inputSiblingNum = el}} value={siblingNum} onChange={OnSiblingNum}/>位</Form>
                             </div> }
                     </FormGroup>
@@ -308,28 +308,29 @@ export default class SecondPage extends React.Component {
                             innerRef={el => {this.inputGrandMotherNum = el}} value={grandMotherNum} onChange={OnGrandMotherNum}/>位</Form>
                         </div> }
                 </div>
-                <h3>法定繼承人: {divHeir}</h3>
+                {/* <h3>法定繼承人: {divHeir}</h3> */}
 
-                <br />
-                <div className='chattel'>
-                    <p>一、動產部分</p>
+                {/* <br /> */}
+                <h2 className="H2" id="title-3">正負資產</h2>
+                <div className='chattel'> 
+                    <h3 className="H3">一、動產部分</h3>
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (一) 汽車: 共 <Input className='number' type='text' innerRef={el => {this.inputCar = el}} 
+                            (一) 汽車 : 共 <Input className='number' type='text' innerRef={el => {this.inputCar = el}} 
                                 value={carNum} onChange={OnCarNum}></Input>輛
                         </FormGroup>
                     </Form>
                     <CarList cars={carArr} />
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (二) 機車: 共 <Input className='number' type='text' innerRef={el => {this.inputMotor = el}} 
+                            (二) 機車 : 共 <Input className='number' type='text' innerRef={el => {this.inputMotor = el}} 
                                 value={motorNum} onChange={OnMotorNum}></Input>輛
                         </FormGroup>
                     </Form>
                     <MotorList motors={motorArr} />
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (三) 現金(新台幣) 共 :<Input className='value' type='text' innerRef={el => {this.inputMoney = el}} 
+                            (三) 現金(新台幣) : 共<Input className='value' type='text' innerRef={el => {this.inputMoney = el}} 
                                 value={money} onChange={OnMoney}></Input>元
                         </FormGroup>
                     </Form>
@@ -342,58 +343,61 @@ export default class SecondPage extends React.Component {
                     <AccountList accounts={accountArr} />
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (五)股票 : 共<Input className='number' type='text' innerRef={el => {this.inputStock = el}} 
+                            (五) 股票 : 共<Input className='number' type='text' innerRef={el => {this.inputStock = el}} 
                                 value={stockNum} onChange={OnStockNum}></Input>種股號
                         </FormGroup>
                     </Form>
                     <StockList stocks={stockArr} />
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (六)保險 : 共<Input className='number' type='text' innerRef={el => {this.inputInsurance = el}} 
+                            (六) 保險 : 共<Input className='number' type='text' innerRef={el => {this.inputInsurance = el}} 
                                 value={insuranceNum} onChange={OnInsuranceNum}></Input>幾支
                         </FormGroup>
                     </Form>
                     <InsuranceList insurances={insuranceArr} />
                     <FormGroup check inline>
-                        (七)<Input type="checkbox" checked={this.state.chattelChecked} onChange={this.handleChattelCheckChange} />如國稅局歸戶財產清單所載。
+                        (七)<Input type="checkbox" className = 'ml-sm-1 mt-sm-0' checked={this.state.chattelChecked} onChange={this.handleChattelCheckChange} />如國稅局歸戶財產清單所載。
                     </FormGroup>
                 </div>
 
                 <br />
                 <div>
-                    <p>二、不動產部分</p> 
-                    
+                    <h3 className="H3">二、不動產部分</h3>
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (一)土地: 共<Input className='number' type='text' innerRef={el => {this.inputLand = el}} 
+                            (一)土地 : 共<Input className='number' type='text' innerRef={el => {this.inputLand = el}} 
                                 value={landNum} onChange={OnLandNum}></Input>筆
                         </FormGroup>
                     </Form>
                     <LandList lands={landArr} />
-                    ※註1：公告土地現值和市值不同。公告土地現值：係政府官方根據過去一年來，調查轄區內土地交易的價格動態，分別計算出各區段的價格，做為土地移轉買賣交易時的價格依據。市值：市場實際買賣的價格。
-                    <br />
-                    ※註2：公告土地現值可至中華民國內政部地政司網站查詢。成交價則可請土地估價師進行估價。
+                    <div className="width-70rem">
+                        ※註1：公告土地現值和市值不同。公告土地現值：係政府官方根據過去一年來，調查轄區內土地交易的價格動態，分別計算出各區段的價格，做為土地移轉買賣交易時的價格依據。市值：市場實際買賣的價格。
+                        <br />
+                        ※註2：公告土地現值可至中華民國內政部地政司網站查詢。成交價則可請土地估價師進行估價。
+                    </div>
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (二)建物: 共<Input className='number' type='text' innerRef={el => {this.inputBuilding = el}} 
+                            (二)建物 : 共<Input className='number' type='text' innerRef={el => {this.inputBuilding = el}} 
                                 value={buildingNum} onChange={OnBuildingNum}></Input>筆
                         </FormGroup>
                     </Form>
                     <BuildingList buildings={buildingArr} />
-                    ※註1：評定標準價格和市值不同。評定標準價格：係政府評定的房屋價值，廣泛地用來作為各種包含房屋稅、契稅等各種與房屋有關的稅賦之課徵基準。市價：市場實際買賣的價格。
-                    <br />
-                    ※註2：所有權人攜帶身分證正本、印章到地方稅的稅務機關申請房屋稅稅籍證明，在稅籍證明上面就會有房屋評定現值的金額。房屋成交價則可詢問房屋仲介該房屋附近一坪大致的價格，再去推算成交價的估計值。
+                    <div className="width-70rem">
+                        ※註1：評定標準價格和市值不同。評定標準價格：係政府評定的房屋價值，廣泛地用來作為各種包含房屋稅、契稅等各種與房屋有關的稅賦之課徵基準。市價：市場實際買賣的價格。
+                        <br />
+                        ※註2：所有權人攜帶身分證正本、印章到地方稅的稅務機關申請房屋稅稅籍證明，在稅籍證明上面就會有房屋評定現值的金額。房屋成交價則可詢問房屋仲介該房屋附近一坪大致的價格，再去推算成交價的估計值。
+                    </div>
                     <FormGroup check inline>
-                        (三)<Input type="checkbox" checked={this.state.realEstateChecked} onChange={this.handleRealEstatelCheckChange} />如國稅局歸戶財產清單所載。
+                        (三)<Input type="checkbox" className = 'ml-sm-1 mt-sm-0' checked={this.state.realEstateChecked} onChange={this.handleRealEstatelCheckChange} />如國稅局歸戶財產清單所載。
                     </FormGroup>
                 </div>
                 
                 <br />
                 <div>
-                    <p>三、債權人(您的債主)之姓名、地址及債權數額</p>
+                    <h3 className="H3">三、債權人(您的債主)之姓名、地址及債權數額</h3>
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (一)債權人: 共<Input className='number' type='text' innerRef={el => {this.inputCreditor = el}} 
+                            (一)債權人 : 共<Input className='number' type='text' innerRef={el => {this.inputCreditor = el}} 
                                 value={creditorNum} onChange={OnCreditorNum}></Input>位
                         </FormGroup>
                     </Form>
@@ -402,10 +406,10 @@ export default class SecondPage extends React.Component {
 
                 <br /> 
                 <div>
-                    <p>四、債務人(誰欠您錢)之姓名、地址及債權數額</p>
+                    <h3 className="H3">四、債務人(誰欠您錢)之姓名、地址及債權數額</h3>
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (一)債務人: 共<Input className='number' type='text' innerRef={el => {this.inputDebtor = el}} 
+                            (一)債務人 : 共<Input className='number' type='text' innerRef={el => {this.inputDebtor = el}} 
                                 value={debtorNum} onChange={OnDebtorNum}></Input>位
                         </FormGroup>
                     </Form>
@@ -414,30 +418,30 @@ export default class SecondPage extends React.Component {
 
                 <br />
                 <div>
-                    <p>五、請輸入您的印鑑、帳本存放、遺囑正本的位置</p>
-                    位置：<Input className='Textarea' type="textarea" name="位置" 
+                    <h3 className="H3">五、請輸入您的印鑑、帳本存放、遺囑正本的位置</h3>
+                    位置 : <Input className='Textarea' type="textarea" name="位置" 
                             innerRef={el => {this.inputPosition = el}} value={position} onChange={OnPosition}/>
-                    備註：<Input className='Textarea' type="textarea" name="備註" 
+                    備註 : <Input className='Textarea' type="textarea" name="備註" 
                             innerRef={el => {this.inputRemark = el}} value={remark} onChange={OnRemark}/>
                 </div>
                 
                 <br />
                 <div>
-                    <p>六、指定遺囑副本信件收件人</p>
+                    <h3 className="H3">六、指定遺囑副本信件收件人</h3>
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            (一)收件人: 共<Input className='number' type='text' innerRef={el => {this.inputEmail = el}} 
+                            (一)收件人 : 共<Input className='number' type='text' innerRef={el => {this.inputEmail = el}} 
                                 value={emailNum} onChange={OnEmailNum}></Input>人
                         </FormGroup>
                     </Form>
                     <EmailList emails={emailArr} />
                 </div>
                 
-                <h1>現在遺產: {heritage} 元</h1>
+                {/* <h1>現在遺產: {heritage} 元</h1> */}
                 
-                <div>
-                    <Button className='ml-sm-2' tag={Link} to='/third-page' onClick={this.handleHeritage}>提交</Button>
-                </div>
+                <Link to="/third-page">
+                    <button id="upload" onClick={this.handleHeritage}>提交</button>
+                </Link>
             </div>
         );
     }

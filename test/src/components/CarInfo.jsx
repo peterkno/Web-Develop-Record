@@ -49,11 +49,11 @@ export default class CarInfo extends React.Component {
             <div>
                 <Form inline>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        牌照號碼:<Input className='license ml-sm-2' type="text" innerRef={el => {this.inputLicense = el}} 
+                        牌照號碼 : <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputLicense = el}} 
                             value={this.props.licensePlate} onChange={this.handleLicenseChange}/>
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        市值:<Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
+                        市值 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
                             value={this.props.value} onChange={this.handleValueChange} />
                     </FormGroup>
                 </Form>

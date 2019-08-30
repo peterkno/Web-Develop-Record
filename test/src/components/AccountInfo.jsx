@@ -53,15 +53,15 @@ export default class AccountInfo extends React.Component {
             <div>
                 <Form inline>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        存款種類: <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputType = el}} 
+                        存款種類 : <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputType = el}} 
                             value={this.props.type} onChange={this.handleTypeChange}/>
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        存款帳號: <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputID = el}} 
+                        存款帳號 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputID = el}} 
                             value={this.props.ID} onChange={this.handleIDChange} />
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        存款金額共：<Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
+                        存款金額 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
                             value={this.props.value} onChange={this.handleValueChange} />元
                     </FormGroup>
                 </Form>

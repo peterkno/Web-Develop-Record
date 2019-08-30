@@ -75,7 +75,8 @@ module.exports = {
     devServer: {
         contentBase: distPath,
         compress: true,
-        port: 8731
+        port: 8731,
+        historyApiFallback: true
     },
     devtool: 'cheap-source-map'
 };

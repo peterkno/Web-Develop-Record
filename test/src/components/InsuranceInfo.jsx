@@ -57,19 +57,19 @@ export default class InsuranceInfo extends React.Component {
             <div>
                 <Form inline>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        保險公司: <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputCompany = el}} 
+                        保險公司 : <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputCompany = el}} 
                             value={this.props.company} onChange={this.handleCompanyChange}/>
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        保單種類: <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputType = el}} 
+                        保單種類 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputType = el}} 
                             value={this.props.type} onChange={this.handleTypeChange} />
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        保險金額: <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
+                        保險金額 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
                             value={this.props.value} onChange={this.handleValueChange} />元
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        保單生效日期: <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputDate = el}} 
+                        保單生效日期 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputDate = el}} 
                             value={this.props.date} onChange={this.handleDateChange} />
                     </FormGroup>
                 </Form>

@@ -62,14 +62,14 @@ export default class FourthPage extends React.Component {
     render() {
         const {searchID} = this.state;
         return (
-            <div>
-                 <div id="banner-fg" className="d-flex flex-column justify-content-between">
+            <div className='fourth-page'>
+                <div id="banner-fg" className="d-flex flex-column justify-content-between">
                     <div className='mb-2 mt-sm-3'>
-                        <h1><b>寄出遺囑</b></h1>
+                        <h1 className='H1'>寄出遺囑</h1>
                     </div>
                     <div className="ID">
                         <form >
-                            <Input id="password" type="password" name="身分證號" 
+                            <Input id="password" type="password" name="身分證號"  className="Input"
                             innerRef={el => {this.inputSearchID = el}} value={searchID} onChange={this.handleSearchIDChange}/>
                         </form>
                         <p id="reminder">請輸入死者的身分證號碼</p>

@@ -1,6 +1,6 @@
 
 
-h1 {
+.first-page .H1 {
     font-family: Noto-Serif-TC;
     font-weight: bolder;
     color: #7B6661;
@@ -8,12 +8,12 @@ h1 {
     margin: 40px;
 }
 
-h2 {
+.first-page .H2 {
     font-weight: bolder;
-    margin-top:20px;
+    margin-top:10px;
 }
 
-p {
+.first-page .P {
     margin-top:10px;
     font-weight:900;
 }

@@ -53,15 +53,15 @@ export default class BuildingInfo extends React.Component {
             <div>
                 <Form inline>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        門牌號碼: <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputNumber = el}} 
+                        門牌號碼 : <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputNumber = el}} 
                             value={this.props.number} onChange={this.handleNumberChange}/>
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        評定標準地價: <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputNowValue = el}} 
+                        評定標準地價 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputNowValue = el}} 
                             value={this.props.nowValue} onChange={this.handleNowValueChange} />
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        市值(成交價): <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputFinalValue = el}} 
+                        市值(成交價) : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputFinalValue = el}} 
                             value={this.props.finalValue} onChange={this.handleFinalValueChange} />元(此欄必填)
                     </FormGroup>
                 </Form>

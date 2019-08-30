@@ -53,15 +53,15 @@ export default class DebtorInfo extends React.Component {
             <div>
                 <Form inline>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        姓名: <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputName = el}} 
+                        姓名 : <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputName = el}} 
                             value={this.props.name} onChange={this.handleNameChange}/>
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        債權數額: <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
+                        債權數額 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputValue = el}} 
                             value={this.props.value} onChange={this.handleValueChange} />元
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        地址: <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputAddr = el}} 
+                        地址 : <Input className='value ml-sm-2' type="text" innerRef={el => {this.inputAddr = el}} 
                             value={this.props.addr} onChange={this.handleAddrChange} />
                     </FormGroup>
                 </Form>

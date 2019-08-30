@@ -49,11 +49,11 @@ export default class EmailInfo extends React.Component {
             <div>
                 <Form inline>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        姓名: <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputName = el}} 
+                        姓名 : <Input className='license ml-sm-2' type="text" innerRef={el => {this.inputName = el}} 
                             value={this.props.name} onChange={this.handleNameChange}/>
                     </FormGroup>
                     <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                        E-mail: <Input className='addr ml-sm-2' type="text" innerRef={el => {this.inputAddr = el}} 
+                        E-mail : <Input className='addr ml-sm-2' type="text" innerRef={el => {this.inputAddr = el}} 
                             value={this.props.addr} onChange={this.handleAddrChange} />
                     </FormGroup>
                 </Form>

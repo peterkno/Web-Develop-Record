@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css"
+        integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC&display=swap" rel="stylesheet">
+        
+    <link rel="stylesheet" href="third-page.css">
+
+    <title>上傳遺囑</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light flex-row" style=background-color:#CE8E73>
+        <span class="navbar-brand mb-0 h1">遺產管家</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-column" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">首頁<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">填寫資料</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">寄出遺囑</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div>
+        <h1>上傳遺囑</h1>
+
+        <h2 id="title-1">計算結果</h2>
+        <h3>一、遺產總額：500000000 元</h3>
+        <h3>二、特留分</h3>
+        <p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp--分配遺產時，至少要為法定繼承人保留的最低金額</p>
+        <!--這裡注意"--分配"那一行的開頭要跟"特留分"的特對齊-->
+
+        <div>
+            <p class="result">
+                <!--特留分我想說全部列出來(雖然通常只會有配偶+最先繼承順序會有特留分)一是比較簡單，二是使用者可以更一目了然-->
+                1.配偶：5000元
+                <br>
+                2.子女：各5000元/人
+                <br>
+                3.孫子女：各5000元/人
+                <br>
+                4.父母：各5000元/人
+                <br>
+                5.兄弟姊妹：各5000元/人
+                <br>
+                6.祖父：各5000元/人
+                <br>
+                7.祖母：各5000元/人
+                <br>
+            </p>
+        </div>
+
+    </div>
+
+    <div>
+        <h2 id="title-2">遺囑格式</h2>
+        <button type="button" class="wrap">這些要用箭頭取代</button>
+        <br>
+        <br>
+        <p>
+            <!--貼心小提醒的內文都只佔width 70 %、置中-->
+            立遺囑人○○○，民國○○年○月○日生，○○市(縣)人，身分證字號○○○，茲依民法之相關規定，自書遺囑內容如下：
+            <br>
+            一、不動產部份
+            <br>
+            (一)座落於台北市○○區○○段○○地號土地及地上建物〈門牌號碼○○○○〉○樓住宅，所有持分由配偶○○單獨全部繼承。
+            <br>
+            (二)座落於台北市○○區○○段○○地號土地，面積○○平方公尺，所有持分由長子○○〈民國○○年○月○日生，台北市人，身分證字號○○○〉單獨全部繼承。
+            <br>
+            二、動產部份
+            (一)本人所有股票及名下汽車由長女○○〈民國○○年○月○日生，台北市人，身分證字號○○○〉單獨全部繼承。
+            <br>
+            (二)銀行存款及其他一切財產，由全體繼承人平均繼承。
+            <br>
+            三、本人指定配偶○○為遺囑執行人。
+            <br>
+            立遺囑人：○○○(一定要親自簽名)
+            <br>
+            中華民國○○年○月○日
+            <br>
+        </p>
+    </div>
+
+    <div>
+        <h2 id="title-3">貼心小提醒</h2>
+        <div class="first">
+            <h3>一、特留分計算方式</h3>
+            <button type="button" class="wrap">這些要用箭頭取代</button>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="first">
+            <h3>二、繼承人範圍</h3>
+            <button type="button" class="wrap">這些要用箭頭取代</button>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="first">
+            <h3>三、股票繼承過戶方式</h3>
+            <button type="button" class="wrap">這些要用箭頭取代</button>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="first">
+            <h3>四、自書遺囑注意事項</h3>
+            <button type="button" class="wrap">這些要用箭頭取代</button>
+        </div>
+
+        <div class="clear"></div>
+
+        <div>
+            <!--文字也要置中-->
+            <p>
+                1. 自書遺囑者，應自書遺囑全文(即本人親筆書寫遺囑全文)，記明年、月、日，並親自簽名(不得以印章代替)
+                <br>
+                2.如有增減、塗改，應註明增減、塗改之處所及字數，另行簽名，且塗改方式只能劃掉原本寫錯的地方，再接續寫下正確內容，不能用立可帶、修正液或類此產品塗改。
+                <br>
+                3.請清楚條列繼承人、受分配人名單以及其所繼承或遺贈的遺產
+                <br>
+                4.除了財產分配外，還可以寫下：
+                <br>
+                身後事，會不會想要土葬、火化後土葬或塔葬、海葬，告別式要用什麼宗教或是不要某些民間習俗的繁瑣，國外也有生前葬禮
+                在最後有沒有想要穿什麼樣的衣服、要不要化妝。
+                最後可以寫一些對親友的話、感謝。
+            </p>
+        </div>
+
+        <div class="first">
+            <h3>五、遺產稅</h3>
+            <button type="button" class="wrap">這些要用箭頭取代</button>
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+
+    <div>
+        <h2 id="title-4">常見遺囑錯誤</h2>
+        <div class="first">
+            <h3>一、特留分計算方式</h3>
+            <button type="button" class="wrap">這些要用箭頭取代</button>
+        </div>
+
+        <div class="clear"></div>
+
+        <div>
+            <!--這些內容一樣置中 width 70%-->
+            <h4>實際案例：</h4>
+            <p>
+                一、<a href="https://www.youtube.com/watch?v=8tMB2y3XGtI">案件字號<a>
+            </p>
+        </div>
+
+        <p>
+            <br>
+        </p>
+    </div>
+
+    <div>
+        <button type="button" id="send">上傳<br>遺囑</button>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+
+    <!--我沒有js檔，不太確定這不是要創一個自己的jx檔來當source，原本的main.js應該是老師的project裡的檔-->
+    <!--<script src="scripts/main.js"></script>-->
+
+</body>
+
+</html>

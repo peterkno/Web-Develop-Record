@@ -52,6 +52,7 @@ export default class Main extends React.Component {
             heritage: Number(0),
             personalID: String(''),
             heir: [],
+            heirLevel: Number(-1),
             carNum: Number(0),
             carArr: [],
             motorNum: Number(0),
@@ -413,38 +414,45 @@ export default class Main extends React.Component {
         const {mateChecked, childChecked, fatherChecked, motherChecked, siblingChecked, ancestorChecked,
                 childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum
                 } = this.state;
-        let newHeir = [];
+        let newHeir = [], newHeirLevel = -1;
 
         if(mateChecked) {
             let mate = {relatives: String("配偶"), num: Number(1)};
+            newHeirLevel = 0;
             newHeir.push(mate);
         }
 
         if(childChecked) {
             if(childNum !== 0) {
                 let child = {relatives: String("兒女"), num: Number(childNum)};
+                newHeirLevel = 1;
                 newHeir.push(child);
             }
             if(grandChildNum !== 0) {
                 let grandChild = {relatives: String("孫兒女"), num: Number(grandChildNum)};
+                newHeirLevel = 1;
                 newHeir.push(grandChild);
             }
         } else if(fatherChecked || motherChecked) {
             let parentNum = (fatherChecked && motherChecked) ? Number(2) : Number(1);
             let parent = {relatives: String("父母"), num: Number(parentNum)};
+            newHeirLevel = 2;
             newHeir.push(parent);
         } else if(siblingChecked) {
             if(siblingNum !== 0){
                 let sibling = {relatives: String("兄弟姊妹"), num: Number(siblingNum)};
+                newHeirLevel = 3;
                 newHeir.push(sibling);
             }
         } else if(ancestorChecked) {
             if(grandFatherNum !== 0) {
                 let grandFather = {relatives: String("祖父"), num: Number(grandFatherNum)};
+                newHeirLevel = 4;
                 newHeir.push(grandFather);
             }
             if(grandMotherNum !== 0) {
                 let grandMother = {relatives: String("祖母"), num: Number(grandMotherNum)};
+                newHeirLevel = 4;
                 newHeir.push(grandMother);
             }
         }
@@ -454,7 +462,8 @@ export default class Main extends React.Component {
         // }
         
         this.setState((prevState, props) => ({
-            heir: newHeir
+            heir: newHeir,
+            heirLevel: Number(newHeirLevel)
         }));
 
     }

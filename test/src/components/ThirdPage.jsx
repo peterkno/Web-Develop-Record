@@ -40,6 +40,7 @@ export default class ThirdPage extends React.Component {
             grandChildLegitime: Number(0),
             parentLegitime: Number(0),
             siblingLegitime: Number(0),
+            ancestorLegitime: Number(0),
             grandFatherLegitime: Number(0),
             grandMotherLegitime: Number(0),
             testamentFormCollapse: false,
@@ -48,8 +49,15 @@ export default class ThirdPage extends React.Component {
             remindChecked: false,
             testament: new FormData()
         };
-
+        
+        // this.initLegitimeState = this.initLegitimeState.bind(this);
         this.calculateLegitime = this.calculateLegitime.bind(this);
+        this.calculateLegitimeMate = this.calculateLegitimeMate.bind(this);
+        this.calculateLegitimeChild = this.calculateLegitimeChild.bind(this);
+        this.calculateLegitimeParent = this.calculateLegitimeParent.bind(this);
+        this.calculateLegitimeSibling = this.calculateLegitimeSibling.bind(this);
+        this.calculateLegitimeAncestor = this.calculateLegitimeAncestor.bind(this);
+
         this.handleTestamentFormCollapse = this.handleTestamentFormCollapse.bind(this);
         this.handleTestamentFormCheck = this.handleTestamentFormCheck.bind(this);
         this.handleRemindCollapse = this.handleRemindCollapse.bind(this);
@@ -57,14 +65,19 @@ export default class ThirdPage extends React.Component {
         this.handleTestamentFile = this.handleTestamentFile.bind(this);
         this.handleTestamentFileUpload = this.handleTestamentFileUpload.bind(this);
         // this.handleList = this.handleList.bind(this);
-        this.handleCreate = this.handleCreate.bind(this);
+        this.handleCreatePerson = this.handleCreatePerson.bind(this);
         // this.handleCreatePost = this.handleCreatePost.bind(this);
         // this.handleCreateVote = this.handleCreateVote.bind(this);
     }
 
+    componentWillMount() {
+        this.calculateLegitime();
+    }
     componentDidMount() {
         this.props.OpenNavbar();
         window.scrollTo(0, 0);
+        // debugger;
+        
     }
 
     componentWillUnmount() {
@@ -81,7 +94,7 @@ export default class ThirdPage extends React.Component {
 
     render() {
         const {heritage} = this.props;
-        const {mateLegitime, childLegitime, grandChildLegitime, parentLegitime, siblingLegitime, grandFatherLegitime, grandMotherLegitime, 
+        const {mateLegitime, childLegitime, grandChildLegitime, parentLegitime, siblingLegitime, ancestorLegitime,grandFatherLegitime, grandMotherLegitime, 
                 testamentFormCollapse, testamentFormChecked, remindCollapse, remindChecked, testament} = this.state;
         return (
             <div>
@@ -156,16 +169,191 @@ export default class ThirdPage extends React.Component {
                             </Card>
                         </Collapse>
                     </div>
-
-                    <Input type="file" name="file" onChange={this.handleTestamentFile} ></Input>
-                    <Button onClick={this.handleTestamentFileUpload}>上傳遺囑</Button>
+                    
+                    
+                    <Input type="file" name="file" onChange={this.handleTestamentFile}></Input>
+                    
+                    
+                    {/* <Button onClick={this.handleTestamentFileUpload}>上傳遺囑</Button> */}
                 </div>
             </div>
         );
     }
 
-    calculateLegitime() {
+    // initLegitimeState() {
+    //     console.log("Prepare set init state");
+    //     this.setState((prevState, props) => ({
+    //         mateLegitime: Number(0),
+    //         childLegitime: Number(0),
+    //         grandChildLegitime: Number(0),
+    //         parentLegitime: Number(0),
+    //         siblingLegitime: Number(0),
+    //         ancestorLegitime: Number(0),
+    //         grandFatherLegitime: Number(0),
+    //         grandMotherLegitime: Number(0),
+    //     }), () => {
+    //         console.log("End set init state");
+    //     })
+    // }
 
+    calculateLegitime() {
+        const {heirLevel} = this.props;
+        console.log("Will Calculate!~!~!");
+        // debugger;
+        if(heirLevel === -1) {
+            console.log("No heir!!!")
+        } else if(heirLevel === 0) {
+            this.calculateLegitimeMate();
+        } else if(heirLevel === 1) {
+            this.calculateLegitimeChild()
+        } else if(heirLevel === 2) {
+            this.calculateLegitimeParent();
+        } else if(heirLevel === 3) {
+            this.calculateLegitimeSibling();
+        } else if(heirLevel === 4) {
+            this.calculateLegitimeAncestor();
+        }
+    }
+    calculateLegitimeMate() {
+        const {heritage} = this.props;
+        
+        let mateSuccessionalPortion = heritage;
+        let newMateLegitime = mateSuccessionalPortion / 2;
+
+        
+        this.setState({
+            mateLegitime: Number(newMateLegitime),
+            // mateLegitime: Number(0),
+            childLegitime: Number(0),
+            grandChildLegitime: Number(0),
+            parentLegitime: Number(0),
+            siblingLegitime: Number(0),
+            grandFatherLegitime: Number(0),
+            grandMotherLegitime: Number(0),
+        });
+    }
+    calculateLegitimeChild() {
+        console.log("calculateLegitimeChild Will Calculate!~!~!");
+        // debugger;
+        const {heritage, mateChecked, childNum, grandChildNum} = this.props;
+        let mateSuccessionalPortion = 0, newMateLegitime = 0;
+        let allChildSuccessionalPortion = 0, newChildLegitime = 0, newGrandChildLegitime = 0;
+
+        if(mateChecked) {
+            mateSuccessionalPortion = heritage / (1+childNum+grandChildNum);
+            allChildSuccessionalPortion = heritage / (1+childNum+grandChildNum);
+        } else {
+            allChildSuccessionalPortion = heritage / (childNum+grandChildNum);
+        }
+
+        newMateLegitime = mateSuccessionalPortion / 2;
+        newChildLegitime = (childNum !== 0) ? allChildSuccessionalPortion / 2 : 0;
+        newGrandChildLegitime = (grandChildNum !== 0) ? allChildSuccessionalPortion / 2 : 0;
+
+        
+        this.setState({
+            mateLegitime: Number(newMateLegitime),
+            childLegitime: Number(newChildLegitime),
+            grandChildLegitime: Number(newGrandChildLegitime),
+            // mateLegitime: Number(0),
+            // childLegitime: Number(0),
+            // grandChildLegitime: Number(0),
+            parentLegitime: Number(0),
+            siblingLegitime: Number(0),
+            grandFatherLegitime: Number(0),
+            grandMotherLegitime: Number(0),
+        })
+        
+        
+    }
+    calculateLegitimeParent() {
+        const {heritage, mateChecked, fatherChecked, motherChecked} = this.props;
+        let parentNum = (fatherChecked && motherChecked) ? Number(2) : Number(1);
+        let mateSuccessionalPortion = 0, newMateLegitime = 0;
+        let parentSuccessionalPortion = 0, newParentLegitime = 0;
+
+        if(mateChecked) {
+            mateSuccessionalPortion = heritage / 2;
+            parentSuccessionalPortion = heritage / (2*parentNum);
+        } else {
+            parentSuccessionalPortion = heritage / parentNum;
+        }
+
+        newMateLegitime = mateSuccessionalPortion / 2;
+        newParentLegitime = parentSuccessionalPortion / 2;
+
+        
+        this.setState({
+            mateLegitime: Number(newMateLegitime),
+            parentLegitime: Number(newParentLegitime),
+            // mateLegitime: Number(0),
+            childLegitime: Number(0),
+            grandChildLegitime: Number(0),
+            // parentLegitime: Number(0),
+            siblingLegitime: Number(0),
+            grandFatherLegitime: Number(0),
+            grandMotherLegitime: Number(0),
+        })
+        
+    }
+    calculateLegitimeSibling() {
+        const {heritage, mateChecked, siblingNum} = this.props;
+        let mateSuccessionalPortion = 0, newMateLegitime = 0;
+        let siblingSuccessionalPortion = 0, newSiblingLegitime = 0;
+
+        if(mateChecked) {
+            mateSuccessionalPortion = heritage / 2;
+            siblingSuccessionalPortion = heritage / (2*siblingNum);
+        } else {
+            siblingSuccessionalPortion = heritage / siblingNum;
+        }
+
+        newMateLegitime = mateSuccessionalPortion / 2;
+        newSiblingLegitime = siblingSuccessionalPortion / 3;
+
+        
+        this.setState({
+            mateLegitime: Number(newMateLegitime),
+            siblingLegitime: Number(newSiblingLegitime),
+            // mateLegitime: Number(0),
+            childLegitime: Number(0),
+            grandChildLegitime: Number(0),
+            parentLegitime: Number(0),
+            // siblingLegitime: Number(0),
+            grandFatherLegitime: Number(0),
+            grandMotherLegitime: Number(0),
+        })
+    }
+    calculateLegitimeAncestor(){
+        const {heritage, mateChecked, grandFatherNum, grandMotherNum} = this.props;
+        let ancestorNum = grandFatherNum + grandMotherNum;
+        let mateSuccessionalPortion = 0, newMateLegitime = 0;
+        let allAncestorSuccessionalPortion = 0, newGrandFatherLegitime = 0, newGrandMotherLegitime = 0;
+
+        if(mateChecked) {
+            mateSuccessionalPortion = heritage*2 / 3;
+            allAncestorSuccessionalPortion = heritage / (3*ancestorNum);
+        } else {
+            ancestorSuccessionalPortion = heritage / ancestorNum;
+        }
+
+        newMateLegitime = mateSuccessionalPortion / 2;
+        newGrandFatherLegitime = (grandFatherNum !== 0) ? allAncestorSuccessionalPortion / 3 : 0;
+        newGrandMotherLegitime = (grandMotherNum !== 0) ? allAncestorSuccessionalPortion / 3 : 0;
+
+        
+        this.setState({
+            mateLegitime: Number(newMateLegitime),
+            grandFatherLegitime: Number(newGrandFatherLegitime),
+            grandMotherLegitime: Number(newGrandMotherLegitime),
+            // mateLegitime: Number(0),
+            childLegitime: Number(0),
+            grandChildLegitime: Number(0),
+            parentLegitime: Number(0),
+            siblingLegitime: Number(0),
+            // grandFatherLegitime: Number(0),
+            // grandMotherLegitime: Number(0),
+        })
     }
 
     handleTestamentFormCollapse() {
@@ -190,6 +378,7 @@ export default class ThirdPage extends React.Component {
     }
 
     handleTestamentFile(e) {
+        e.preventDefault();
         let data = new FormData();
         console.warn("files", e.target.files[0]);
         data.append('filename', this.props.personalID);
@@ -207,7 +396,7 @@ export default class ThirdPage extends React.Component {
                 return res;
             })
         });
-        setTimeout(() => {this.handleCreate(this.props)}, 2000);
+        setTimeout(() => {this.handleCreatePerson(this.props)}, 2000);
     }
     handleTestamentFileUpload(e) {
         e.preventDefault();
@@ -237,7 +426,7 @@ export default class ThirdPage extends React.Component {
         });   
     }
 
-    handleCreate() {
+    handleCreatePerson() {
         // let personID = String("ABCD");
         // let heritage = Number(500);
         createPersonFromApi(this.props).then(persons =>{

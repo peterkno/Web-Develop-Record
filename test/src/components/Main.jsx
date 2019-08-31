@@ -109,6 +109,8 @@ export default class Main extends React.Component {
         // this.handleFamilyNumChange = this.handleFamilyNumChange.bind(this);
         
         this.handleHeir = this.handleHeir.bind(this);
+        this.handleSeniority = this.handleSeniority.bind(this);
+        this.handleGivenNum = this.handleGivenNum.bind(this);
 
         this.handleCarNumChange = this.handleCarNumChange.bind(this);
         this.CreateCarList = this.CreateCarList.bind(this);
@@ -194,15 +196,15 @@ export default class Main extends React.Component {
                     {this.state.navbarUse &&
                         <div>
                             <Navbar  style={{backgroundColor: '#CE8E73'}} light>
-                            <NavbarBrand style={{backgroundColor: '#C000000'}} href="/">遺產管理</NavbarBrand>
+                            <NavbarBrand style={{backgroundColor: '#C000000'}} href="/">遺囑管家</NavbarBrand>
                             <NavbarToggler onClick={this.handleNavbarToggle} className="mr-2"/>
                             <Collapse isOpen={this.state.navbarToggle} navbar>
                                 <Nav navbar>
                                     <NavItem>
-                                        <NavLink tag={Link} to='/second-page' onClick={this.handlePageClick}> 計算正負資產</NavLink>
+                                        <NavLink tag={Link} to='/second-page' onClick={this.handlePageClick}>填寫資料</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink tag={Link} to='/third-page'  onClick={this.handlePageClick}>特留分顯示</NavLink>
+                                        <NavLink tag={Link} to='/third-page'  onClick={this.handlePageClick}>上傳遺囑</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink tag={Link} to='/fourth-page' onClick={this.handlePageClick}>寄出遺囑</NavLink>
@@ -415,45 +417,132 @@ export default class Main extends React.Component {
                 childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum
                 } = this.state;
         let newHeir = [], newHeirLevel = -1;
-
+        let order = 1;
         if(mateChecked) {
-            let mate = {relatives: String("配偶"), num: Number(1)};
-            newHeirLevel = 0;
+            let mate = {
+                        id: uuid(), 
+                        relatives: String("配偶"),
+                        seniority: String(""),
+                        givenNum: Number(0),
+                        givenArr: [], 
+                        order: order,
+                        OnSeniority: this.handleSeniority,
+                        OnGivenNum: this.handleGivenNum
+                    };
+            order++;
             newHeir.push(mate);
+            newHeirLevel = 0;
         }
 
         if(childChecked) {
             if(childNum !== 0) {
-                let child = {relatives: String("兒女"), num: Number(childNum)};
+                order = 1;
+                for(let i = 0; i < childNum; i++) {
+                    let child = {
+                                id: uuid(), 
+                                relatives: String("兒女"),
+                                seniority: String(""),
+                                givenNum: Number(0),
+                                givenArr: [],
+                                order: order,
+                                OnSeniority: this.handleSeniority,
+                                OnGivenNum: this.handleGivenNum
+                            };
+                    newHeir.push(child);
+                    order++;
+                }
                 newHeirLevel = 1;
-                newHeir.push(child);
             }
             if(grandChildNum !== 0) {
-                let grandChild = {relatives: String("孫兒女"), num: Number(grandChildNum)};
+                order = 1;
+                for(let i = 0; i < grandChildNum; i++) {
+                    let grandChild = {
+                                    id: uuid(), 
+                                    relatives: String("孫兒女"),
+                                    seniority: String(""), 
+                                    givenNum: Number(0),
+                                    givenArr: [],
+                                    order: order,
+                                    OnSeniority: this.handleSeniority,
+                                    OnGivenNum: this.handleGivenNum
+                                };
+                    newHeir.push(grandChild);
+                    order++;
+                }
                 newHeirLevel = 1;
-                newHeir.push(grandChild);
             }
         } else if(fatherChecked || motherChecked) {
+            order = 1;
             let parentNum = (fatherChecked && motherChecked) ? Number(2) : Number(1);
-            let parent = {relatives: String("父母"), num: Number(parentNum)};
+            for(let i = 0; i < parentNum; i++) {
+                let parent = {
+                                id: uuid(), 
+                                relatives: String("父母"),
+                                seniority: String(""), 
+                                givenNum: Number(0),
+                                givenArr: [],
+                                order: order,
+                                OnSeniority: this.handleSeniority,
+                                OnGivenNum: this.handleGivenNum
+                            };
+                newHeir.push(parent);
+                order++;
+            }
             newHeirLevel = 2;
-            newHeir.push(parent);
         } else if(siblingChecked) {
+            order = 1;
             if(siblingNum !== 0){
-                let sibling = {relatives: String("兄弟姊妹"), num: Number(siblingNum)};
+                for(let i = 0; i < siblingNum; i++) {
+                    let sibling = {
+                                    id: uuid(), 
+                                    relatives: String("兄弟姊妹"),
+                                    seniority: String(""), 
+                                    givenNum: Number(0),
+                                    givenArr: [],
+                                    order: order,
+                                    OnSeniority: this.handleSeniority,
+                                    OnGivenNum: this.handleGivenNum
+                                };
+                    newHeir.push(sibling);
+                    order++;
+                }
                 newHeirLevel = 3;
-                newHeir.push(sibling);
             }
         } else if(ancestorChecked) {
+            order = 1;
             if(grandFatherNum !== 0) {
-                let grandFather = {relatives: String("祖父"), num: Number(grandFatherNum)};
+                for(let i = 0; i < grandFatherNum; i++) {
+                    let grandFather = {
+                                    id: uuid(), 
+                                    relatives: String("祖父"),
+                                    seniority: String(""), 
+                                    givenNum: Number(0),
+                                    givenArr: [],
+                                    order: order,
+                                    OnSeniority: this.handleSeniority,
+                                    OnGivenNum: this.handleGivenNum
+                                };
+                    newHeir.push(grandFather);
+                    order++;
+                }
                 newHeirLevel = 4;
-                newHeir.push(grandFather);
             }
             if(grandMotherNum !== 0) {
-                let grandMother = {relatives: String("祖母"), num: Number(grandMotherNum)};
+                for(let i = 0; i < grandMotherNum; i++) {
+                    let grandMother = {
+                                    id: uuid(), 
+                                    relatives: String("祖母"),
+                                    seniority: String(""), 
+                                    givenNum: Number(0),
+                                    givenArr: [],
+                                    order: order,
+                                    OnSeniority: this.handleSeniority,
+                                    OnGivenNum: this.handleGivenNum
+                                };
+                    newHeir.push(grandMother);
+                    order++;
+                }
                 newHeirLevel = 4;
-                newHeir.push(grandMother);
             }
         }
 
@@ -467,6 +556,37 @@ export default class Main extends React.Component {
         }));
 
     }
+    handleSeniority(targetID, newSeniority) {
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.heir;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            seniority: String(newSeniority)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            heir: arr
+        })
+    }
+    handleGivenNum(targetID, newGivenNum) {
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.heir;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            givenNum: Number(newGivenNum)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            heir: arr
+        })
+    }
+
 
     handleCarNumChange(e) {
         const num = e.target.value;

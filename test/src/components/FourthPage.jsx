@@ -75,7 +75,7 @@ export default class FourthPage extends React.Component {
                         <p id="reminder">請輸入死者的身分證號碼</p>
                     </div>
                     <div>
-                        <button type="button" id="send" onClick={this.handleSendMail}>寄出<br/>遺囑</button>
+                        <button type="button" id="send4" onClick={this.handleSendMail}>寄出<br/>遺囑</button>
                     </div>
                 </div>
             </div>

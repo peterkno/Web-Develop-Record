@@ -54,7 +54,7 @@ router.post('/mails', function(req, res, next) {
             //密件副本
             bcc: '',
             //主旨
-            subject: '這是 node.js 發送的測試信件', // Subject line
+            subject: '遺囑管家', // Subject line
             //純文字
             text: `您好，附檔為${persons[0].chineseName}生前透過遺囑管家系統留下的遺囑副本、財務資訊及其他提醒事項，敬請查收。
             祝 事事順心`, // plaintext body
@@ -62,10 +62,10 @@ router.post('/mails', function(req, res, next) {
             html: '' ,
             //附件檔案
             attachments: [{
-                filename: `person_${persons[0].personalID}.pdf`,
+                filename: `${persons[0].personalID}財產清單.pdf`,
                 path: `./dist/persons/${persons[0].personalID}.pdf`
             }, {
-                filename: `testament_${persons[0].personalID}.pdf`,
+                filename: `${persons[0].personalID}遺囑.pdf`,
                 path: `./dist/testaments/${persons[0].personalID}.pdf`
             }, {
                 filename: `貼心小提醒.pdf`,

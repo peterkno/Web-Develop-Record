@@ -13,6 +13,7 @@ import {
 import PropTypes from 'prop-types';
 
 import './SecondPage.css';
+import HeirList from 'components/HeirList.jsx';
 import CarList from 'components/CarList.jsx';
 import MotorList from 'components/MotorList.jsx';
 import AccountList from 'components/AccountList.jsx';
@@ -308,6 +309,10 @@ export default class SecondPage extends React.Component {
                             innerRef={el => {this.inputGrandMotherNum = el}} value={grandMotherNum} onChange={OnGrandMotherNum}/>位</Form>
                         </div> }
                 </div>
+                <div>
+                    <h3 className="H3">特種贈與</h3>
+                    <HeirList heirs={heir}/>
+                </div> 
                 {/* <h3>法定繼承人: {divHeir}</h3> */}
 
                 {/* <br /> */}

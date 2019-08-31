@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import './HeirInfo.css';
-
+import GivenList from 'components/GivenList.jsx';
 
 export default class HeirInfo extends React.Component {
     static propTypes = {
@@ -47,7 +47,7 @@ export default class HeirInfo extends React.Component {
     }
 
     render() {
-        const {relatives, seniority, givenNum, givenArr, order} = this.props;
+        const {id, relatives, seniority, givenNum, givenArr, order} = this.props;
         return (
             <div>
                 <Form inline>
@@ -67,7 +67,7 @@ export default class HeirInfo extends React.Component {
                             value={givenNum} onChange={this.handleGivenChange} />
                     </FormGroup>
                 </Form>
-                <GivenList />
+                <GivenList givens={givenArr} heirID={id}/>
             </div>
         );
     }

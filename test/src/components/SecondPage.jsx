@@ -309,6 +309,7 @@ export default class SecondPage extends React.Component {
                             innerRef={el => {this.inputGrandMotherNum = el}} value={grandMotherNum} onChange={OnGrandMotherNum}/>位</Form>
                         </div> }
                 </div>
+                <br />
                 <div>
                     <h3 className="H3">特種贈與</h3>
                     <HeirList heirs={heir}/>

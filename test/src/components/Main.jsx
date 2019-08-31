@@ -111,6 +111,9 @@ export default class Main extends React.Component {
         this.handleHeir = this.handleHeir.bind(this);
         this.handleSeniority = this.handleSeniority.bind(this);
         this.handleGivenNum = this.handleGivenNum.bind(this);
+        this.CreateGivenList = this.CreateGivenList.bind(this);
+        this.handleGivenType = this.handleGivenType.bind(this);
+        this.handleGivenValue = this.handleGivenValue.bind(this);
 
         this.handleCarNumChange = this.handleCarNumChange.bind(this);
         this.CreateCarList = this.CreateCarList.bind(this);
@@ -584,8 +587,119 @@ export default class Main extends React.Component {
         arr[index] = updateItem;
         this.setState({
             heir: arr
+        }, () => {
+            this.CreateGivenList(targetID);
         })
     }
+    CreateGivenList(targetID){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let newHeirArr=this.state.heir;
+        let index = newHeirArr.findIndex(findTarget);
+        const num = newHeirArr[index].givenNum;
+
+        let newGivenArr=[];
+        while (newGivenArr.length < num) { 
+            newGivenArr.push({
+                id: uuid(),
+                type: String(''),
+                value: Number(0),
+                OnType: this.handleGivenType,
+                OnValue: this.handleGivenValue
+            });
+        }
+        newHeirArr[index].givenArr = newGivenArr;
+
+        this.setState({
+            heir: newHeirArr
+        });
+    }
+    handleGivenType(heirID, targetID, newType) {
+        function findHeir(element) {
+            return element.id === heirID;
+        }
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let newHeirArr=this.state.heir;
+        let heirIndex = newHeirArr.findIndex(findHeir);
+        let newGivenArr = newHeirArr[heirIndex].givenArr;
+        let givenIndex = newGivenArr.findIndex(findTarget);
+
+        let updateGivenItem = {
+            ...newGivenArr[givenIndex],
+            type: String(newType)
+        }
+        newGivenArr[givenIndex] = updateGivenItem;
+
+        let updateHeirItem = {
+            ...newHeirArr[heirIndex],
+            givenArr: newGivenArr
+        }
+        newHeirArr[heirIndex] = updateHeirItem;
+
+        this.setState({
+            heir: newHeirArr
+        })
+    }
+    handleGivenValue(heirID, targetID, newValue) {
+        function findHeir(element) {
+            return element.id === heirID;
+        }
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let newHeirArr=this.state.heir;
+        let heirIndex = newHeirArr.findIndex(findHeir);
+        let newGivenArr = newHeirArr[heirIndex].givenArr;
+        let givenIndex = newGivenArr.findIndex(findTarget);
+
+        let updateGivenItem = {
+            ...newGivenArr[givenIndex],
+            value: Number(newValue)
+        }
+        newGivenArr[givenIndex] = updateGivenItem;
+
+        let updateHeirItem = {
+            ...newHeirArr[heirIndex],
+            givenArr: newGivenArr
+        }
+        newHeirArr[heirIndex] = updateHeirItem;
+        
+        this.setState({
+            heir: newHeirArr
+        })
+    }
+
+    // handleGivenNum(targetID, newGivenNum) {
+    //     function findTarget(element) {
+    //         return element.id === targetID;
+    //     }
+    //     let newHeirArr=this.state.heir;
+    //     let index = newHeirArr.findIndex(findTarget);
+
+    //     let newGivenArr=[];
+    //     while (newGivenArr.length < num) { 
+    //         newGivenArr.push({
+    //             id: uuid(),
+    //             type: String(''),
+    //             value: Number(0),
+    //             OnType: this.handleGivenType,
+    //             OnValue: this.handleGivenValue
+    //         });
+    //     }
+
+    //     let updateItem = {
+    //         ...newHeirArr[index],
+    //         givenNum: Number(newGivenNum),
+    //         givenArr: newGivenArr
+    //     }
+    //     newHeirArr[index] = updateItem;
+    //     this.setState({
+    //         heir: newHeirArr
+    //     })
+    // }
 
 
     handleCarNumChange(e) {

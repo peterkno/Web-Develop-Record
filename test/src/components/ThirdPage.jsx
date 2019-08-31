@@ -126,7 +126,7 @@ export default class ThirdPage extends React.Component {
     }
 
     render() {
-        const {heritage} = this.props;
+        const {heir, heritage, heritageWithWarrant} = this.props;
         const {mateLegitime, childLegitime, grandChildLegitime, parentLegitime, siblingLegitime, grandFatherLegitime, grandMotherLegitime, 
                 testamentFormCollapse, testamentFormChecked, remindCollapse, mistakeCollapse ,
                 remindOneCollapse, remindTwoCollapse, remindThreeCollapse, remindFourCollapse, remindFiveCollapse,
@@ -141,13 +141,13 @@ export default class ThirdPage extends React.Component {
                         
                         <h2 className='H2' id="title-1">計算結果</h2>
                         <h3 className='H3'>一、遺產總額：{heritage} 元</h3>
+                        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--若是須償還做保金額，遺產剩餘{heritageWithWarrant}元</p>
                         <h3 className='H3'>二、特留分</h3>
                         <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--分配遺產時，至少要為法定繼承人保留的最低金額</p>
                         
                         <div className='Div'> 
                             <p className="result">
-                                {/* <!--特留分我想說全部列出來(雖然通常只會有配偶+最先繼承順序會有特留分)一是比較簡單，二是使用者可以更一目了然--> */}
-                                1.配偶：{mateLegitime}元
+                                1.法定繼承人{heir[0].total}配偶：{mateLegitime}元
                                 <br />
                                 2.子女：各{childLegitime}元/人
                                 <br />
@@ -557,17 +557,6 @@ export default class ThirdPage extends React.Component {
                         <input type="file" onChange={this.handleTestamentFile}/>
                             <p className="Center-Text mt-sm-2">上傳<br />遺囑</p>
                     </label>
-                    {/* <label for="file-upload" id="send" >
-                        上傳<br />遺囑
-                    </label>
-                    <input id="file-upload" type="file" onChange={this.handleTestamentFile}/> */}
-                    {/* <input id="file-upload" type="file" onChange={this.handleTestamentFile}/> */}
-
-                    {/* <label id="send">
-                        <Input type="file" name="file" onChange={this.handleTestamentFile}></Input>
-                    </label> */}
-
-                    {/* <Input type="file" name="file" onChange={this.handleTestamentFile}></Input> */}
                 </div>
             // </div>
         );
@@ -597,6 +586,7 @@ export default class ThirdPage extends React.Component {
             console.log("No heir!!!")
         } else if(heirLevel === 0) {
             this.calculateLegitimeMate();
+            // this.displayLegitimeMate();
         } else if(heirLevel === 1) {
             this.calculateLegitimeChild()
         } else if(heirLevel === 2) {
@@ -624,6 +614,9 @@ export default class ThirdPage extends React.Component {
             grandFatherLegitime: Number(0),
             grandMotherLegitime: Number(0),
         });
+    }
+    displayLegitimeMate() {
+
     }
     calculateLegitimeChild() {
         console.log("calculateLegitimeChild Will Calculate!~!~!");

@@ -21,7 +21,7 @@ import SecondPage from 'components/SecondPage.jsx';
 import FirstPage from 'components/FirstPage.jsx';
 import ThirdPage from 'components/ThirdPage.jsx';
 import FourthPage from 'components/FourthPage.jsx';
-
+const nzhhk = require("nzh/hk"); //繁体中文
 import './Main.css';
 
 export default class Main extends React.Component {
@@ -50,6 +50,7 @@ export default class Main extends React.Component {
             grandFatherNum: Number(0),
             grandMotherNum: Number(0),
             heritage: Number(0),
+            heritageWithWarrant: Number(0),
             personalID: String(''),
             heir: [],
             heirLevel: Number(-1),
@@ -72,6 +73,8 @@ export default class Main extends React.Component {
             creditorArr: [],
             debtorNum: Number(0),
             debtorArr: [],
+            warrantNum: Number(0),
+            warrantArr: [],
             position: String(""),
             remark: String(""),
             emailNum: Number(0),
@@ -83,7 +86,7 @@ export default class Main extends React.Component {
         this.handleCloseNavbar = this.handleCloseNavbar.bind(this);
         this.handlePageClick = this.handlePageClick.bind(this);
         this.handleHeritageChange = this.handleHeritageChange.bind(this);
-
+        this.handleHeritageWWChange = this.handleHeritageWWChange.bind(this);
 
         this.handleChineseNameChange = this.handleChineseNameChange.bind(this);
         this.handleEnglishNameChange = this.handleEnglishNameChange.bind(this);
@@ -170,6 +173,11 @@ export default class Main extends React.Component {
         this.handleDebtorValue = this.handleDebtorValue.bind(this);
         this.handleDebtorAddr = this.handleDebtorAddr.bind(this);
 
+        this.handleWarrantNumChange = this.handleWarrantNumChange.bind(this);
+        this.CreateWarrantList = this.CreateWarrantList.bind(this);
+        this.handleWarrantName = this.handleWarrantName.bind(this);
+        this.handleWarrantValue = this.handleWarrantValue.bind(this);
+
         this.handlePositionChange = this.handlePositionChange.bind(this);
         this.handleRemarkChange = this.handleRemarkChange.bind(this);
 
@@ -222,7 +230,8 @@ export default class Main extends React.Component {
                         // <SecondPage OpenNavbar={this.handleOpenNavbar} OnThirdPage={this.handleHeritageChange} />
                     )}/>
                     <Route exact path="/second-page" render={() => (
-                        <SecondPage {...this.state} OpenNavbar={this.handleOpenNavbar} OnHeritage={this.handleHeritageChange} 
+                        <SecondPage {...this.state} OpenNavbar={this.handleOpenNavbar} 
+                            OnHeritage={this.handleHeritageChange} OnheritageWithWarrant={this.handleHeritageWWChange}
                             OnChineseName={this.handleChineseNameChange} OnEnglishName={this.handleEnglishNameChange} OnPersonalID = {this.handlePersonalIDChange}
                             OnBirthYear={this.handleBirthYearChange} OnBirthMonth={this.handleBirthMonthChange} OnBirthDay={this.handleBirthDayChange}
                             OnAddress={this.handleAddressChange} OnPhone={this.handlePhoneChange}
@@ -233,7 +242,7 @@ export default class Main extends React.Component {
                             OnCarNum={this.handleCarNumChange} OnMotorNum={this.handleMotorNumChange} OnMoney={this.handleMoneyChange}
                             OnAccountNum={this.handleAccountNumChange} OnStockNum={this.handleStockNumChange} OnInsuranceNum={this.handleInsuranceNumChange}
                             OnLandNum={this.handleLandNumChange} OnBuildingNum={this.handleBuildingNumChange}
-                            OnCreditorNum={this.handleCreditorNumChange} OnDebtorNum={this.handleDebtorNumChange}
+                            OnCreditorNum={this.handleCreditorNumChange} OnDebtorNum={this.handleDebtorNumChange} OnWarrantNum={this.handleWarrantNumChange}
                             OnPosition={this.handlePositionChange} OnRemark={this.handleRemarkChange}
                             OnEmailNum={this.handleEmailNumChange}
                             // OnHeir={this.handleHeir} 
@@ -415,12 +424,17 @@ export default class Main extends React.Component {
             heritage: Number(newHeritage)
         }));
     }
+    handleHeritageWWChange(newHeritageWW) {
+        this.setState((prevState, props) => ({
+            heritageWithWarrant: Number(newHeritageWW)
+        }));
+    }
     handleHeir() {
         const {mateChecked, childChecked, fatherChecked, motherChecked, siblingChecked, ancestorChecked,
                 childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum
                 } = this.state;
         let newHeir = [], newHeirLevel = -1;
-        let order = 1;
+        let order = 1, total = 1;
         if(mateChecked) {
             let mate = {
                         id: uuid(), 
@@ -429,9 +443,11 @@ export default class Main extends React.Component {
                         givenNum: Number(0),
                         givenArr: [], 
                         order: order,
+                        total: nzhhk.encodeS(total),
                         OnSeniority: this.handleSeniority,
                         OnGivenNum: this.handleGivenNum
                     };
+            total++;
             order++;
             newHeir.push(mate);
             newHeirLevel = 0;
@@ -448,10 +464,12 @@ export default class Main extends React.Component {
                                 givenNum: Number(0),
                                 givenArr: [],
                                 order: order,
+                                total: nzhhk.encodeS(total),
                                 OnSeniority: this.handleSeniority,
                                 OnGivenNum: this.handleGivenNum
                             };
                     newHeir.push(child);
+                    total++;
                     order++;
                 }
                 newHeirLevel = 1;
@@ -466,11 +484,13 @@ export default class Main extends React.Component {
                                     givenNum: Number(0),
                                     givenArr: [],
                                     order: order,
+                                    total: nzhhk.encodeS(total),
                                     OnSeniority: this.handleSeniority,
                                     OnGivenNum: this.handleGivenNum
                                 };
                     newHeir.push(grandChild);
                     order++;
+                    total++;
                 }
                 newHeirLevel = 1;
             }
@@ -485,10 +505,12 @@ export default class Main extends React.Component {
                                 givenNum: Number(0),
                                 givenArr: [],
                                 order: order,
+                                total: nzhhk.encodeS(total),
                                 OnSeniority: this.handleSeniority,
                                 OnGivenNum: this.handleGivenNum
                             };
                 newHeir.push(parent);
+                total++;
                 order++;
             }
             newHeirLevel = 2;
@@ -503,10 +525,12 @@ export default class Main extends React.Component {
                                     givenNum: Number(0),
                                     givenArr: [],
                                     order: order,
+                                    total: nzhhk.encodeS(total),
                                     OnSeniority: this.handleSeniority,
                                     OnGivenNum: this.handleGivenNum
                                 };
                     newHeir.push(sibling);
+                    total++;
                     order++;
                 }
                 newHeirLevel = 3;
@@ -522,10 +546,12 @@ export default class Main extends React.Component {
                                     givenNum: Number(0),
                                     givenArr: [],
                                     order: order,
+                                    total: nzhhk.encodeS(total),
                                     OnSeniority: this.handleSeniority,
                                     OnGivenNum: this.handleGivenNum
                                 };
                     newHeir.push(grandFather);
+                    total++;
                     order++;
                 }
                 newHeirLevel = 4;
@@ -538,21 +564,19 @@ export default class Main extends React.Component {
                                     seniority: String(""), 
                                     givenNum: Number(0),
                                     givenArr: [],
+                                    total: nzhhk.encodeS(total),
                                     order: order,
                                     OnSeniority: this.handleSeniority,
                                     OnGivenNum: this.handleGivenNum
                                 };
                     newHeir.push(grandMother);
+                    total++;
                     order++;
                 }
                 newHeirLevel = 4;
             }
         }
 
-        // if(newHeir.length === 0) {
-        //     newHeir = String("NoHeir");
-        // }
-        
         this.setState((prevState, props) => ({
             heir: newHeir,
             heirLevel: Number(newHeirLevel)
@@ -1337,6 +1361,61 @@ export default class Main extends React.Component {
         arr[index] = updateItem;
         this.setState({
             debtorArr: arr
+        })
+    }
+
+    handleWarrantNumChange(e) {
+        const num = e.target.value;
+        this.setState({
+            warrantNum: Number(num)
+        }, () =>{
+            this.CreateWarrantList();
+        });
+    }
+    CreateWarrantList(){
+        const num = this.state.warrantNum;
+        let arr=[];
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                name: String(''),
+                value: Number(0),
+                OnName: this.handleWarrantName,
+                OnValue: this.handleWarrantValue,
+            });
+        }
+        this.setState({
+            warrantArr: arr
+        });
+    }
+    handleWarrantName(targetID, newName){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.warrantArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            name: String(newName)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            warrantArr: arr
+        })
+    }
+    handleWarrantValue(targetID, newValue){
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.warrantArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            value: Number(newValue)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            warrantArr: arr
         })
     }
 

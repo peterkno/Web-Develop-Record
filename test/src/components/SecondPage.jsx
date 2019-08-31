@@ -24,6 +24,8 @@ import BuildingList from 'components/BuildingList.jsx';
 import EmailList from 'components/EmailList.jsx';
 import CreditorList from 'components/CreditorList.jsx';
 import DebtorList from 'components/DebtorList.jsx';
+import WarrantList from 'components/WarrantList.jsx';
+
 import { stringify } from 'querystring';
 
 export default class SecondPage extends React.Component {
@@ -94,6 +96,7 @@ export default class SecondPage extends React.Component {
         this.inputBuilding = null;
         this.inputCreditor = null;
         this.inputDebtor = null;
+        this.inputWarrant = null;
         this.inputPosition = null;
         this.inputRemark = null;
         this.inputEmail = null;
@@ -205,7 +208,7 @@ export default class SecondPage extends React.Component {
                 accountNum, accountArr, OnAccountNum, stockNum, stockArr, OnStockNum,
                 insuranceNum, insuranceArr, OnInsuranceNum,
                 landNum, landArr, OnLandNum, buildingNum, buildingArr, OnBuildingNum,
-                creditorNum, creditorArr, OnCreditorNum, debtorNum, debtorArr, OnDebtorNum, 
+                creditorNum, creditorArr, OnCreditorNum, debtorNum, debtorArr, OnDebtorNum, warrantNum, warrantArr, OnWarrantNum,
                 position, OnPosition, remark, OnRemark,
                 emailNum, emailArr, OnEmailNum} = this.props;
         const heritage = this.calculateHeritage();
@@ -422,9 +425,20 @@ export default class SecondPage extends React.Component {
                     <DebtorList debtors={debtorArr} />
                 </div>
 
+                <div>
+                    <h3 className="H3">五、作保人</h3>
+                    <Form inline>
+                        <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
+                            (一)作保人 : 共<Input className='number' type='text' innerRef={el => {this.inputWarrant = el}} 
+                                value={warrantNum} onChange={OnWarrantNum}></Input>位
+                        </FormGroup>
+                    </Form>
+                    <WarrantList warrants={warrantArr} />
+                </div>
+
                 <br />
                 <div>
-                    <h3 className="H3">五、請輸入您的印鑑、帳本存放、遺囑正本的位置</h3>
+                    <h3 className="H3">六、請輸入您的印鑑、帳本存放、遺囑正本的位置</h3>
                     位置 : <Input className='Textarea' type="textarea" name="位置" 
                             innerRef={el => {this.inputPosition = el}} value={position} onChange={OnPosition}/>
                     備註 : <Input className='Textarea' type="textarea" name="備註" 
@@ -433,7 +447,7 @@ export default class SecondPage extends React.Component {
                 
                 <br />
                 <div>
-                    <h3 className="H3">六、指定遺囑副本信件收件人</h3>
+                    <h3 className="H3">七、指定遺囑副本信件收件人</h3>
                     <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
                             (一)收件人 : 共<Input className='number' type='text' innerRef={el => {this.inputEmail = el}} 
@@ -485,9 +499,22 @@ export default class SecondPage extends React.Component {
             + sumForNowValue(buildingArr) - sum(creditorArr) + sum(debtorArr));
         return heritage;
     }
+    calculateHeritageWithWarrant(heritage) {
+        const {warrantArr} = this.props;
+        let heritageWW = heritage;
+        
+        let i = 0;
+        for(i = 0; i < warrantArr.length; i++) {
+            heritageWW -= warrantArr[i].value;
+        }
+
+        return heritageWW;
+    }
     handleHeritage() {
         const heritage = this.calculateHeritage();
+        const heritageWW = this.calculateHeritageWithWarrant(heritage);
         this.props.OnHeritage(heritage);
+        this.props.OnheritageWithWarrant(heritageWW);
     }
 
 

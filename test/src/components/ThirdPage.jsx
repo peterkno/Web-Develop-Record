@@ -162,7 +162,7 @@ export default class ThirdPage extends React.Component {
                         
                         <h2 className='H2' id="title-1">計算結果</h2>
                         <h3 className='H3'>一、遺產總額：{heritage} 元</h3>
-                        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--若是須償還做保金額，遺產剩餘{heritageWithWarrant}元</p>
+                        <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--若是須償還所有做保金額，遺產剩餘{heritageWithWarrant}元</p>
                         <h3 className='H3'>二、特留分</h3>
                         <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--分配遺產時，至少要為法定繼承人保留的最低金額</p>
                         
@@ -170,54 +170,61 @@ export default class ThirdPage extends React.Component {
                             <p className="result">
                                 {/* 1.法定繼承人{heir[0].total}配偶：{mateLegitime}元 */}
                                 {/* 1.配偶：{mateLegitime}元 */}
-                                {
+                                {/* {
                                     heirLevel > -1 
                                     ? `${mateDisplay}`
                                     : `${1}.配偶：${mateLegitime}元`
                                     
-                                }
+                                } */}
+                                {mateDisplay}
                                 <br />
                                 {/* 2.子女：各{childLegitime}元/人 */}
-                                {
+                                {/* {
                                     ((heirLevel === 1) && (childNum !== 0)) 
                                     ? `${childDisplay}`
                                     : `${2}.子女：各${childLegitime}元/人`
-                                }
+                                } */}
+                                {childDisplay}
                                 <br />
                                 {/* 3.孫子女：各{grandChildLegitime}元/人 */}
-                                {
+                                {/* {
                                     ((heirLevel === 1) && (grandChildNum !== 0)) 
                                     ? `${grandChildDisplay}`
                                     : `${3}.孫子女：各${grandChildLegitime}元/人`
-                                }
+                                } */}
+                                {grandChildDisplay}
                                 <br />
                                 {/* 4.父母：各{parentLegitime}元/人 */}
-                                {
+                                {/* {
                                     heirLevel === 2
                                     ? `${parentDisplay}`
                                     : `${4}.父母：各${parentLegitime}元/人`
-                                }
+                                } */}
+                                {parentDisplay}
                                 <br />
                                 {/* 5.兄弟姊妹：各{siblingLegitime}元/人 */}
-                                {
+                                {/* {
                                     heirLevel === 3
                                     ? `${siblingDisplay}`
                                     : `${5}.兄弟姊妹：各${siblingLegitime}元/人`
-                                }
+                                } */}
+                                {siblingDisplay}
                                 <br />
                                 {/* 6.祖父：各{grandFatherLegitime}元/人 */}
-                                {
+                                {/* {
                                     (heirLevel === 4 && grandFatherNum !== 0)
                                     ? `${grandFatherDisplay}`
                                     : `${6}.祖父：各${grandFatherLegitime}元/人`
-                                }
+                                } */}
+                                {grandFatherDisplay}
                                 <br />
                                 {/* 7.祖母：各{grandMotherLegitime}元/人 */}
-                                {
+                                {/* {
                                     (heirLevel === 4 && grandMotherNum !== 0)
                                     ? `${grandMotherDisplay}`
                                     : `${7}.祖母：各${grandMotherLegitime}元/人`
-                                }
+                                } */}
+                                {grandMotherDisplay}
                                 <br />
                             </p>
                         </div>
@@ -644,20 +651,20 @@ export default class ThirdPage extends React.Component {
             console.log("No heir!!!")
         } else if(heirLevel === 0) {
             this.calculateLegitimeMate();
-            this.displayLegitimeMate();
         } else if(heirLevel === 1) {
             this.calculateLegitimeChild();
-            this.displayLegitimeChild();
         } else if(heirLevel === 2) {
-            this.calculateLegitimeParent();
-            this.displayLegitimeParent();            
+            this.calculateLegitimeParent();            
         } else if(heirLevel === 3) {
             this.calculateLegitimeSibling();
-            this.displayLegitimeSibling();
         } else if(heirLevel === 4) {
             this.calculateLegitimeAncestor();
-            this.displayLegitimeAncestor();
         }
+        this.displayLegitimeMate();
+        this.displayLegitimeChild();
+        this.displayLegitimeParent();
+        this.displayLegitimeSibling();
+        this.displayLegitimeAncestor();
     }
     calculateLegitimeMate() {
         const {heritage, heir} = this.props;
@@ -679,19 +686,25 @@ export default class ThirdPage extends React.Component {
         });
     }
     displayLegitimeMate() {
-        const {heritage, heir} = this.props;
-
-        let dispalyMate = `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[0].total)}配偶：${heir[0].legitime}元`;
+        const {heritage, heirLevel, heir, mateChecked} = this.props;
+        const {mateLegitime} = this.state;
+        let dispalyMate = ``;
+        if(heirLevel < 0 || !mateChecked) {
+            dispalyMate = `${displayNumber}.配偶：${mateLegitime}元`
+        } else {
+            dispalyMate = `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[0].total)} : 配偶 ${heir[0].seniority} ${heir[0].legitime}元`
+        }
+        
         displayNumber++;
         this.setState({
             mateDisplay: dispalyMate,
-            childDisplay: '',
-            grandChildDisplay: '',
-            parentDisplay: '',
-            siblingDisplay: '',
-            ancestorDisplay: '',
-            grandFatherDisplay: '',
-            grandMotherDisplay: '',
+            // childDisplay: '',
+            // grandChildDisplay: '',
+            // parentDisplay: '',
+            // siblingDisplay: '',
+            // ancestorDisplay: '',
+            // grandFatherDisplay: '',
+            // grandMotherDisplay: '',
         });
     }
     
@@ -742,53 +755,60 @@ export default class ThirdPage extends React.Component {
         })
     }
     displayLegitimeChild() {
-        const {heir, heritage, mateChecked, childNum, grandChildNum} = this.props;
-        const {mateLegitime} = this.state;
-        let dispalyMate = '', displayChild = '', displayGrandChild = '';
+        const {heir, heirLevel, heritage, mateChecked, childNum, grandChildNum} = this.props;
+        const {mateLegitime, childLegitime, grandChildLegitime} = this.state;
+        // let dispalyMate = '';
+        let displayChild = '', displayGrandChild = '';
         let tmp = 0;
         let totalNum = (mateChecked) ? (1+childNum+grandChildNum) : (childNum+grandChildNum);
-
-        if(mateChecked) {
-            dispalyMate = `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[0].total)} : 配偶${heir[0].legitime}元`;
-            tmp++;
-        } else {
-            dispalyMate = `${displayNumber}.配偶：${mateLegitime}元`;
-        }
-        displayNumber++;
-        console.warn("Total Num: ", totalNum);
-        while(tmp < totalNum) {
-            console.warn("Tmp: ", tmp);
-            if(heir[tmp].relatives === "兒女") {
-                displayChild += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 直系血親卑親屬 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
-                
-                if(tmp !== (totalNum-grandChildNum-1)) {
-                    displayChild += "\n";
-                } 
-            } else if(heir[tmp].relatives === "孫兒女") {
-                displayGrandChild += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 直系血親卑親屬 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
-                
-                if(tmp !== (totalNum-1)) {
-                    displayGrandChild += "\n";
-                }
-            } else {
-                console.error("displayLegitimeChild Err");
-            }
-            tmp++;
+        if(heirLevel !== 1) {
+            displayChild = `${displayNumber}.子女：各${childLegitime}元/人`;
             displayNumber++;
-            // if(tmp !== totalNum) {
-            //     displayChild = "<br />";
-            // }     
+            displayGrandChild = `${displayNumber}.孫子女：各${grandChildLegitime}元/人`;
+            displayNumber++;
+        } else {
+            if(childNum === 0) {
+                displayChild = `${displayNumber}.子女：各${childLegitime}元/人`;
+                displayNumber++;
+            }
+            
+            while(tmp < totalNum) {
+                console.warn("Tmp: ", tmp);
+                if(heir[tmp].relatives === "配偶") {
+                    displayNumber--;
+                } else if(heir[tmp].relatives === "兒女") {
+                    displayChild += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 直系血親卑親屬 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
+                    
+                    if(tmp !== (totalNum-grandChildNum-1)) {
+                        displayChild += "\n";
+                    } 
+                } else if(heir[tmp].relatives === "孫兒女") {
+                    displayGrandChild += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 直系血親卑親屬 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
+                    
+                    if(tmp !== (totalNum-1)) {
+                        displayGrandChild += "\n";
+                    }
+                } else {
+                    console.error("displayLegitimeChild Err");
+                }
+                tmp++;
+                displayNumber++;
+            }
+            if(grandChildNum === 0) {
+                displayGrandChild = `${displayNumber}.孫子女：各${grandChildLegitime}元/人`;
+                displayNumber++;
+            }
         }
 
         this.setState({
-            mateDisplay: dispalyMate,
+            // mateDisplay: dispalyMate,
             childDisplay: displayChild,
             grandChildDisplay: displayGrandChild,
-            parentDisplay: '',
-            siblingDisplay: '',
-            ancestorDisplay: '',
-            grandFatherDisplay: '',
-            grandMotherDisplay: '',
+            // parentDisplay: '',
+            // siblingDisplay: '',
+            // ancestorDisplay: '',
+            // grandFatherDisplay: '',
+            // grandMotherDisplay: '',
         });
     }
     calculateLegitimeParent() {
@@ -833,44 +853,43 @@ export default class ThirdPage extends React.Component {
         })
     }
     displayLegitimeParent() {
-        const {heir, heritage, mateChecked, fatherChecked, motherChecked} = this.props;
-        const {mateLegitime} = this.state;
-        let dispalyMate = `${displayNumber}.配偶：${mateLegitime}元`, displayParent = '';
+        const {heir, heritage, heirLevel, mateChecked, fatherChecked, motherChecked} = this.props;
+        const {mateLegitime, parentLegitime} = this.state;
+        // let dispalyMate = `${displayNumber}.配偶：${mateLegitime}元`; 
+        let displayParent = '';
         let parentNum = (fatherChecked && motherChecked) ? Number(2) : Number(1);
         let tmp = 0;
         let totalNum = (mateChecked) ? (1+parentNum) : (parentNum);
 
-        // if(mateChecked) {
-        //     dispalyMate = `法定繼承人${heir[0].total} : 配偶${heir[0].legitime}元`;
-        //     tmp++;
-        // } else {
-        //     dispalyMate = '';
-        // }
-
-        while(tmp < totalNum) {
-            if(heir[tmp].relatives === "配偶") {
-                dispalyMate = `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 配偶 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
-            } else if(heir[tmp].relatives === "父母") {
-                displayParent += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 父母 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
-                if(tmp !== (totalNum-1)) {
-                    displayParent += "\n";
-                } 
-            } else {
-                console.error("displayLegitimeParent Err");
-            }
+        if(heirLevel !== 2){
+            displayParent = `${displayNumber}.父母：各${parentLegitime}元/人`
             displayNumber++;
-            tmp++;
+        } else {
+            while(tmp < totalNum) {
+                if(heir[tmp].relatives === "配偶") {
+                    // dispalyMate = `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 配偶 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
+                    displayNumber--;
+                } else if(heir[tmp].relatives === "父母") {
+                    displayParent += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 父母 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
+                    if(tmp !== (totalNum-1)) {
+                        displayParent += "\n";
+                    } 
+                } else {
+                    console.error("displayLegitimeParent Err");
+                }
+                displayNumber++;
+                tmp++;
+            }
         }
-
         this.setState({
-            mateDisplay: dispalyMate,
-            childDisplay: '',
-            grandChildDisplay: '',
+            // mateDisplay: dispalyMate,
+            // childDisplay: '',
+            // grandChildDisplay: '',
             parentDisplay: displayParent,
-            siblingDisplay: '',
-            ancestorDisplay: '',
-            grandFatherDisplay: '',
-            grandMotherDisplay: '',
+            // siblingDisplay: '',
+            // ancestorDisplay: '',
+            // grandFatherDisplay: '',
+            // grandMotherDisplay: '',
         });
     }
 
@@ -914,43 +933,41 @@ export default class ThirdPage extends React.Component {
         })
     }
     displayLegitimeSibling() {
-        const {heir, heritage, mateChecked, siblingNum} = this.props;
-        const {mateLegitime} = this.state;
-        let dispalyMate = `${displayNumber}.配偶：${mateLegitime}元`, displaySibling = '';
+        const {heir, heritage, heirLevel, mateChecked, siblingNum} = this.props;
+        const {mateLegitime, siblingLegitime} = this.state;
+        // let dispalyMate = `${displayNumber}.配偶：${mateLegitime}元`;
+        let displaySibling = '';
         let tmp = 0;
         let totalNum = (mateChecked) ? (1+siblingNum) : (siblingNum);
 
-        // if(mateChecked) {
-        //     dispalyMate = `法定繼承人${heir[0].total} : 配偶${heir[0].legitime}元`;
-        //     tmp++;
-        // } else {
-        //     dispalyMate = '';
-        // }
-
-        while(tmp < totalNum) {
-            if(heir[tmp].relatives === "配偶") {
-                dispalyMate = `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 配偶 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
-            } else if(heir[tmp].relatives === "兄弟姊妹") {
-                displaySibling += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 兄弟姊妹 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
-                if(tmp !== (totalNum-1)) {
-                    displaySibling += "\n";
-                } 
-            } else {
-                console.error("displayLegitimeSibling Err");
-            }
+        if(heirLevel !== 3){
+            displaySibling = `${displayNumber}.兄弟姊妹：各${siblingLegitime}元/人`;
             displayNumber++;
-            tmp++;
+        } else {
+            while(tmp < totalNum) {
+                if(heir[tmp].relatives === "配偶") {
+                    // dispalyMate = `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 配偶 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
+                } else if(heir[tmp].relatives === "兄弟姊妹") {
+                    displaySibling += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 兄弟姊妹 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
+                    if(tmp !== (totalNum-1)) {
+                        displaySibling += "\n";
+                    } 
+                } else {
+                    console.error("displayLegitimeSibling Err");
+                }
+                displayNumber++;
+                tmp++;
+            }
         }
-
         this.setState({
-            mateDisplay: dispalyMate,
-            childDisplay: '',
-            grandChildDisplay: '',
-            parentDisplay: '',
+            // mateDisplay: dispalyMate,
+            // childDisplay: '',
+            // grandChildDisplay: '',
+            // parentDisplay: '',
             siblingDisplay: displaySibling,
-            ancestorDisplay: '',
-            grandFatherDisplay: '',
-            grandMotherDisplay: '',
+            // ancestorDisplay: '',
+            // grandFatherDisplay: '',
+            // grandMotherDisplay: '',
         });
     }
 
@@ -965,27 +982,28 @@ export default class ThirdPage extends React.Component {
             mateSuccessionalPortion = heritage*2 / 3;
             allAncestorSuccessionalPortion = heritage / (3*ancestorNum);
         } else {
-            ancestorSuccessionalPortion = heritage / ancestorNum;
+            allAncestorSuccessionalPortion = heritage / ancestorNum;
         }
 
         let tmp = 0;
         let totalNum = (mateChecked) ? (1+ancestorNum) : (ancestorNum);
+        newMateLegitime = mateSuccessionalPortion / 2;
+        newGrandFatherLegitime = (grandFatherNum !== 0) ? allAncestorSuccessionalPortion / 3 : 0;
+        newGrandMotherLegitime = (grandMotherNum !== 0) ? allAncestorSuccessionalPortion / 3 : 0;
 
         while(tmp < totalNum) {
             if(heir[tmp].relatives === "配偶") {
                 heir[tmp].OnLegitime(heir[tmp].id, newMateLegitime);
             } else if(heir[tmp].relatives === "祖父") {
-                heir[tmp].OnLegitime(heir[tmp].id, newChildLegitime);
+                heir[tmp].OnLegitime(heir[tmp].id, newGrandFatherLegitime);
             } else if(heir[tmp].relatives === "祖母") {
-                heir[tmp].OnLegitime(heir[tmp].id, newGrandChildLegitime);
+                heir[tmp].OnLegitime(heir[tmp].id, newGrandMotherLegitime);
             } else {
                 console.error("calculateLegitimeAncestor Err");
             }
             tmp++;     
         }
-        newMateLegitime = mateSuccessionalPortion / 2;
-        newGrandFatherLegitime = (grandFatherNum !== 0) ? allAncestorSuccessionalPortion / 3 : 0;
-        newGrandMotherLegitime = (grandMotherNum !== 0) ? allAncestorSuccessionalPortion / 3 : 0;
+        
 
         
         this.setState({
@@ -1002,46 +1020,60 @@ export default class ThirdPage extends React.Component {
         })
     }
     displayLegitimeAncestor() {
-        const {heir, heritage, mateChecked, grandFatherNum, grandMotherNum} = this.props;
+        const {heir, heritage, heirLevel, mateChecked, grandFatherNum, grandMotherNum} = this.props;
+        const {grandFatherLegitime, grandMotherLegitime} = this.state;
         let ancestorNum = grandFatherNum + grandMotherNum;
-        let dispalyMate = `${displayNumber}.配偶：${mateLegitime}元`, displayGrandFather = '', displayGrandMother = '';
+        // let dispalyMate = `${displayNumber}.配偶：${mateLegitime}元`;
+        let displayGrandFather = '', displayGrandMother = '';
         let tmp = 0;
         let totalNum = (mateChecked) ? (1+ancestorNum) : (ancestorNum);
 
+        if(heirLevel !== 4){
+            displayGrandFather = `${displayNumber}.祖父：各${grandFatherLegitime}元/人`;
+            displayNumber++;
+            displayGrandMother = `${displayNumber}.祖母：各${grandMotherLegitime}元/人`;
+            displayNumber++;
+        } else {
 
-        // if(mateChecked) {
-        //     dispalyMate = `法定繼承人${heir[0].total} : 配偶${heir[0].legitime}元`;
-        //     tmp++;
-        // } else {
-        //     dispalyMate = '';
-        // }
-
-        while(tmp < totalNum) {
-            if(heir[tmp].relatives === "配偶") {
-                dispalyMate = `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 配偶 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
-            } else if(heir[tmp].relatives === "祖父") {
-                displayGrandFather += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 祖父 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
-                if(tmp !== (totalNum-grandMotherNum-1)) {
-                    displayGrandFather += "\n";
-                } 
-            } else if(heir[tmp].relatives === "祖母") {
-                displayGrandMother += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 祖母 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
-                if(tmp !== (totalNum-1)) {
-                    displayGrandMother += "\n";
-                } 
-            } else {
-                console.error("displayLegitimeAncestor Err");
+            if(grandFatherNum === 0) {
+                displayGrandFather = `${displayNumber}.祖父：各${grandFatherLegitime}元/人`;
+                displayNumber++;
             }
-            tmp++;
+
+            while(tmp < totalNum) {
+                if(heir[tmp].relatives === "配偶") {
+                    // dispalyMate = `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 配偶 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
+                    displayNumber--;
+                } else if(heir[tmp].relatives === "祖父") {
+                    displayGrandFather += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 祖父 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
+                    if(tmp !== (totalNum-grandMotherNum-1)) {
+                        displayGrandFather += "\n";
+                    } 
+                } else if(heir[tmp].relatives === "祖母") {
+                    displayGrandMother += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 祖母 ${heir[tmp].seniority} ${heir[tmp].legitime}元`;
+                    if(tmp !== (totalNum-1)) {
+                        displayGrandMother += "\n";
+                    } 
+                } else {
+                    console.error("displayLegitimeAncestor Err");
+                }
+                tmp++;
+                displayNumber++;
+            }
+
+            if(grandMotherNum === 0) {
+                displayGrandMother = `${displayNumber}.祖父：各${grandMotherLegitime}元/人`;
+                displayNumber++;
+            }
         }
 
         this.setState({
-            mateDisplay: dispalyMate,
-            childDisplay: '',
-            grandChildDisplay: '',
-            parentDisplay: '',
-            siblingDisplay: '',
-            ancestorDisplay: '',
+            // mateDisplay: dispalyMate,
+            // childDisplay: '',
+            // grandChildDisplay: '',
+            // parentDisplay: '',
+            // siblingDisplay: '',
+            // ancestorDisplay: '',
             grandFatherDisplay: displayGrandFather,
             grandMotherDisplay: displayGrandMother,
         });

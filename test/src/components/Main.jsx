@@ -619,16 +619,22 @@ export default class Main extends React.Component {
         }
         let newHeirArr=this.state.heir;
         let index = newHeirArr.findIndex(findTarget);
-        let givenTotoalValue = 0, trueLegitime = 0;
+        let givenTotalValue = 0, trueLegitime = 0;
         // debugger;
         for(let i = 0; i < newHeirArr[index].givenArr.length; i++) {
             // console.warn("Given Value: ", newHeirArr[index].givenArr[i].value);
-            givenTotoalValue += newHeirArr[index].givenArr[i].value;
+            givenTotalValue += newHeirArr[index].givenArr[i].value;
         }
-        // console.warn("Given Totoal Value: ", givenTotoalValue);
-        trueLegitime = newLegitime - givenTotoalValue;
+        let heirRelative = newHeirArr[index].relatives;
+        if(heirRelative === "配偶" || heirRelative === "兒女" || heirRelative === "孫兒女" || heirRelative === "父母") {
+            givenTotalValue /= 2;
+        } else if(heirRelative === "兄弟姊妹" || heirRelative === "祖父" || heirRelative === "祖母") {
+            givenTotalValue /= 3;
+        }
+        // console.warn("Given Totoal Value: ", givenTotalValue);
+        trueLegitime = newLegitime - givenTotalValue;
         // console.warn("True Legitime: ", trueLegitime);
-
+        trueLegitime = (trueLegitime > 0) ? trueLegitime : 0;
         let updateItem = {
             ...newHeirArr[index],
             legitime: Number(trueLegitime),

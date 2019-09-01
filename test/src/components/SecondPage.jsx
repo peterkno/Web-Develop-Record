@@ -467,7 +467,7 @@ export default class SecondPage extends React.Component {
     }
     calculateHeritage() {
         let heritage = Number(0);
-        const {carArr, motorArr, money, accountArr, stockArr, insuranceArr, landArr, buildingArr, creditorArr, debtorArr} = this.props;
+        const {heir, carArr, motorArr, money, accountArr, stockArr, insuranceArr, landArr, buildingArr, creditorArr, debtorArr} = this.props;
         // const {} = this.state;
         // let i = 0;
         function sum (arr) {
@@ -495,8 +495,18 @@ export default class SecondPage extends React.Component {
             }
             return tmp;
         }
+        function sumGivenValue (arr) {
+            let tmp = 0;
+            let i = 0, j = 0;
+            for(i = 0; i < arr.length; i++) {
+                for(j = 0; j < arr[i].givenArr.length; j++) {
+                    tmp += arr[i].givenArr[j].value;
+                }
+            }
+            return tmp;
+        }
         heritage = Number(sum(carArr) + sum(motorArr) + money + sum(accountArr) + sumForStock(stockArr) + sum(insuranceArr) + sumForNowValue(landArr)
-            + sumForNowValue(buildingArr) - sum(creditorArr) + sum(debtorArr));
+            + sumForNowValue(buildingArr) - sum(creditorArr) + sum(debtorArr) + sumGivenValue(heir));
         return heritage;
     }
     calculateHeritageWithWarrant(heritage) {

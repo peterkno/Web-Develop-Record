@@ -113,6 +113,7 @@ export default class Main extends React.Component {
         
         this.handleHeir = this.handleHeir.bind(this);
         this.handleSeniority = this.handleSeniority.bind(this);
+        this.handleLegitime = this.handleLegitime.bind(this);
         this.handleGivenNum = this.handleGivenNum.bind(this);
         this.CreateGivenList = this.CreateGivenList.bind(this);
         this.handleGivenType = this.handleGivenType.bind(this);
@@ -443,9 +444,11 @@ export default class Main extends React.Component {
                         givenNum: Number(0),
                         givenArr: [], 
                         order: order,
+                        legitime: Number(0),
                         total: nzhhk.encodeS(total),
                         OnSeniority: this.handleSeniority,
-                        OnGivenNum: this.handleGivenNum
+                        OnGivenNum: this.handleGivenNum,
+                        OnLegitime: this.handleLegitime,
                     };
             total++;
             order++;
@@ -464,9 +467,11 @@ export default class Main extends React.Component {
                                 givenNum: Number(0),
                                 givenArr: [],
                                 order: order,
+                                legitime: Number(0),
                                 total: nzhhk.encodeS(total),
                                 OnSeniority: this.handleSeniority,
-                                OnGivenNum: this.handleGivenNum
+                                OnGivenNum: this.handleGivenNum,
+                                OnLegitime: this.handleLegitime,
                             };
                     newHeir.push(child);
                     total++;
@@ -484,9 +489,11 @@ export default class Main extends React.Component {
                                     givenNum: Number(0),
                                     givenArr: [],
                                     order: order,
+                                    legitime: Number(0),
                                     total: nzhhk.encodeS(total),
                                     OnSeniority: this.handleSeniority,
-                                    OnGivenNum: this.handleGivenNum
+                                    OnGivenNum: this.handleGivenNum,
+                                    OnLegitime: this.handleLegitime,
                                 };
                     newHeir.push(grandChild);
                     order++;
@@ -505,9 +512,11 @@ export default class Main extends React.Component {
                                 givenNum: Number(0),
                                 givenArr: [],
                                 order: order,
+                                legitime: Number(0),
                                 total: nzhhk.encodeS(total),
                                 OnSeniority: this.handleSeniority,
-                                OnGivenNum: this.handleGivenNum
+                                OnGivenNum: this.handleGivenNum,
+                                OnLegitime: this.handleLegitime,
                             };
                 newHeir.push(parent);
                 total++;
@@ -525,9 +534,11 @@ export default class Main extends React.Component {
                                     givenNum: Number(0),
                                     givenArr: [],
                                     order: order,
+                                    legitime: Number(0),
                                     total: nzhhk.encodeS(total),
                                     OnSeniority: this.handleSeniority,
-                                    OnGivenNum: this.handleGivenNum
+                                    OnGivenNum: this.handleGivenNum,
+                                    OnLegitime: this.handleLegitime,
                                 };
                     newHeir.push(sibling);
                     total++;
@@ -547,8 +558,10 @@ export default class Main extends React.Component {
                                     givenArr: [],
                                     order: order,
                                     total: nzhhk.encodeS(total),
+                                    legitime: Number(0),
                                     OnSeniority: this.handleSeniority,
-                                    OnGivenNum: this.handleGivenNum
+                                    OnGivenNum: this.handleGivenNum,
+                                    OnLegitime: this.handleLegitime,
                                 };
                     newHeir.push(grandFather);
                     total++;
@@ -566,8 +579,10 @@ export default class Main extends React.Component {
                                     givenArr: [],
                                     total: nzhhk.encodeS(total),
                                     order: order,
+                                    legitime: Number(0),
                                     OnSeniority: this.handleSeniority,
-                                    OnGivenNum: this.handleGivenNum
+                                    OnGivenNum: this.handleGivenNum,
+                                    OnLegitime: this.handleLegitime,
                                 };
                     newHeir.push(grandMother);
                     total++;
@@ -597,6 +612,32 @@ export default class Main extends React.Component {
         this.setState({
             heir: arr
         })
+    }
+    handleLegitime(targetID, newLegitime) {
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let newHeirArr=this.state.heir;
+        let index = newHeirArr.findIndex(findTarget);
+        let givenTotoalValue = 0, trueLegitime = 0;
+        // debugger;
+        for(let i = 0; i < newHeirArr[index].givenArr.length; i++) {
+            // console.warn("Given Value: ", newHeirArr[index].givenArr[i].value);
+            givenTotoalValue += newHeirArr[index].givenArr[i].value;
+        }
+        // console.warn("Given Totoal Value: ", givenTotoalValue);
+        trueLegitime = newLegitime - givenTotoalValue;
+        // console.warn("True Legitime: ", trueLegitime);
+
+        let updateItem = {
+            ...newHeirArr[index],
+            legitime: Number(trueLegitime),
+        };
+        newHeirArr[index] = updateItem;
+        this.setState({
+            heir: newHeirArr
+        });
+
     }
     handleGivenNum(targetID, newGivenNum) {
         function findTarget(element) {

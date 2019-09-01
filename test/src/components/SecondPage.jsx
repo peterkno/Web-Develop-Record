@@ -217,7 +217,7 @@ export default class SecondPage extends React.Component {
         for(let i = 0; i < heir.length; i++) {
             divHeir += String(heir[i].relatives) + String(heir[i].num) + '位, ';
         }
-        console.log(divHeir);
+        // console.log(divHeir);
 
         return (
             <div className='second-page margin-30px'>
@@ -475,7 +475,7 @@ export default class SecondPage extends React.Component {
             let i = 0;
             for(i = 0; i < arr.length; i++) {
                 tmp += arr[i].value;
-                console.log(tmp);
+                // console.log(tmp);
             }
             return tmp;
         }

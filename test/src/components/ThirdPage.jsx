@@ -38,6 +38,9 @@ export default class ThirdPage extends React.Component {
         super(props);
 
         this.state = {
+            heritageWarning: '',
+            waringFlag: false,
+
             mateLegitime: Number(0),
             childLegitime: Number(0),
             grandChildLegitime: Number(0),
@@ -78,7 +81,8 @@ export default class ThirdPage extends React.Component {
             testament: new FormData()
         };
         
-        // this.initLegitimeState = this.initLegitimeState.bind(this);
+        this.handleHeritageWarning = this.handleHeritageWarning.bind(this);
+
         this.calculateLegitime = this.calculateLegitime.bind(this);
         this.calculateLegitimeMate = this.calculateLegitimeMate.bind(this);
         this.calculateLegitimeChild = this.calculateLegitimeChild.bind(this);
@@ -123,6 +127,7 @@ export default class ThirdPage extends React.Component {
 
     componentWillMount() {
         this.calculateLegitime();
+        this.handleHeritageWarning();
     }
     componentDidMount() {
         this.props.OpenNavbar();
@@ -147,7 +152,7 @@ export default class ThirdPage extends React.Component {
     render() {
         const {heir, heirLevel, heritage, heritageWithWarrant,
                 childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum,} = this.props;
-        const { mateLegitime, childLegitime, grandChildLegitime, parentLegitime, siblingLegitime, grandFatherLegitime, grandMotherLegitime,
+        const { heritageWarning, waringFlag,
                 mateDisplay, childDisplay, grandChildDisplay, parentDisplay, siblingDisplay, grandFatherDisplay, grandMotherDisplay, 
                 testamentFormCollapse, testamentFormChecked, remindCollapse, mistakeCollapse ,
                 remindOneCollapse, remindTwoCollapse, remindThreeCollapse, remindFourCollapse, remindFiveCollapse,
@@ -157,12 +162,20 @@ export default class ThirdPage extends React.Component {
         return (
             // <div>
                 <div className='third-page'>
-                    <div className='Div'>  
+                    <div className='Div' style={{whiteSpace: 'pre-wrap'}}>  
                         <h1 className='H1'>上傳遺囑</h1>
                         
                         <h2 className='H2' id="title-1">計算結果</h2>
                         <h3 className='H3'>一、遺產總額：{heritage} 元</h3>
                         <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--若是須償還所有做保金額，遺產剩餘{heritageWithWarrant}元</p>
+                        <p style={{color: 'red', whiteSpace: 'pre-wrap'}}>
+                            {
+                                waringFlag 
+                                ? `${heritageWarning}`
+                                : null
+                            }
+                        </p>
+                        
                         <h3 className='H3'>二、特留分</h3>
                         <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--分配遺產時，至少要為法定繼承人保留的最低金額</p>
                         
@@ -350,7 +363,7 @@ export default class ThirdPage extends React.Component {
                                 <CardBody>
                                     <h4 className="H4">繼承順位</h4>
                                     <p>
-                                        一、直系血親卑親屬：&nbsp;; 1.子女 &nbsp;; &nbsp;; 2.孫子女
+                                        一、直系血親卑親屬：&nbsp; 1.子女 &nbsp; &nbsp; 2.孫子女
                                         <br />
                                         二、父母
                                         <br />
@@ -602,9 +615,8 @@ export default class ThirdPage extends React.Component {
                                     <FormGroup className = 'MarginLeft' inline> */}
                                     <ListGroup>
                                         <FormGroup >
-                                        <ListGroupItem tag="a" href="https://www.youtube.com/watch?v=8tMB2y3XGtI" action>
+                                        <ListGroupItem tag="a" target="_blank" href="https://www.youtube.com/watch?v=8tMB2y3XGtI" action>
                                         案件字號
-                                        <Input type="checkbox" checked={mistakeOneChecked} onChange={this.handleMistakeOneChecek} />
                                         </ListGroupItem> 
                                         </FormGroup>
                                     </ListGroup>
@@ -627,21 +639,40 @@ export default class ThirdPage extends React.Component {
         );
     }
 
-    // initLegitimeState() {
-    //     console.log("Prepare set init state");
-    //     this.setState((prevState, props) => ({
-    //         mateLegitime: Number(0),
-    //         childLegitime: Number(0),
-    //         grandChildLegitime: Number(0),
-    //         parentLegitime: Number(0),
-    //         siblingLegitime: Number(0),
-    //         ancestorLegitime: Number(0),
-    //         grandFatherLegitime: Number(0),
-    //         grandMotherLegitime: Number(0),
-    //     }), () => {
-    //         console.log("End set init state");
-    //     })
-    // }
+    handleHeritageWarning() {
+        const {heritage, heritageWithWarrant} = this.props;
+        let dispalyWarning = '', flag = false;
+
+        // if(heritage < 0) {
+        //     dispalyWarning = "您的遺產總額為負債，請提醒您的法定繼承人辦理拋棄繼承。"
+        //     flag = true;
+        // } else if(heritageWithWarrant < 0) {
+        //     dispalyWarning = "您的遺產總額在償還完所有做保金額後，可能為負債，請提醒您的法定繼承人辦理限定繼承、清算程序。"
+        //     flag = true;
+        // } else if(heritage !== heritageWithWarrant) {
+        //     dispalyWarning = "           --" + "您的遺產裡包含作保資訊，請提醒您的法定繼承人辦理清算程序。";
+        //     flag = true;
+        // } else {
+        //     dispalyWarning = ""
+        //     flag = false;
+        // }
+        dispalyWarning += "           --";
+        dispalyWarning += "您的遺產總額為負債，請提醒您的法定繼承人辦理拋棄繼承。";
+        dispalyWarning += "\n";
+        dispalyWarning += "           --";
+        dispalyWarning += "您的遺產總額在償還完所有做保金額後，可能為負債，請提醒您的法定繼承人辦理限定繼承、清算程序。";
+        dispalyWarning += "\n";
+        dispalyWarning += "           --";
+        dispalyWarning += "您的遺產裡包含作保資訊，請提醒您的法定繼承人辦理清算程序。";
+        dispalyWarning += "\n";
+        
+        console.warn("dispalyWarning", dispalyWarning);
+        console.warn("flag", flag);
+        this.setState({
+            heritageWarning: dispalyWarning,
+            waringFlag: flag,
+        });
+    }
 
     calculateLegitime() {
         const {heirLevel} = this.props;

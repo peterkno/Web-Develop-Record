@@ -52,6 +52,9 @@ export default class Main extends React.Component {
             mateChecked: false,
             childChecked: false,
             childNum: Number(0),
+            deadChildNum: Number(0),
+            deadChildArr: [],
+            deadHeir: [],
             grandChildNum: Number(0),
             fatherChecked: false,
             motherChecked: false,
@@ -122,6 +125,10 @@ export default class Main extends React.Component {
         this.handleSiblingNumChange = this.handleSiblingNumChange.bind(this);
         this.handleGrandFatherNumChange = this.handleGrandFatherNumChange.bind(this);
         this.handleGrandMotherNumChange = this.handleGrandMotherNumChange.bind(this);
+
+        this.handleDeadChildNumChange = this.handleDeadChildNumChange.bind(this);
+        this.handleDeadHaveChild = this.handleDeadHaveChild.bind(this);
+        this.CreateDeadChildList = this.CreateDeadChildList.bind(this);
         // this.handleFamilyNumChange = this.handleFamilyNumChange.bind(this);
         
         this.handleHeir = this.handleHeir.bind(this);
@@ -131,6 +138,7 @@ export default class Main extends React.Component {
         this.CreateGivenList = this.CreateGivenList.bind(this);
         this.handleGivenType = this.handleGivenType.bind(this);
         this.handleGivenValue = this.handleGivenValue.bind(this);
+        
 
         this.handleCarNumChange = this.handleCarNumChange.bind(this);
         this.CreateCarList = this.CreateCarList.bind(this);
@@ -251,7 +259,7 @@ export default class Main extends React.Component {
                             OnAddress={this.handleAddressChange} OnPhone={this.handlePhoneChange}
                             OnMateCheck={this.handleMateCheckChange} OnChildCheck={this.handleChildCheckChange} OnSiblingCheck={this.handleSiblingCheckChange}
                             OnAncestorCheck={this.handleAncestorCheckChange} OnFatherCheck={this.handleFatherCheckChange} OnMotherCheck={this.handleMotherCheckChange}
-                            OnChildNum={this.handleChildNumChange} OnGrandChildNum={this.handleGrandChildNumChange} OnSiblingNum={this.handleSiblingNumChange}
+                            OnChildNum={this.handleChildNumChange} OnDeadChildNum={this.handleDeadChildNumChange} OnGrandChildNum={this.handleGrandChildNumChange} OnSiblingNum={this.handleSiblingNumChange}
                             OnGrandFatherNum={this.handleGrandFatherNumChange} OnGrandMotherNum={this.handleGrandMotherNumChange}
                             OnCarNum={this.handleCarNumChange} OnMotorNum={this.handleMotorNumChange} OnMoney={this.handleMoneyChange}
                             OnAccountNum={this.handleAccountNumChange} OnStockNum={this.handleStockNumChange} OnInsuranceNum={this.handleInsuranceNumChange}
@@ -454,10 +462,10 @@ export default class Main extends React.Component {
     }
     handleHeir() {
         const {mateChecked, childChecked, fatherChecked, motherChecked, siblingChecked, ancestorChecked,
-                childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum
+                childNum, deadChildNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum, deadChildArr
                 } = this.state;
-        let newHeir = [], newHeirLevel = level.Noman;
-        let order = 1, total = 1;
+        let newHeir = [], newHeirLevel = level.Noman, newDeadHeir = [];
+        let order = 1, total = 1, orderDead = 1;
         if(mateChecked) {
             let mate = {
                         id: uuid(), 
@@ -500,6 +508,19 @@ export default class Main extends React.Component {
                     order++;
                 }
                 newHeirLevel = level.Child;
+                for(let i = 0; i < deadChildArr.length; i++) {
+                    if(deadChildArr[i].haveChild){
+                        newDeadHeir.push({
+                            id: uuid(),
+                            relatives: String("已歿兒女"),
+                            orderDead: deadChildArr[i].orderDead,
+                            total: total
+                        })
+                        total++;
+                    }
+                    
+                }
+                
             }else if(grandChildNum !== 0) {
                 order = 1;
                 for(let i = 0; i < grandChildNum; i++) {
@@ -615,7 +636,8 @@ export default class Main extends React.Component {
 
         this.setState((prevState, props) => ({
             heir: newHeir,
-            heirLevel: Number(newHeirLevel)
+            heirLevel: Number(newHeirLevel),
+            deadHeir: newDeadHeir
         }));
 
     }
@@ -662,7 +684,7 @@ export default class Main extends React.Component {
         };
         newHeirArr[index] = updateItem;
         this.setState({
-            heir: newHeirArr
+            heir: newHeirArr,
         });
 
     }
@@ -764,34 +786,49 @@ export default class Main extends React.Component {
         })
     }
 
-    // handleGivenNum(targetID, newGivenNum) {
-    //     function findTarget(element) {
-    //         return element.id === targetID;
-    //     }
-    //     let newHeirArr=this.state.heir;
-    //     let index = newHeirArr.findIndex(findTarget);
-
-    //     let newGivenArr=[];
-    //     while (newGivenArr.length < num) { 
-    //         newGivenArr.push({
-    //             id: uuid(),
-    //             type: String(''),
-    //             value: Number(0),
-    //             OnType: this.handleGivenType,
-    //             OnValue: this.handleGivenValue
-    //         });
-    //     }
-
-    //     let updateItem = {
-    //         ...newHeirArr[index],
-    //         givenNum: Number(newGivenNum),
-    //         givenArr: newGivenArr
-    //     }
-    //     newHeirArr[index] = updateItem;
-    //     this.setState({
-    //         heir: newHeirArr
-    //     })
-    // }
+    handleDeadChildNumChange(e) {
+        const newDeadChildNum = e.target.value;
+        this.setState({
+            deadChildNum: Number(newDeadChildNum)
+        }, () => {
+            this.CreateDeadChildList();
+        })
+    }
+    CreateDeadChildList(){
+        const num = this.state.deadChildNum;
+        // debugger;
+        let arr=[], orderDead=1;
+        while (arr.length < num) { 
+            arr.push({
+                id: uuid(),
+                haveChild: false,
+                orderDead: orderDead,
+                OnHaveChild: this.handleDeadHaveChild
+            });
+            orderDead++;
+        }
+        
+        this.setState({
+            deadChildArr: arr
+        });
+    }
+    handleDeadHaveChild(targetID, newhaveChild) {
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.deadChildArr;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            haveChild: newhaveChild
+        }
+        arr[index] = updateItem;
+        this.setState({
+            deadChildArr: arr
+        }, () => {
+            this.handleHeir();
+        })
+    }
 
 
     handleCarNumChange(e) {

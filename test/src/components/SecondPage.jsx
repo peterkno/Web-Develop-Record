@@ -25,8 +25,18 @@ import EmailList from 'components/EmailList.jsx';
 import CreditorList from 'components/CreditorList.jsx';
 import DebtorList from 'components/DebtorList.jsx';
 import WarrantList from 'components/WarrantList.jsx';
+import DeadChildList from 'components/DeadChildList.jsx';
 
 import { stringify } from 'querystring';
+const level = {
+    Noman: -1,
+    Mate: 0,
+    Child: 1,
+    GrandChild: 2,
+    Parent: 3,
+    Sibling: 4,
+    Ancestor: 5,
+}
 
 export default class SecondPage extends React.Component {
     static propTypes = {
@@ -84,6 +94,7 @@ export default class SecondPage extends React.Component {
         this.inputAddress = null;
         this.inputPhone = null;
         this.inputChildNum = null;
+        this.inputDeadChildNum = null;
         this.inputGrandChildNum = null;
         this.inputSiblingNum = null;
         this.inputGrandFatherNum = null;
@@ -134,8 +145,9 @@ export default class SecondPage extends React.Component {
                 mateChecked, childChecked, fatherChecked, motherChecked, siblingChecked, ancestorChecked,
                 OnMateCheck, OnChildCheck, OnSiblingCheck, OnAncestorCheck, OnFatherCheck, OnMotherCheck, 
                 childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum,
-                OnChildNum, OnGrandChildNum, OnSiblingNum, OnGrandFatherNum, OnGrandMotherNum,
-                heir,
+                OnChildNum,  OnDeadChildNum, OnGrandChildNum, OnSiblingNum, OnGrandFatherNum, OnGrandMotherNum,
+                deadChildNum, deadChildArr,
+                heir, heirLevel,
                 carNum, carArr, OnCarNum, motorNum, motorArr, OnMotorNum, money, OnMoney,
                 accountNum, accountArr, OnAccountNum, stockNum, stockArr, OnStockNum,
                 insuranceNum, insuranceArr, OnInsuranceNum,
@@ -197,8 +209,8 @@ export default class SecondPage extends React.Component {
                 
                 <div className='famliy'>
                     <h2 className='H2' id="title-2">家族規模</h2>
-                    *註：只需填寫還在世的家族成員
-                    <br  />
+                    {/* *註：只需填寫還在世的家族成員
+                    <br  /> */}
                     <FormGroup check inline>
                         (一)配偶<Input className = 'ml-sm-1 mt-sm-1' type="checkbox" checked={mateChecked} onChange={OnMateCheck} />
                         {/* {mateChecked && 
@@ -212,8 +224,17 @@ export default class SecondPage extends React.Component {
                     </FormGroup>
                     {childChecked && 
                         <div>
-                            <Form inline>a.子女 : 共<Input className='number' type="text" 
-                            innerRef={el => {this.inputChildNum = el}} value={childNum} onChange={OnChildNum}/>位</Form>
+                            <Form inline>
+                                a.子女 : 共<Input className='number' type="text" innerRef={el => {this.inputChildNum = el}} 
+                                value={childNum} onChange={OnChildNum}/>位在世、
+                                共<Input className='number' type="text" innerRef={el => {this.inputDeadChildNum = el}} 
+                                value={deadChildNum} onChange={OnDeadChildNum}/>位已歿
+                            </Form>
+                            {
+                                heirLevel === level.Child
+                                ? <DeadChildList deadChilds={deadChildArr}/>
+                                : null
+                            }
                             <Form inline>b.孫子女 : 共<Input className='number' type="text" 
                             innerRef={el => {this.inputGrandChildNum = el}} value={grandChildNum} onChange={OnGrandChildNum}/>位</Form>
                         </div> }

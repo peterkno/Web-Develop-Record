@@ -595,7 +595,7 @@ export default class ThirdPage extends React.Component {
                     </div>
                     
                     <div className="Div"> 
-                        <h2 className="H2" id="title-4">常見錯誤
+                        <h2 className="H2" id="title-4">常見問題
                         {   mistakeCollapse == true 
                             ?  <IoIosArrowUp onClick={this.handleMistakeCollapse} className="arrowDown"></IoIosArrowUp>
                             :  <IoIosArrowDown onClick={this.handleMistakeCollapse} className="arrowDown"></IoIosArrowDown>
@@ -641,7 +641,7 @@ export default class ThirdPage extends React.Component {
                                         <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2lEzFMm" action>101年度家上字第46號</ListGroupItem> 
                                         <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2kaxAHU" action>100年度家上字第17號</ListGroupItem> 
                                         <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2lolPxN" action>99年度家上易字第19號</ListGroupItem> 
-                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2kauWSu" action>99年度家上字第32號</ListGroupItem>
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2lGG61s" action>99年度家上字第32號</ListGroupItem>
                                     </ListGroup>
                                 </CardBody>
                                 </Card>

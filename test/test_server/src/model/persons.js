@@ -68,7 +68,7 @@ function create(newPerson) {
         console.log("Finish Create Peronal Info(JSON)");
 
         let htmlStr = _listPersonalInfo(newPerson) + _listChattel(newPerson) + _listRealEstate(newPerson) 
-                    + _listCreditor(newPerson) + _listDebtor(newPerson) + _listPositionAndRemark(newPerson);
+                    + _listCreditor(newPerson) + _listDebtor(newPerson) + _listWarrant(newPerson) + _listPositionAndRemark(newPerson);
         var html = htmlToPdfMake(htmlStr, window);
         var docDefinition = {
             defaultStyle: {
@@ -157,10 +157,24 @@ function _listDebtor(newPerson) {
 
     return htmlStr;
 }
+function _listWarrant(newPerson) {
+    let htmlStr = '';
+    htmlStr += `<div>`;
+    htmlStr += `<h3>五、作保人</h3>`;
+    htmlStr += `<h5>作保人:共${newPerson.warrantArr.length}位</h5>`
+    for(i = 0; i < newPerson.warrantArr.length; i++) {
+        htmlStr += `<p>${i+1}.本人替${newPerson.warrantArr[i].name}
+                    做保證人，擔保${newPerson.warrantArr[i].value}元債務
+                    </p>`;
+    }
+    htmlStr += `</div>`;
+
+    return htmlStr;
+}
 function _listPositionAndRemark(newPerson) {
     let htmlStr = '';
     htmlStr += `<div>`;
-    htmlStr += `<h3>五、請輸入您的印鑑、帳本存放、遺囑正本的位置</h3>`
+    htmlStr += `<h3>六、請輸入您的印鑑、帳本存放、遺囑正本的位置</h3>`
     htmlStr += `<p>位置</p><p>${newPerson.position}</p>`
     htmlStr += `<p>備註</p><p>${newPerson.remark}</p>`
     htmlStr += `</div>`;

@@ -78,6 +78,8 @@ export default class ThirdPage extends React.Component {
             mistakeCollapse: false,
             mistakeOneCollapse: false,
             mistakeOneChecked: false,
+            mistakeTwoCollapse: false,
+
             testament: new FormData()
         };
         
@@ -115,6 +117,7 @@ export default class ThirdPage extends React.Component {
         this.handleMistakeCollapse = this.handleMistakeCollapse.bind(this);
         this.handleMistakeOneCollapse = this.handleMistakeOneCollapse.bind(this);
         this.handleMistakeOneChecek = this.handleMistakeOneChecek.bind(this);
+        this.handleMistakeTwoCollapse = this.handleMistakeTwoCollapse.bind(this);
 
         this.handleTestamentFile = this.handleTestamentFile.bind(this);
         this.handleTestamentFileUpload = this.handleTestamentFileUpload.bind(this);
@@ -157,8 +160,7 @@ export default class ThirdPage extends React.Component {
                 testamentFormCollapse, testamentFormChecked, remindCollapse, mistakeCollapse ,
                 remindOneCollapse, remindTwoCollapse, remindThreeCollapse, remindFourCollapse, remindFiveCollapse,
                 remindOneChecked,  remindTwoChecked,  remindThreeChecked,  remindFourChecked,  remindFiveChecked,
-                mistakeOneCollapse, 
-                mistakeOneChecked,} = this.state;
+                mistakeOneCollapse, mistakeTwoCollapse,} = this.state;
         return (
             // <div>
                 <div className='third-page'>
@@ -601,7 +603,7 @@ export default class ThirdPage extends React.Component {
                         </h2>
                         <Collapse className="" isOpen={mistakeCollapse}>
 
-                            <h3 className="H3">一、金額未滿足特留分
+                            <h3 className="H3">一、無法協議分割
                             {   mistakeOneCollapse == true 
                                 ?  <IoIosArrowUp onClick={this.handleMistakeOneCollapse} className="arrowDown"></IoIosArrowUp>
                                 :  <IoIosArrowDown onClick={this.handleMistakeOneCollapse} className="arrowDown"></IoIosArrowDown>
@@ -614,16 +616,36 @@ export default class ThirdPage extends React.Component {
                                     </p>
                                     <FormGroup className = 'MarginLeft' inline> */}
                                     <ListGroup>
-                                        <FormGroup >
-                                        <ListGroupItem tag="a" target="_blank" href="https://www.youtube.com/watch?v=8tMB2y3XGtI" action>
-                                        案件字號
-                                        </ListGroupItem> 
-                                        </FormGroup>
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2lulLg0" action>103年度家上字第59號</ListGroupItem>
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2lJNLfv" action>102年度家上字第49號(再上訴)</ListGroupItem> 
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2lGmWJ3" action>102年度重家上字第5號</ListGroupItem> 
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2kbDW9Z" action>101年度家上易字第10號</ListGroupItem> 
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2kbFell" action>101年度重家上更(一)字第1號</ListGroupItem> 
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2k879m9" action>100年度家上易字第6號</ListGroupItem>  
                                     </ListGroup>
                                 </CardBody>
                                 </Card>
                             </Collapse>
-
+                            
+                            <h3 className="H3">二、違反遺囑要件
+                            {   mistakeTwoCollapse == true 
+                                ?  <IoIosArrowUp onClick={this.handleMistakeTwoCollapse} className="arrowDown"></IoIosArrowUp>
+                                :  <IoIosArrowDown onClick={this.handleMistakeTwoCollapse} className="arrowDown"></IoIosArrowDown>
+                            }</h3>
+                            <Collapse className="Center-collapse" isOpen={mistakeTwoCollapse}>
+                                <Card>
+                                <CardBody>
+                                    <ListGroup>
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2llyfWR" action>104年度重家上字第38號</ListGroupItem>
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2lExdWa" action>102年度重家上字第57號</ListGroupItem> 
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2lEzFMm" action>101年度家上字第46號</ListGroupItem> 
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2kaxAHU" action>100年度家上字第17號</ListGroupItem> 
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2lolPxN" action>99年度家上易字第19號</ListGroupItem> 
+                                        <ListGroupItem tag="a" target="_blank" href="http://bit.ly/2kauWSu" action>99年度家上字第32號</ListGroupItem>
+                                    </ListGroup>
+                                </CardBody>
+                                </Card>
+                            </Collapse>
                         </Collapse>
                         
                     </div>
@@ -1197,6 +1219,11 @@ export default class ThirdPage extends React.Component {
     handleMistakeOneChecek() {
         this.setState((prevState, props) => ({
             mistakeOneChecked: !prevState.mistakeOneChecked
+        }));
+    }
+    handleMistakeTwoCollapse() {
+        this.setState((prevState, props) => ({
+            mistakeTwoCollapse: !prevState.mistakeTwoCollapse
         }));
     }
 

@@ -24,6 +24,15 @@ import FourthPage from 'components/FourthPage.jsx';
 import AgreementPage from 'components/AgreementPage.jsx';
 
 const nzhhk = require("nzh/hk"); //繁体中文
+const level = {
+    Noman: -1,
+    Mate: 0,
+    Child: 1,
+    GrandChild: 2,
+    Parent: 3,
+    Sibling: 4,
+    Ancestor: 5,
+}
 import './Main.css';
 
 export default class Main extends React.Component {
@@ -447,7 +456,7 @@ export default class Main extends React.Component {
         const {mateChecked, childChecked, fatherChecked, motherChecked, siblingChecked, ancestorChecked,
                 childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum
                 } = this.state;
-        let newHeir = [], newHeirLevel = -1;
+        let newHeir = [], newHeirLevel = level.Noman;
         let order = 1, total = 1;
         if(mateChecked) {
             let mate = {
@@ -466,7 +475,7 @@ export default class Main extends React.Component {
             total++;
             order++;
             newHeir.push(mate);
-            newHeirLevel = 0;
+            newHeirLevel = level.Mate;
         }
 
         if(childChecked) {
@@ -490,9 +499,8 @@ export default class Main extends React.Component {
                     total++;
                     order++;
                 }
-                newHeirLevel = 1;
-            }
-            if(grandChildNum !== 0) {
+                newHeirLevel = level.Child;
+            }else if(grandChildNum !== 0) {
                 order = 1;
                 for(let i = 0; i < grandChildNum; i++) {
                     let grandChild = {
@@ -512,7 +520,7 @@ export default class Main extends React.Component {
                     order++;
                     total++;
                 }
-                newHeirLevel = 1;
+                newHeirLevel = level.GrandChild;
             }
         } else if(fatherChecked || motherChecked) {
             order = 1;
@@ -535,7 +543,7 @@ export default class Main extends React.Component {
                 total++;
                 order++;
             }
-            newHeirLevel = 2;
+            newHeirLevel = level.Parent;
         } else if(siblingChecked) {
             order = 1;
             if(siblingNum !== 0){
@@ -557,7 +565,7 @@ export default class Main extends React.Component {
                     total++;
                     order++;
                 }
-                newHeirLevel = 3;
+                newHeirLevel = level.Sibling;
             }
         } else if(ancestorChecked) {
             order = 1;
@@ -580,7 +588,7 @@ export default class Main extends React.Component {
                     total++;
                     order++;
                 }
-                newHeirLevel = 4;
+                newHeirLevel = level.Ancestor;
             }
             if(grandMotherNum !== 0) {
                 for(let i = 0; i < grandMotherNum; i++) {
@@ -601,7 +609,7 @@ export default class Main extends React.Component {
                     total++;
                     order++;
                 }
-                newHeirLevel = 4;
+                newHeirLevel = level.Ancestor;
             }
         }
 

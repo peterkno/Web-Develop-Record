@@ -21,6 +21,8 @@ import SecondPage from 'components/SecondPage.jsx';
 import FirstPage from 'components/FirstPage.jsx';
 import ThirdPage from 'components/ThirdPage.jsx';
 import FourthPage from 'components/FourthPage.jsx';
+import AgreementPage from 'components/AgreementPage.jsx';
+
 const nzhhk = require("nzh/hk"); //繁体中文
 import './Main.css';
 
@@ -51,6 +53,7 @@ export default class Main extends React.Component {
             grandMotherNum: Number(0),
             heritage: Number(0),
             heritageWithWarrant: Number(0),
+            heritageNoGiven: Number(0),
             personalID: String(''),
             heir: [],
             heirLevel: Number(-1),
@@ -87,6 +90,7 @@ export default class Main extends React.Component {
         this.handlePageClick = this.handlePageClick.bind(this);
         this.handleHeritageChange = this.handleHeritageChange.bind(this);
         this.handleHeritageWWChange = this.handleHeritageWWChange.bind(this);
+        this.handleHeritageNoGiven = this.handleHeritageNoGiven.bind(this);
 
         this.handleChineseNameChange = this.handleChineseNameChange.bind(this);
         this.handleEnglishNameChange = this.handleEnglishNameChange.bind(this);
@@ -232,7 +236,7 @@ export default class Main extends React.Component {
                     )}/>
                     <Route exact path="/second-page" render={() => (
                         <SecondPage {...this.state} OpenNavbar={this.handleOpenNavbar} 
-                            OnHeritage={this.handleHeritageChange} OnheritageWithWarrant={this.handleHeritageWWChange}
+                            OnHeritage={this.handleHeritageChange} OnheritageWithWarrant={this.handleHeritageWWChange} OnHeritageNoGiven={this.handleHeritageNoGiven}
                             OnChineseName={this.handleChineseNameChange} OnEnglishName={this.handleEnglishNameChange} OnPersonalID = {this.handlePersonalIDChange}
                             OnBirthYear={this.handleBirthYearChange} OnBirthMonth={this.handleBirthMonthChange} OnBirthDay={this.handleBirthDayChange}
                             OnAddress={this.handleAddressChange} OnPhone={this.handlePhoneChange}
@@ -254,6 +258,9 @@ export default class Main extends React.Component {
                     )}/>
                     <Route exact path="/fourth-page" render={() => (
                         <FourthPage OpenNavbar={this.handleOpenNavbar} />
+                    )}/>
+                    <Route exact path="/agreement-page" render={() => (
+                        <AgreementPage CloseNavbar={this.handleCloseNavbar} />
                     )}/>
                 </div>
             </Router>
@@ -421,6 +428,7 @@ export default class Main extends React.Component {
     }
 
     handleHeritageChange(newHeritage) {
+        console.warn("newHeritage", newHeritage);
         this.setState((prevState, props) => ({
             heritage: Number(newHeritage)
         }));
@@ -428,6 +436,11 @@ export default class Main extends React.Component {
     handleHeritageWWChange(newHeritageWW) {
         this.setState((prevState, props) => ({
             heritageWithWarrant: Number(newHeritageWW)
+        }));
+    }
+    handleHeritageNoGiven(newHeritageNoGiven) {
+        this.setState((prevState, props) => ({
+            heritageNoGiven: Number(newHeritageNoGiven)
         }));
     }
     handleHeir() {

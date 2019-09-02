@@ -1,0 +1,69 @@
+/* body {
+    font-family:  -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #F8F3DD;
+} */
+
+.agreement-page .Div {
+    margin:30px;
+}
+
+.agreement-page .H1 {
+    font-family: Noto-Serif-TC;
+    font-weight: bold;
+    color: #7B6661;
+    text-align: center;
+    margin: 40px;
+}
+
+.agreement-page .H2 {
+    font-family: Noto-Serif-TC;
+    font-weight: bolder;
+    color: #FFFFFF;
+    font-size: 30px;
+    height:50px;
+    width:200px;
+    line-height:50px;
+    text-align:center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    
+}
+
+.agreement-page .H3 {
+    font-family: Noto-Serif-TC;
+    font-weight: bolder;
+    color: #000000;
+    font-size: 25px;
+    margin:20px;
+}
+
+.agreement-page .H4 {
+    font-family: Noto-Serif-TC;
+    font-weight: bolder;
+    color: #000000;
+    font-size: 20px;
+}
+
+.agreement-page .P {
+    font-family: Noto-Serif-TC;
+    color: #000000;
+    margin:20px;
+}
+
+.agreement-page .content {
+    max-width: 70rem;
+    margin:0px auto;
+}
+
+.agreement-page .buttons {
+    max-width: 70rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* margin:0px auto !important */
+    margin-left: 43% !important
+}
+
+/* .agreement-page .MarginLeft {
+    margin-left: 50% !important
+} */
+

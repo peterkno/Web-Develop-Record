@@ -150,7 +150,7 @@ export default class ThirdPage extends React.Component {
     }
 
     render() {
-        const {heir, heirLevel, heritage, heritageWithWarrant,
+        const {heir, heirLevel, heritage, heritageWithWarrant, heritageNoGiven,
                 childNum, grandChildNum, siblingNum, grandFatherNum, grandMotherNum,} = this.props;
         const { heritageWarning, waringFlag,
                 mateDisplay, childDisplay, grandChildDisplay, parentDisplay, siblingDisplay, grandFatherDisplay, grandMotherDisplay, 
@@ -166,7 +166,7 @@ export default class ThirdPage extends React.Component {
                         <h1 className='H1'>上傳遺囑</h1>
                         
                         <h2 className='H2' id="title-1">計算結果</h2>
-                        <h3 className='H3'>一、遺產總額：{heritage} 元</h3>
+                        <h3 className='H3'>一、遺產總額：{heritageNoGiven} 元</h3>
                         <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--若是須償還所有做保金額，遺產剩餘{heritageWithWarrant}元</p>
                         <p style={{color: 'red', whiteSpace: 'pre-wrap'}}>
                             {
@@ -640,31 +640,31 @@ export default class ThirdPage extends React.Component {
     }
 
     handleHeritageWarning() {
-        const {heritage, heritageWithWarrant} = this.props;
+        const {heritageNoGiven, heritageWithWarrant} = this.props;
         let dispalyWarning = '', flag = false;
 
-        // if(heritage < 0) {
-        //     dispalyWarning = "您的遺產總額為負債，請提醒您的法定繼承人辦理拋棄繼承。"
-        //     flag = true;
-        // } else if(heritageWithWarrant < 0) {
-        //     dispalyWarning = "您的遺產總額在償還完所有做保金額後，可能為負債，請提醒您的法定繼承人辦理限定繼承、清算程序。"
-        //     flag = true;
-        // } else if(heritage !== heritageWithWarrant) {
-        //     dispalyWarning = "           --" + "您的遺產裡包含作保資訊，請提醒您的法定繼承人辦理清算程序。";
-        //     flag = true;
-        // } else {
-        //     dispalyWarning = ""
-        //     flag = false;
-        // }
-        dispalyWarning += "           --";
-        dispalyWarning += "您的遺產總額為負債，請提醒您的法定繼承人辦理拋棄繼承。";
-        dispalyWarning += "\n";
-        dispalyWarning += "           --";
-        dispalyWarning += "您的遺產總額在償還完所有做保金額後，可能為負債，請提醒您的法定繼承人辦理限定繼承、清算程序。";
-        dispalyWarning += "\n";
-        dispalyWarning += "           --";
-        dispalyWarning += "您的遺產裡包含作保資訊，請提醒您的法定繼承人辦理清算程序。";
-        dispalyWarning += "\n";
+        if(heritageNoGiven < 0) {
+            dispalyWarning = "           --" + "您的遺產總額為負債，請提醒您的法定繼承人辦理拋棄繼承。"
+            flag = true;
+        } else if(heritageWithWarrant < 0) {
+            dispalyWarning = "           --" + "您的遺產總額在償還完所有做保金額後，可能為負債。請提醒您的法定繼承人辦理限定繼承、清算程序。"
+            flag = true;
+        } else if(heritageNoGiven !== heritageWithWarrant) {
+            dispalyWarning = "           --" + "您的遺產裡包含作保資訊，請提醒您的法定繼承人辦理清算程序。";
+            flag = true;
+        } else {
+            dispalyWarning = ""
+            flag = false;
+        }
+        // dispalyWarning += "           --";
+        // dispalyWarning += "您的遺產總額為負債，請提醒您的法定繼承人辦理拋棄繼承。";
+        // dispalyWarning += "\n";
+        // dispalyWarning += "           --";
+        // dispalyWarning += "您的遺產總額在償還完所有做保金額後，可能為負債，請提醒您的法定繼承人辦理限定繼承、清算程序。";
+        // dispalyWarning += "\n";
+        // dispalyWarning += "           --";
+        // dispalyWarning += "您的遺產裡包含作保資訊，請提醒您的法定繼承人辦理清算程序。";
+        // dispalyWarning += "\n";
         
         console.warn("dispalyWarning", dispalyWarning);
         console.warn("flag", flag);

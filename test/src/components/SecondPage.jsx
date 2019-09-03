@@ -391,7 +391,7 @@ export default class SecondPage extends React.Component {
 
                 <br />
                 <div>
-                    <h3 className="H3">六、請輸入您的印鑑、帳本存放、遺囑正本的位置</h3>
+                    <h3 className="H3">六、請輸入您的印鑑、帳本、遺囑正本的存放位置</h3>
                     位置 : <Input className='Textarea' type="textarea" name="位置" 
                             innerRef={el => {this.inputPosition = el}} value={position} onChange={OnPosition}/>
                     備註 : <Input className='Textarea' type="textarea" name="備註" 

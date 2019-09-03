@@ -63,7 +63,7 @@ export default class FirstPageV2 extends React.Component {
         return (
             // <div className='full-height'>
                 <div className='first-page'>
-                    <h1 className='H1'>遺產管家</h1>
+                    <h1 className='H1'>遺囑管家</h1>
                     <div className="first">
                         {/* <Link to="/second-page"> */}
                         <Link to="/agreement-page">

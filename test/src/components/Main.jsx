@@ -129,6 +129,7 @@ export default class Main extends React.Component {
         this.handleDeadChildNumChange = this.handleDeadChildNumChange.bind(this);
         this.handleDeadHaveChild = this.handleDeadHaveChild.bind(this);
         this.CreateDeadChildList = this.CreateDeadChildList.bind(this);
+        this.handleDeadHeirLegitime = this.handleDeadHeirLegitime.bind(this);
         // this.handleFamilyNumChange = this.handleFamilyNumChange.bind(this);
         
         this.handleHeir = this.handleHeir.bind(this);
@@ -514,7 +515,9 @@ export default class Main extends React.Component {
                             id: uuid(),
                             relatives: String("已歿兒女"),
                             orderDead: deadChildArr[i].orderDead,
-                            total: total
+                            total: total,
+                            legitime: Number(0),
+                            OnLegitime: this.handleDeadHeirLegitime,
                         })
                         total++;
                     }
@@ -589,8 +592,9 @@ export default class Main extends React.Component {
                 newHeirLevel = level.Sibling;
             }
         } else if(ancestorChecked) {
-            order = 1;
+            
             if(grandFatherNum !== 0) {
+                order = 1;
                 for(let i = 0; i < grandFatherNum; i++) {
                     let grandFather = {
                                     id: uuid(), 
@@ -612,6 +616,7 @@ export default class Main extends React.Component {
                 newHeirLevel = level.Ancestor;
             }
             if(grandMotherNum !== 0) {
+                order = 1;
                 for(let i = 0; i < grandMotherNum; i++) {
                     let grandMother = {
                                     id: uuid(), 
@@ -827,6 +832,21 @@ export default class Main extends React.Component {
             deadChildArr: arr
         }, () => {
             this.handleHeir();
+        })
+    }
+    handleDeadHeirLegitime(targetID, newDeadHeirLegitime) {
+        function findTarget(element) {
+            return element.id === targetID;
+        }
+        let arr=this.state.deadHeir;
+        let index = arr.findIndex(findTarget);
+        let updateItem = {
+            ...arr[index],
+            legitime: Number(newDeadHeirLegitime)
+        }
+        arr[index] = updateItem;
+        this.setState({
+            deadHeir: arr
         })
     }
 

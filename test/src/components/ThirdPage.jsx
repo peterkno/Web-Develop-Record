@@ -740,7 +740,8 @@ export default class ThirdPage extends React.Component {
         const {heir, heritage, mateChecked, childNum, deadHeir} = this.props;
         let mateSuccessionalPortion = 0, newMateLegitime = 0;
         let childSuccessionalPortion = 0, newChildLegitime = 0;
-        let totalNum = (mateChecked) ? (1+childNum+deadHeir.length) : (childNum+deadHeir.length);
+        // let totalNum = (mateChecked) ? (1+childNum+deadHeir.length) : (childNum+deadHeir.length);
+        let totalNum = heir.length;
 
         
         // if(deadHeir.length !== 0) {
@@ -753,16 +754,18 @@ export default class ThirdPage extends React.Component {
         newMateLegitime = mateSuccessionalPortion / 2;
         newChildLegitime = (childNum !== 0) ? childSuccessionalPortion / 2 : 0;
 
-        for(let i = 0; i < deadHeir.length; i++) {
-            deadHeir[i].OnLegitime(deadHeir[i].id, newChildLegitime);
-        }
+        // for(let i = 0; i < deadHeir.length; i++) {
+        //     deadHeir[i].OnLegitime(deadHeir[i].id, newChildLegitime);
+        // }
         let tmp = 0;
 
-        while(tmp < (totalNum-deadHeir.length)) {
+        while(tmp < (totalNum)) {
             console.warn("Tmp", heir[tmp]);
             if(heir[tmp].relatives === "配偶") {
                 heir[tmp].OnLegitime(heir[tmp].id, newMateLegitime);
             } else if(heir[tmp].relatives === "兒女") {
+                heir[tmp].OnLegitime(heir[tmp].id, newChildLegitime);
+            } else if(heir[tmp].relatives === "已歿兒女") {
                 heir[tmp].OnLegitime(heir[tmp].id, newChildLegitime);
             }
             else {
@@ -791,7 +794,8 @@ export default class ThirdPage extends React.Component {
         // let dispalyMate = '';
         let displayChild = '';
         let tmp = 0;
-        let totalNum = (mateChecked) ? (1+childNum) : (childNum);
+        // let totalNum = (mateChecked) ? (1+childNum) : (childNum);
+        let totalNum = heir.length;
         if(heirLevel !== level.Child) {
             displayChild = `${displayNumber}.子女：各${childLegitime}元/人`;
             displayNumber++;
@@ -813,6 +817,12 @@ export default class ThirdPage extends React.Component {
                     if(tmp !== (totalNum-1)) {
                         displayChild += "\n";
                     } 
+                } else if(heir[tmp].relatives === "已歿兒女") {
+                    displayChild += `${displayNumber}.法定繼承人${nzhhk.encodeS(heir[tmp].total)} : 已歿兒女 ${heir[tmp].seniority} ${heir[tmp].legitime}元 (由該名已歿子女的直系卑親屬均分特留分)`;
+                    
+                    if(tmp !== (totalNum-1)) {
+                        displayChild += "\n";
+                    } 
                 }
                 else {
                     console.error("displayLegitimeChild Err");
@@ -822,16 +832,16 @@ export default class ThirdPage extends React.Component {
             }
             // console.warn("deadHeirLegitime", deadHeirLegitime);
             // debugger;
-            if(deadHeir.length !== 0) {
-                displayChild += "\n"
-                for(let i = 0; i < deadHeir.length; i++) {
-                    displayChild += `${displayNumber}.法定繼承人${nzhhk.encodeS(deadHeir[i].total)} : 直系血親卑親屬 第${deadHeir[i].orderDead}已歿子女 ${deadHeir[i].legitime}元 (由該名已歿子女的直系卑親屬均分特留分)`;
-                    if(i !== deadHeir.length-1) {
-                        displayChild += "\n";
-                    }
-                    displayNumber++;
-                }
-            }
+            // if(deadHeir.length !== 0) {
+            //     displayChild += "\n"
+            //     for(let i = 0; i < deadHeir.length; i++) {
+            //         displayChild += `${displayNumber}.法定繼承人${nzhhk.encodeS(deadHeir[i].total)} : 直系血親卑親屬 第${deadHeir[i].orderDead}已歿子女 ${deadHeir[i].legitime}元 (由該名已歿子女的直系卑親屬均分特留分)`;
+            //         if(i !== deadHeir.length-1) {
+            //             displayChild += "\n";
+            //         }
+            //         displayNumber++;
+            //     }
+            // }
         }
 
         this.setState({

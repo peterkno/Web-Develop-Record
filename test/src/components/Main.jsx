@@ -511,13 +511,26 @@ export default class Main extends React.Component {
                 newHeirLevel = level.Child;
                 for(let i = 0; i < deadChildArr.length; i++) {
                     if(deadChildArr[i].haveChild){
-                        newDeadHeir.push({
-                            id: uuid(),
+                        // newDeadHeir.push({
+                        //     id: uuid(),
+                        //     relatives: String("已歿兒女"),
+                        //     orderDead: deadChildArr[i].orderDead,
+                        //     total: total,
+                        //     legitime: Number(0),
+                        //     OnLegitime: this.handleDeadHeirLegitime,
+                        // })
+                        newHeir.push({
+                            id: uuid(), 
                             relatives: String("已歿兒女"),
-                            orderDead: deadChildArr[i].orderDead,
-                            total: total,
+                            seniority: String(""),
+                            givenNum: Number(0),
+                            givenArr: [],
+                            order: deadChildArr[i].orderDead,
                             legitime: Number(0),
-                            OnLegitime: this.handleDeadHeirLegitime,
+                            total: total,
+                            OnSeniority: this.handleSeniority,
+                            OnGivenNum: this.handleGivenNum,
+                            OnLegitime: this.handleLegitime,
                         })
                         total++;
                     }
@@ -674,7 +687,7 @@ export default class Main extends React.Component {
             givenTotalValue += newHeirArr[index].givenArr[i].value;
         }
         let heirRelative = newHeirArr[index].relatives;
-        if(heirRelative === "配偶" || heirRelative === "兒女" || heirRelative === "孫兒女" || heirRelative === "父母") {
+        if(heirRelative === "配偶" || heirRelative === "兒女" || heirRelative === "孫兒女" || heirRelative === "父母" || heirRelative === "已歿兒女") {
             givenTotalValue /= 2;
         } else if(heirRelative === "兄弟姊妹" || heirRelative === "祖父" || heirRelative === "祖母") {
             givenTotalValue /= 3;

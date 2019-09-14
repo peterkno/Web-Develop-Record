@@ -18,8 +18,8 @@ const testamentStorage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         // console.log(req);
-        console.log(Object.values(req.body)[0]);
-        console.log(file);
+        // console.log(Object.values(req.body)[0]);
+        // console.log(file);
         const filename = Object.values(req.body)[0] + String(".pdf")
         cb(null, filename);
     }

@@ -7,13 +7,13 @@ export function findHeritage(searchText = '') {
     if (searchText) {
         url += `?searchText=${searchText}`;
     }
-    console.log(`Making GET request to: ${url}`);
+    // console.log(`Making GET request to: ${url}`);
 
     return axios.get(url).then(function(res) {
         if(res.status !== 200){
             throw new Error(`Unexpected response code: ${res.status}`);
         }
-        console.warn("Res Data", res.data);
+        // console.warn("Res Data", res.data);
         return res.data;
     });
 }
@@ -21,7 +21,7 @@ export function findHeritage(searchText = '') {
 export function sendMail(searchID) {
     let url = `${mailBaseUrl}/mails`;
 
-    console.log(`Making POST request to: ${url}`);
+    // console.log(`Making POST request to: ${url}`);
 
     return axios.post(url, {
         searchID

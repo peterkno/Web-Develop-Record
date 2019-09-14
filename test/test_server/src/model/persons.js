@@ -40,7 +40,7 @@ function list(searchText = '') {
                     return p.personalID.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
                 });
             }
-            console.log("Person Model: " + persons);
+            // console.log("Person Model: " + persons);
             resolve(persons);
         })
     })
@@ -48,7 +48,7 @@ function list(searchText = '') {
 
 function create(newPerson) {
     return new Promise((resolve, reject) => {
-        console.log("Perpare Create Peronal Info");
+        // console.log("Perpare Create Peronal Info");
         // const newPerson = {
         //     personalID : String(personalID),
         //     heritage : Number(heritage)

@@ -24,7 +24,7 @@ router.get('/mails', function(req, res, next) {
     // console.log("personalID: " + personalID);
     // const personalID = "ABCD";
     personModel.list(personalID).then(persons => {
-        console.log("Mail Router: " + persons);
+        // console.log("Mail Router: " + persons);
         res.json(persons);
     }).catch(next);
 });
@@ -41,7 +41,7 @@ router.post('/mails', function(req, res, next) {
         persons = persons.filter(p => {
             return p && p.personalID === searchID;
         });
-        console.log("Mail Post Person: " + persons[0].personalID);
+        // console.log("Mail Post Person: " + persons[0].personalID);
         // const reciver = String("peter55180831");
         const options = {
             //寄件者

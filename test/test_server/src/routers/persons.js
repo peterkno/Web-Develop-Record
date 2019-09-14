@@ -10,7 +10,7 @@ router.use(bodyParser.json());
 // List 
 router.get('/persons', function(req, res, next) {
     personModel.list(req.query.searchText).then(persons => {
-        console.log("Person Router: " + persons);
+        // console.log("Person Router: " + persons);
         res.json(persons);
     }).catch(next);
 });

@@ -92,7 +92,7 @@ export default class FourthPage extends React.Component {
     handleSendMail() {
         const {searchID} = this.state;
         findHeritageFromApi(searchID).then(heritages => {
-            console.warn("heritages", heritages);
+            // console.warn("heritages", heritages);
             sendMailFromApi(searchID).then(data => {
                 console.warn("mail info", data);
             }).catch(err => {

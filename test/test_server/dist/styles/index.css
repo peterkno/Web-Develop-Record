@@ -1,0 +1,17 @@
+html{
+    height: 100%;
+}
+body {
+    height: 100%;
+    font-family:  -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.index-bg {
+    /*height: 100%;*/
+    background-color: #F8F3DD
+}
+

@@ -181,7 +181,7 @@ export default class SecondPage extends React.Component {
                     <Form inline>
                         出生年月日 : 
                         <FormGroup className='mb-2 mr-sm-0 mb-sm-1'>
-                            <Input  className='birth ml-sm-2' type="text" name="year" 
+                            <Input  className='birth ml-sm-2' type="text" name="year" placeholder="請輸入西元"
                             innerRef={el => {this.inputBirthYear = el}} value={birthYear} onChange={OnBirthYear}/>年
                         </FormGroup>
                         <FormGroup className='mb-2 mr-sm-0 mb-sm-1'>
@@ -191,12 +191,17 @@ export default class SecondPage extends React.Component {
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
                             <Input className='birth ml-sm-1' type="text" name="day" 
                             innerRef={el => {this.inputBirthDay = el}} value={birthDay} onChange={OnBirthDay}/>日
+                            ※註：年分請輸入西元
                         </FormGroup>
+                    </Form>
+
+                    <Form inline>
                         <FormGroup className='mb-2 mr-sm-2 mb-sm-1'>
-                            身分證號<Input className='personalID ml-sm-2' type="text" name="personalID" 
+                            身分證號：<Input className='personalID ml-sm-2' type="text" name="personalID" 
                                     innerRef={el => {this.inputPersonalID = el}} value={personalID} onChange={OnPersonalID}/>
                         </FormGroup>
                     </Form>
+                    
                     <InputGroup>
                         通訊地址 : <Input className='address ml-sm-2' type="text" name="address" 
                                     innerRef={el => {this.inputAddress = el}} value={address} onChange={OnAddress}/>
@@ -268,6 +273,7 @@ export default class SecondPage extends React.Component {
                 <br />
                 <div>
                     <h3 className="H3">特種贈與</h3>
+                    ※註：若是沒有特種贈予，可以跳過不填
                     <HeirList heirs={heir}/>
                 </div> 
                 {/* <h3>法定繼承人: {divHeir}</h3> */}

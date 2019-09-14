@@ -326,19 +326,25 @@ export default class Main extends React.Component {
     handleBirthYearChange(e) {
         const newBirthYear = e.target.value;
         this.setState((prevState, props) => ({
-            birthYear: Number(newBirthYear)
+            birthYear: (isNaN(Number(newBirthYear))) 
+                        ? 0
+                        : Number(newBirthYear)
         }));
     }
     handleBirthMonthChange(e) {
         const newBirthMonth = e.target.value;
         this.setState((prevState, props) => ({
-            birthMonth: Number(newBirthMonth)
+            birthMonth: (isNaN(Number(newBirthMonth))) 
+                        ? 0
+                        : Number(newBirthMonth)
         }));
     }
     handleBirthDayChange(e) {
         const newBirthDay = e.target.value;
         this.setState((prevState, props) => ({
-            birthDay: Number(newBirthDay)
+            birthDay: (isNaN(Number(newBirthDay))) 
+                        ? 0
+                        : Number(newBirthDay)
         }));
     }
     handlePersonalIDChange(e) {
@@ -406,16 +412,20 @@ export default class Main extends React.Component {
     handleChildNumChange(e) {
         const newChildNum = e.target.value;
         this.setState({
-            childNum: Number(newChildNum)
+            childNum: (isNaN(Number(newChildNum))) 
+                        ? 0
+                        : Number(newChildNum)
         }, () => {
             this.handleHeir();
         })
     }
     handleGrandChildNumChange(e) {
         const newGrandChildNum = e.target.value;
-        console.log("Grand Child Num: " + newGrandChildNum);
+        // console.log("Grand Child Num: " + newGrandChildNum);
         this.setState({
-            grandChildNum: Number(newGrandChildNum)
+            grandChildNum: (isNaN(Number(newGrandChildNum))) 
+                        ? 0
+                        : Number(newGrandChildNum)
         }, () => {
             this.handleHeir();
         });
@@ -423,7 +433,9 @@ export default class Main extends React.Component {
     handleSiblingNumChange(e) {
         const newSiblingNum = e.target.value;
         this.setState({
-            siblingNum: Number(newSiblingNum)
+            siblingNum: (isNaN(Number(newSiblingNum))) 
+                        ? 0
+                        : Number(newSiblingNum)
         }, () => {
             this.handleHeir();
         });
@@ -431,7 +443,9 @@ export default class Main extends React.Component {
     handleGrandFatherNumChange(e) {
         const newGrandFatherNum = e.target.value;
         this.setState({
-            grandFatherNum: Number(newGrandFatherNum)
+            grandFatherNum: (isNaN(Number(newGrandFatherNum))) 
+                            ? 0
+                            : Number(newGrandFatherNum)
         }, () => {
             this.handleHeir();
         });
@@ -439,14 +453,16 @@ export default class Main extends React.Component {
     handleGrandMotherNumChange(e) {
         const newGrandMotherNum = e.target.value;
         this.setState({
-            grandMotherNum: Number(newGrandMotherNum)
+            grandMotherNum: (isNaN(Number(newGrandMotherNum))) 
+                            ? 0
+                            : Number(newGrandMotherNum)
         }, () => {
             this.handleHeir();
         });
     }
 
     handleHeritageChange(newHeritage) {
-        console.warn("newHeritage", newHeritage);
+        // console.warn("newHeritage", newHeritage);
         this.setState((prevState, props) => ({
             heritage: Number(newHeritage)
         }));
@@ -714,7 +730,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            givenNum: Number(newGivenNum)
+            givenNum: (isNaN(Number(newGivenNum))) 
+                    ? 0 
+                    : Number(newGivenNum)
         }
         arr[index] = updateItem;
         this.setState({
@@ -789,7 +807,9 @@ export default class Main extends React.Component {
 
         let updateGivenItem = {
             ...newGivenArr[givenIndex],
-            value: Number(newValue)
+            value: (isNaN(Number(newValue))) 
+                    ? 0 
+                    : Number(newValue)
         }
         newGivenArr[givenIndex] = updateGivenItem;
 
@@ -807,7 +827,9 @@ export default class Main extends React.Component {
     handleDeadChildNumChange(e) {
         const newDeadChildNum = e.target.value;
         this.setState({
-            deadChildNum: Number(newDeadChildNum)
+            deadChildNum: (isNaN(Number(newDeadChildNum))) 
+                        ? 0 
+                        : Number(newDeadChildNum)
         }, () => {
             this.CreateDeadChildList();
         })
@@ -867,7 +889,9 @@ export default class Main extends React.Component {
     handleCarNumChange(e) {
         const num = e.target.value;
         this.setState({
-            carNum: Number(num)
+            carNum: (isNaN(Number(num))) 
+                    ? 0 
+                    : Number(num)
         }, () =>{
             this.CreateCarList();
         });
@@ -911,7 +935,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            value: Number(newValue)
+            value: (isNaN(Number(newValue))) 
+                    ? 0 
+                    : Number(newValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -922,7 +948,9 @@ export default class Main extends React.Component {
     handleMotorNumChange(e) {
         const num = e.target.value;
         this.setState({
-            motorNum: Number(num)
+            motorNum: (isNaN(Number(num))) 
+                    ? 0 
+                    : Number(num)
         }, () =>{
             this.CreateMotorList();
         });
@@ -966,7 +994,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            value: Number(newValue)
+            value: (isNaN(Number(newValue))) 
+                    ? 0 
+                    : Number(newValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -977,14 +1007,18 @@ export default class Main extends React.Component {
     handleMoneyChange(e){
         const num = e.target.value;
         this.setState({
-            money: Number(num)
+            money: (isNaN(Number(num))) 
+                    ? Number(0)
+                    : Number(num)
         });
     }
 
     handleAccountNumChange(e) {
         const num = e.target.value;
         this.setState({
-            accountNum: Number(num)
+            accountNum: (isNaN(Number(num))) 
+                    ? 0 
+                    : Number(num)
         }, () =>{
             this.CreateAccountList();
         });
@@ -1045,7 +1079,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            value: Number(newValue)
+            value: (isNaN(Number(newValue))) 
+                    ? 0 
+                    : Number(newValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1056,7 +1092,9 @@ export default class Main extends React.Component {
     handleStockNumChange(e) {
         const num = e.target.value;
         this.setState({
-            stockNum: Number(num)
+            stockNum: (isNaN(Number(num))) 
+                    ? 0 
+                    : Number(num)
         }, () =>{
             this.CreateStockList();
         });
@@ -1102,7 +1140,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            amount: Number(newAmount)
+            amount: (isNaN(Number(newAmount))) 
+                    ? 0 
+                    : Number(newAmount)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1117,7 +1157,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            value: Number(newValue)
+            value: (isNaN(Number(newValue))) 
+                    ? 0 
+                    : Number(newValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1128,7 +1170,9 @@ export default class Main extends React.Component {
     handleInsuranceNumChange(e) {
         const num = e.target.value;
         this.setState({
-            insuranceNum: Number(num)
+            insuranceNum: (isNaN(Number(num))) 
+                            ? 0 
+                            : Number(num)
         }, () =>{
             this.CreateInsuranceList();
         });
@@ -1191,7 +1235,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            value: Number(newValue)
+            value: (isNaN(Number(newValue))) 
+                    ? 0 
+                    : Number(newValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1206,7 +1252,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            date: Number(newDate)
+            date: (isNaN(Number(newDate))) 
+                    ? 0 
+                    : Number(newDate)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1217,7 +1265,9 @@ export default class Main extends React.Component {
     handleLandNumChange(e) {
         const num = e.target.value;
         this.setState({
-            landNum: Number(num)
+            landNum: (isNaN(Number(num))) 
+                    ? 0 
+                    : Number(num)
         }, () =>{
             this.CreateLandList();
         });
@@ -1263,7 +1313,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            nowValue: Number(newNowValue)
+            nowValue: (isNaN(Number(newNowValue))) 
+                    ? 0 
+                    : Number(newNowValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1278,7 +1330,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            finalValue: Number(newFinalValue)
+            finalValue: (isNaN(Number(newFinalValue))) 
+                        ? 0 
+                        : Number(newFinalValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1289,7 +1343,9 @@ export default class Main extends React.Component {
     handleBuildingNumChange(e) {
         const num = e.target.value;
         this.setState({
-            buildingNum: Number(num)
+            buildingNum: (isNaN(Number(num))) 
+                        ? 0 
+                        : Number(num)
         }, () =>{
             this.CreateBuildingList();
         });
@@ -1335,7 +1391,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            nowValue: Number(newNowValue)
+            nowValue: (isNaN(Number(newNowValue))) 
+                        ? 0 
+                        : Number(newNowValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1350,7 +1408,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            finalValue: Number(newFinalValue)
+            finalValue: (isNaN(Number(newFinalValue))) 
+                        ? 0 
+                        : Number(newFinalValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1361,7 +1421,9 @@ export default class Main extends React.Component {
     handleCreditorNumChange(e) {
         const num = e.target.value;
         this.setState({
-            creditorNum: Number(num)
+            creditorNum: (isNaN(Number(num))) 
+                        ? 0 
+                        : Number(num)
         }, () =>{
             this.CreateCreditorList();
         });
@@ -1407,7 +1469,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            value: Number(newValue)
+            value: (isNaN(Number(newValue))) 
+                    ? 0 
+                    : Number(newValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1433,7 +1497,9 @@ export default class Main extends React.Component {
     handleDebtorNumChange(e) {
         const num = e.target.value;
         this.setState({
-            debtorNum: Number(num)
+            debtorNum: (isNaN(Number(num))) 
+                    ? 0 
+                    : Number(num)
         }, () =>{
             this.CreateDebtorList();
         });
@@ -1479,7 +1545,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            value: Number(newValue)
+            value: (isNaN(Number(newValue))) 
+                    ? 0 
+                    : Number(newValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1505,7 +1573,9 @@ export default class Main extends React.Component {
     handleWarrantNumChange(e) {
         const num = e.target.value;
         this.setState({
-            warrantNum: Number(num)
+            warrantNum: (isNaN(Number(num))) 
+                    ? 0 
+                    : Number(num)
         }, () =>{
             this.CreateWarrantList();
         });
@@ -1549,7 +1619,9 @@ export default class Main extends React.Component {
         let index = arr.findIndex(findTarget);
         let updateItem = {
             ...arr[index],
-            value: Number(newValue)
+            value: (isNaN(Number(newValue))) 
+                    ? 0 
+                    : Number(newValue)
         }
         arr[index] = updateItem;
         this.setState({
@@ -1574,7 +1646,9 @@ export default class Main extends React.Component {
     handleEmailNumChange(e) {
         const num = e.target.value;
         this.setState({
-            emailNum: Number(num)
+            emailNum: (isNaN(Number(num))) 
+                    ? 0 
+                    : Number(num)
         }, () =>{
             this.CreateEmailList();
         });

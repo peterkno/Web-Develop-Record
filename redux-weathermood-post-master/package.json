@@ -16,7 +16,7 @@
     "axios": "^0.18.1",
     "babel-polyfill": "^6.23.0",
     "bootstrap": "^4.3.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "moment": "^2.18.1",
     "popper.js": "^1.14.7",
     "prop-types": "^15.7.2",
